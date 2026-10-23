@@ -1,51 +1,56 @@
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
 
 /* ------------------------------------------------------------------
-   Design tokens — restrained palette: warm neutrals, crest navy,
-   and a single muted gold accent used sparingly.
+   "From Aspirant to Nation Builder" — deep Pakistan green, warm ivory
+   and muted brass. National identity comes from atmosphere, not flags.
    ------------------------------------------------------------------ */
 @theme {
-  --color-canvas: #fafaf7;
-  --color-surface: #ffffff;
-  --color-subtle: #f3f2ed;
-  --color-line: #e7e5de;
+  --color-forest-950: #04170f;
+  --color-forest-900: #072519;
+  --color-forest-800: #0b3324;
+  --color-forest-700: #114531;
+  --color-flag: #01411c;
 
-  --color-ink: #0f1b2d;
-  --color-ink-soft: #4a5567;
-  --color-ink-mute: #6b7485;
+  --color-ivory: #f6f0e3;
+  --color-ivory-200: #ede4d0;
+  --color-ivory-300: #e1d4b8;
+  --color-paper: #fbf8f1;
+  --color-line: #e2d8c3;
 
-  --color-navy: #0b3a68;
-  --color-navy-deep: #0a2440;
+  --color-brass: #a8834a;
+  --color-brass-light: #d6bb85;
+  --color-brass-soft: #efe3c8;
 
-  --color-gold: #a97c2f;
-  --color-gold-soft: #f4ecdc;
-  --color-gold-light: #d9b877;
+  --color-ink: #13211a;
+  --color-ink-soft: #46544c;
+  --color-ink-mute: #6b766f;
 
   --font-display: var(--font-newsreader), Georgia, serif;
   --font-sans: var(--font-geist), system-ui, sans-serif;
+  --font-urdu: var(--font-nastaliq), serif;
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @layer base {
   html {
-    scroll-behavior: smooth;
     scroll-padding-top: 6rem;
     overflow-x: clip;
   }
   body {
-    background: var(--color-canvas);
+    background: var(--color-ivory);
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
   ::selection {
-    background: var(--color-navy);
-    color: #fff;
+    background: var(--color-brass-light);
+    color: var(--color-forest-950);
   }
   :focus-visible {
-    outline: 2px solid var(--color-gold);
+    outline: 2px solid var(--color-brass);
     outline-offset: 3px;
     border-radius: 6px;
   }
@@ -71,7 +76,7 @@
     gap: 0.6rem;
     font-size: 0.75rem;
     font-weight: 500;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
   }
   .eyebrow::before {
@@ -80,19 +85,32 @@
     height: 1px;
     background: currentColor;
   }
-  .grid-fade {
-    background-image:
-      linear-gradient(to right, rgba(15, 27, 45, 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(15, 27, 45, 0.05) 1px, transparent 1px);
-    background-size: 56px 56px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
+  /* faint paper texture for ivory sections */
+  .grain {
+    background-image: radial-gradient(rgba(19, 33, 26, 0.045) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  /* gold light sweeping across a button on hover */
+  .sweep {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .sweep::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(110deg, transparent 30%, rgba(255, 236, 196, 0.45) 50%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform 0.8s var(--ease-out-soft);
+  }
+  .sweep:hover::after {
+    transform: translateX(120%);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
   *,
   *::before,
   *::after {

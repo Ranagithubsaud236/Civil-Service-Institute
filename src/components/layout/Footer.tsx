@@ -5,7 +5,7 @@ import { Logo } from "@/components/ui/Logo";
 
 export function Footer() {
   return (
-    <footer className="bg-navy-deep text-white/65">
+    <footer data-theme="dark" className="bg-forest-950 text-ivory/60">
       <div className="container-page pt-20 pb-10">
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-[1.4fr_1fr_1.2fr_1.4fr] lg:gap-12">
           <div className="col-span-2 lg:col-span-1">
@@ -28,16 +28,16 @@ export function Footer() {
           </FooterCol>
 
           <FooterCol title="Contact" className="col-span-2 lg:col-span-1">
-            <li className="flex gap-3"><MapPin className="mt-0.5 size-4 shrink-0 text-white/40" />{site.address}</li>
-            <li className="flex gap-3"><Phone className="mt-0.5 size-4 shrink-0 text-white/40" />{site.phone}</li>
-            <li className="flex gap-3"><Mail className="mt-0.5 size-4 shrink-0 text-white/40" />{site.email}</li>
-            <li className="flex gap-3"><Clock className="mt-0.5 size-4 shrink-0 text-white/40" />{site.hours}</li>
+            <li className="flex gap-3"><MapPin className="mt-0.5 size-4 shrink-0 text-brass-light/60" />{site.address}</li>
+            <li className="flex gap-3"><Phone className="mt-0.5 size-4 shrink-0 text-brass-light/60" />{site.phone}</li>
+            <li className="flex gap-3"><Mail className="mt-0.5 size-4 shrink-0 text-brass-light/60" />{site.email}</li>
+            <li className="flex gap-3"><Clock className="mt-0.5 size-4 shrink-0 text-brass-light/60" />{site.hours}</li>
           </FooterCol>
         </div>
 
-        <div className="mt-12 flex flex-col justify-between gap-2 border-t lg:mt-16 border-white/10 pt-8 text-xs text-white/45 md:flex-row">
+        <div className="mt-12 flex flex-col justify-between gap-2 border-t lg:mt-16 border-ivory/10 pt-8 text-xs text-ivory/40 md:flex-row">
           <span>© {site.established + 2} {site.name}, Rawalpindi</span>
-          <span>Not affiliated with FPSC or PPSC</span>
+          <span>Not affiliated with FPSC or any provincial public service commission</span>
         </div>
       </div>
     </footer>
@@ -47,7 +47,7 @@ export function Footer() {
 function FooterCol({ title, children, className }: { title: string; children: React.ReactNode; className?: string }) {
   return (
     <div className={className}>
-      <h3 className="mb-5 text-sm font-medium text-white">{title}</h3>
+      <h3 className="mb-5 text-sm font-medium text-ivory">{title}</h3>
       <ul className="space-y-3 text-sm">{children}</ul>
     </div>
   );
@@ -57,7 +57,7 @@ function FooterCol({ title, children, className }: { title: string; children: Re
 function FooterItem({ children }: { children: React.ReactNode }) {
   return (
     <li>
-      <button type="button" className="text-left transition-colors duration-200 hover:text-white">{children}</button>
+      <button type="button" className="text-left transition-colors duration-200 hover:text-brass-light">{children}</button>
     </li>
   );
 }

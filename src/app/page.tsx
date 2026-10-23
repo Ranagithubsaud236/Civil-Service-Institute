@@ -1,25 +1,24 @@
-import { Hero } from "@/components/home/Hero";
-import { Stats } from "@/components/home/Stats";
-import { Approach } from "@/components/home/Approach";
-import { Programmes } from "@/components/home/Programmes";
-import { Journey } from "@/components/home/Journey";
-import { Faculty } from "@/components/home/Faculty";
-import { Results } from "@/components/home/Results";
-import { Faq } from "@/components/home/Faq";
-import { Contact } from "@/components/home/Contact";
+import { Hero } from "@/components/nation/Hero";
+import { WhatIs } from "@/components/nation/WhatIs";
+import { NationMap } from "@/components/nation/NationMap";
+import { Paths } from "@/components/nation/Paths";
+import { Journey } from "@/components/nation/Journey";
+import { Impact } from "@/components/nation/Impact";
+import { Stories } from "@/components/nation/Stories";
+import { FinalCta } from "@/components/nation/FinalCta";
 
+/** "From Aspirant to Nation Builder" — Pakistan unfolds as you scroll. */
 export default function Home() {
   return (
     <>
       <Hero />
-      <Stats />
-      <Approach />
-      <Programmes />
+      <WhatIs />
+      <NationMap />
+      <Paths />
       <Journey />
-      <Faculty />
-      <Results />
-      <Faq />
-      <Contact />
+      <Impact />
+      <Stories />
+      <FinalCta />
     </>
   );
 }

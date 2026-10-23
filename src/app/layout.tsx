@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Newsreader } from "next/font/google";
+import { Geist, Newsreader, Noto_Nastaliq_Urdu } from "next/font/google";
 import { Providers } from "@/components/layout/Providers";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -9,17 +9,19 @@ import "./globals.css";
 
 const newsreader = Newsreader({ variable: "--font-newsreader", subsets: ["latin"], style: ["normal", "italic"], axes: ["opsz"] });
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
+// decorative Urdu words only, so it is not preloaded
+const nastaliq = Noto_Nastaliq_Urdu({ variable: "--font-nastaliq", subsets: ["arabic"], weight: ["400"], preload: false });
 
 export const metadata: Metadata = {
-  title: "Civil Services Institute Rawalpindi | CSS & PMS Academy",
+  title: "Civil Services Institute | From Aspirant to Nation Builder",
   description:
-    "Civil Services Institute Rawalpindi — a dedicated academy for CSS, PMS and federal competitive examinations, mentored by civil servants and veteran FPSC-pattern evaluators.",
+    "Prepare for Pakistan's civil services — CSS and PMS career paths, examination stages, preparation journeys and the impact of public service.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     // suppressHydrationWarning: extensions also add attributes to <html>/<body> themselves
-    <html lang="en" data-scroll-behavior="smooth" className={`${newsreader.variable} ${geist.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${newsreader.variable} ${geist.variable} ${nastaliq.variable}`} suppressHydrationWarning>
       <head>
         <ExtensionGuard />
       </head>
