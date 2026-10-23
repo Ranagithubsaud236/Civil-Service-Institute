@@ -1,5 +1,6 @@
 import { cn } from "@/lib/cn";
 import { Reveal } from "@/components/ui/Reveal";
+import { Scramble } from "@/components/ui/Scramble";
 
 type Props = {
   eyebrow: string;
@@ -13,7 +14,9 @@ export function Heading({ eyebrow, title, intro, dark, className }: Props) {
   return (
     <div className={cn("max-w-2xl", className)}>
       <Reveal>
-        <p className={cn("eyebrow", dark ? "text-brass-light" : "text-brass")}>{eyebrow}</p>
+        <p className={cn("eyebrow", dark ? "text-brass-light" : "text-brass")}>
+          <Scramble text={eyebrow} />
+        </p>
       </Reveal>
       <Reveal delay={0.05}>
         <h2 className={cn("mt-4 font-display text-4xl leading-[1.06] tracking-tight text-balance md:text-[3.4rem]", dark ? "text-ivory" : "text-ink")}>{title}</h2>

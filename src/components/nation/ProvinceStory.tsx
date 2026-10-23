@@ -1,20 +1,29 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring } from "motion/react";
+import { AnimatePresence, motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 import { MapPin, UserRound } from "lucide-react";
 import { provinces, type Post } from "@/data/provinces";
 import { cn } from "@/lib/cn";
 
 const ease = [0.22, 1, 0.36, 1] as const;
+const N = provinces.length;
 const DOTS = 240;
+const RING = 140; // every outline is resampled to the same number of points so one can morph into the next
 // the map sits in the centre of a 1000 × 640 stage, with post cards in columns either side
 const BOX = { x: 330, y: 40, w: 340, h: 560 };
 const SLOT_X = { left: 140, right: 860 };
 const SLOT_Y = [140, 320, 500];
 const CARD_HALF = 132;
+// each province holds still for the first part of its scroll segment, then morphs into the next
+const HOLD = 0.5;
+// N − 1 morphs plus a final hold, so the last province gets its moment too
+const SPAN = N - 1 + HOLD;
+// a slightly different green behind each province
+const tints = ["#0a382b", "#0b3a3a", "#0d3a2a", "#2a3220", "#0c3442", "#123d30"];
 
 const rand = (n: number) => ((Math.sin(n * 12.9898 + 4.1414) * 43758.5453) % 1 + 1) % 1;
+const smooth = (t: number) => t * t * (3 - 2 * t);
 
 function inside(pts: number[][], x: number, y: number) {
   let hit = false;
@@ -25,7 +34,27 @@ function inside(pts: number[][], x: number, y: number) {
   return hit;
 }
 
-/** Fits each outline into the stage and samples the same number of dots inside it, so dots can fly between shapes. */
+/** Evenly spaced points along a closed outline, clockwise, starting from its top-most point. */
+function resample(pts: number[][], count: number) {
+  const area = pts.reduce((a, p, i) => { const q = pts[(i + 1) % pts.length]; return a + p[0] * q[1] - q[0] * p[1]; }, 0);
+  const ring = area < 0 ? [...pts].reverse() : pts;
+  const top = ring.reduce((best, p, i) => (p[1] < ring[best][1] ? i : best), 0);
+  const ordered = [...ring.slice(top), ...ring.slice(0, top)];
+  const segs = ordered.map((p, i) => { const q = ordered[(i + 1) % ordered.length]; return Math.hypot(q[0] - p[0], q[1] - p[1]); });
+  const total = segs.reduce((a, b) => a + b, 0);
+  const out: number[][] = [];
+  let seg = 0, acc = 0;
+  for (let k = 0; k < count; k++) {
+    const target = (k / count) * total;
+    while (acc + segs[seg] < target) acc += segs[seg++];
+    const t = (target - acc) / segs[seg];
+    const a = ordered[seg], b = ordered[(seg + 1) % ordered.length];
+    out.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]);
+  }
+  return out;
+}
+
+/** Fits each outline into the stage, then samples its ring and its dots so shapes can blend into each other. */
 const shapes = provinces.map((p, pi) => {
   const raw = p.outline.map(([lon, lat]) => [lon * 0.86, -lat]);
   const xs = raw.map((q) => q[0]), ys = raw.map((q) => q[1]);
@@ -43,7 +72,7 @@ const shapes = provinces.map((p, pi) => {
   }
   const dots = Array.from({ length: DOTS }, (_, i) => {
     const [x, y] = grid[Math.floor((i * grid.length) / DOTS)];
-    return [+(x + (rand(i + pi * 31) - 0.5) * step * 0.5).toFixed(1), +(y + (rand(i * 3 + pi) - 0.5) * step * 0.5).toFixed(1)];
+    return [x + (rand(i + pi * 31) - 0.5) * step * 0.5, y + (rand(i * 3 + pi) - 0.5) * step * 0.5];
   });
 
   // leftmost three posts go to the left column, the rest to the right, each sorted top to bottom
@@ -52,130 +81,196 @@ const shapes = provinces.map((p, pi) => {
   const cols = [byX.slice(0, 3), byX.slice(3)].map((c) => c.sort((a, b) => a.at[1] - b.at[1]));
   const slots = cols.flatMap((col, side) => col.map((c, row) => ({ ...c, side: side ? "right" : "left", y: SLOT_Y[row] }) as const));
 
-  return { d: `M${pts.map((q) => q.join(" ")).join("L")}Z`, dots, slots };
+  return { ring: resample(pts, RING), dots, slots };
 });
 
-/** Scroll story: each province draws itself, the dots regroup into its shape and its officers take their posts. */
+// the swirl each dot follows while travelling between shapes
+const swirl = Array.from({ length: DOTS }, (_, k) => [(rand(k * 7 + 1) - 0.5) * 140, (rand(k * 11 + 5) - 0.5) * 140]);
+
+const toPath = (pts: number[][]) => `M${pts.map((q) => `${q[0].toFixed(1)} ${q[1].toFixed(1)}`).join("L")}Z`;
+
+// the whole country at small scale, for the corner overview map
+const mini = (() => {
+  const all = provinces.flatMap((p) => p.outline);
+  const xs = all.map(([lon]) => lon * 0.86), ys = all.map(([, lat]) => -lat);
+  const [minX, minY] = [Math.min(...xs), Math.min(...ys)];
+  const s = Math.min(150 / (Math.max(...xs) - minX), 150 / (Math.max(...ys) - minY));
+  return provinces.map((p) => `M${p.outline.map(([lon, lat]) => `${((lon * 0.86 - minX) * s + 5).toFixed(1)} ${((-lat - minY) * s + 5).toFixed(1)}`).join("L")}Z`);
+})();
+
+/**
+ * Scroll story through the six administrations. Each province holds for a moment, then its outline
+ * morphs into the next one while the dots swirl and regroup — all scrubbed by the scroll, so it can
+ * be played forwards or backwards. The officers' posts step aside during the morph and return.
+ */
 export function ProvinceStory() {
   const ref = useRef<HTMLElement>(null);
+  const outline = useRef<SVGPathElement>(null);
+  const dotEls = useRef<(SVGCircleElement | null)[]>([]);
+  const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  const bar = useSpring(scrollYProgress, { stiffness: 120, damping: 28 });
+  const p = useSpring(scrollYProgress, { stiffness: 110, damping: 26, mass: 0.35 });
+  const postsVisible = useMotionValue(1);
+  const bg = useTransform(p, provinces.map((_, k) => k / SPAN), tints);
   const [i, setI] = useState(0);
-  useMotionValueEvent(scrollYProgress, "change", (v) => setI(Math.min(provinces.length - 1, Math.max(0, Math.floor(v * provinces.length)))));
 
-  const p = provinces[i];
+  // turn the smoothed progress into "which province" and "how far into the morph"
+  const draw = (v: number) => {
+    const s = Math.min(Math.max(v, 0) * SPAN, N - 1);
+    const base = Math.min(Math.floor(s), N - 1);
+    const f = base === N - 1 ? 0 : s - base;
+    const m = reduce ? (f > HOLD ? 1 : 0) : smooth(Math.min(1, Math.max(0, (f - HOLD) / (1 - HOLD))));
+    const a = shapes[base], b = shapes[Math.min(base + 1, N - 1)];
+    const lift = Math.sin(Math.PI * m); // 0 at rest, 1 mid-morph
+
+    outline.current?.setAttribute("d", toPath(a.ring.map((q, k) => [q[0] + (b.ring[k][0] - q[0]) * m, q[1] + (b.ring[k][1] - q[1]) * m])));
+    dotEls.current.forEach((el, k) => {
+      if (!el) return;
+      // each dot leaves a little after its neighbour, so the regrouping ripples across the map
+      const local = reduce ? m : smooth(Math.min(1, Math.max(0, m * 1.25 - (k / DOTS) * 0.25)));
+      const x = a.dots[k][0] + (b.dots[k][0] - a.dots[k][0]) * local + swirl[k][0] * Math.sin(Math.PI * local);
+      const y = a.dots[k][1] + (b.dots[k][1] - a.dots[k][1]) * local + swirl[k][1] * Math.sin(Math.PI * local);
+      el.setAttribute("transform", `translate(${x.toFixed(1)} ${y.toFixed(1)})`);
+    });
+    postsVisible.set(1 - Math.min(1, lift * 1.8));
+    setI(m > 0.5 ? Math.min(base + 1, N - 1) : base);
+  };
+  // the first frame is already drawn at Punjab by the markup below; every scroll redraws from here
+  useMotionValueEvent(p, "change", draw);
+
+  const prov = provinces[i];
   const shape = shapes[i];
 
   const jump = (n: number) => {
     const el = ref.current!;
-    const top = el.offsetTop + ((n + 0.5) / provinces.length) * (el.offsetHeight - window.innerHeight);
+    // land in the middle of that province's hold
+    const top = el.offsetTop + ((n + HOLD * 0.5) / SPAN) * (el.offsetHeight - window.innerHeight);
     window.scrollTo({ top, behavior: "smooth" });
   };
 
   return (
-    <section ref={ref} id="provinces" data-theme="dark" className="relative bg-forest-900 text-ivory" style={{ height: `${provinces.length * 90 + 100}vh` }}>
-      <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden pt-24 pb-6 lg:pt-28">
-        <div className="absolute inset-0 -z-0 bg-[radial-gradient(ellipse_50%_60%_at_50%_55%,rgba(31,122,92,0.25),transparent_70%)]" />
+    <section ref={ref} id="provinces" data-theme="dark" className="relative text-ivory" style={{ height: `${N * 100 + 60}vh` }}>
+      <motion.div style={{ backgroundColor: bg }} className="sticky top-0 flex h-[100svh] flex-col overflow-hidden pt-24 pb-6 lg:pt-28">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_50%_55%,rgba(31,122,92,0.28),transparent_70%)]" />
 
         <div className="container-page relative flex w-full items-end justify-between gap-6">
           <div className="min-h-[7.5rem] sm:min-h-[8.5rem]">
-            <p className="eyebrow text-brass-light">One country · {provinces.length} administrations</p>
-            <AnimatePresence mode="wait">
-              <motion.div key={p.name} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.45, ease }}>
-                <h2 className="mt-3 flex flex-wrap items-baseline gap-x-4 font-display text-4xl tracking-tight sm:text-6xl">
-                  {p.name}
-                  <span lang="ur" className="font-urdu text-2xl text-brass-light/70 sm:text-3xl">{p.urdu}</span>
-                </h2>
-                <p className="mt-2 max-w-xl text-sm text-ivory/60 sm:text-base">{p.line}</p>
-              </motion.div>
-            </AnimatePresence>
+            <p className="eyebrow text-brass-light">One country · {N} administrations</p>
+            <div className="relative mt-3 overflow-hidden">
+              <AnimatePresence mode="popLayout" initial={false}>
+                <motion.div key={prov.name} initial={{ y: "100%", opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: "-100%", opacity: 0 }} transition={{ duration: 0.55, ease }}>
+                  <h2 className="flex flex-wrap items-baseline gap-x-4 font-display text-4xl tracking-tight sm:text-6xl">
+                    {prov.name}
+                    <span lang="ur" className="font-urdu text-2xl text-brass-light/70 sm:text-3xl">{prov.urdu}</span>
+                  </h2>
+                  <p className="mt-2 max-w-xl text-sm text-ivory/60 sm:text-base">{prov.line}</p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
-          <AnimatePresence mode="wait">
-            <motion.dl key={p.name} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="hidden shrink-0 text-right text-sm lg:block">
-              <dt className="text-ivory/45">Capital</dt>
-              <dd className="font-display text-2xl">{p.capital}</dd>
-              <dt className="mt-3 text-ivory/45">Recruited through</dt>
-              <dd className="max-w-56 text-ivory/80">{p.commission}</dd>
-            </motion.dl>
-          </AnimatePresence>
+
+          <div className="hidden shrink-0 items-start gap-6 lg:flex">
+            <AnimatePresence mode="wait">
+              <motion.dl key={prov.name} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3 }} className="text-right text-sm">
+                <dt className="text-ivory/45">Capital</dt>
+                <dd className="font-display text-2xl">{prov.capital}</dd>
+                <dt className="mt-3 text-ivory/45">Recruited through</dt>
+                <dd className="max-w-52 text-ivory/80">{prov.commission}</dd>
+              </motion.dl>
+            </AnimatePresence>
+            {/* where we are in the country */}
+            <div className="relative">
+              <svg viewBox="0 0 160 160" className="size-32" aria-hidden>
+                {mini.map((d, k) => (
+                  <path key={k} d={d} className="transition-[fill,stroke] duration-500" fill={k === i ? "#d5b678" : "rgba(246,240,227,0.06)"} stroke={k === i ? "#d5b678" : "rgba(246,240,227,0.25)"} strokeWidth={0.8} strokeLinejoin="round" />
+                ))}
+              </svg>
+              <p className="mt-1 text-center font-display text-sm tabular-nums text-ivory/60">
+                <span className="text-brass-light">{String(i + 1).padStart(2, "0")}</span> / {String(N).padStart(2, "0")}
+              </p>
+            </div>
+          </div>
         </div>
 
         <div className="container-page relative flex min-h-0 w-full flex-1 flex-col items-center justify-center">
           <div className="relative aspect-[1000/640] w-full max-w-full max-lg:scale-[1.45]" style={{ maxHeight: "100%", width: "min(100%, calc((100svh - 19rem) * 1.5625))" }}>
-            <svg viewBox="0 0 1000 640" className="absolute inset-0 size-full" role="img" aria-label={`Illustrated map of ${p.name} with key posts`}>
-              {/* dots fly from the previous province into this one */}
-              {shape.dots.map(([x, y], k) => (
-                <circle
-                  key={k}
-                  r={2.3}
-                  fill="#d5b678"
-                  style={{ transform: `translate(${x}px, ${y}px)`, transition: `transform 1.1s cubic-bezier(0.65,0,0.35,1) ${(k % 48) * 9}ms`, opacity: 0.75 }}
-                />
+            <svg viewBox="0 0 1000 640" className="absolute inset-0 size-full" role="img" aria-label={`Illustrated map of ${prov.name} with key posts`}>
+              {/* the dots, positioned every frame from the scroll */}
+              {shapes[0].dots.map(([x, y], k) => (
+                <circle key={k} ref={(el) => { dotEls.current[k] = el; }} r={2.3} fill="#d5b678" opacity={0.78} transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`} />
               ))}
-              <motion.path key={p.name} d={shape.d} fill="rgba(15,74,57,0.35)" stroke="#d5b678" strokeWidth={1.6} strokeLinejoin="round" initial={{ pathLength: 0, fillOpacity: 0 }} animate={{ pathLength: 1, fillOpacity: 1 }} transition={{ pathLength: { duration: 1.4, ease: [0.65, 0, 0.35, 1] }, fillOpacity: { duration: 0.8, delay: 0.9 } }} />
+              <path ref={outline} d={toPath(shapes[0].ring)} fill="rgba(15,74,57,0.35)" stroke="#d5b678" strokeWidth={1.6} strokeLinejoin="round" style={{ filter: "drop-shadow(0 0 8px rgba(213,182,120,0.35))" }} />
 
               {/* lines from each post card to its place on the map */}
-              <AnimatePresence>
-                {shape.slots.map((s, k) => {
-                  const fromX = s.side === "left" ? SLOT_X.left + CARD_HALF : SLOT_X.right - CARD_HALF;
-                  const midX = (fromX + s.at[0]) / 2;
-                  return (
-                    <motion.g key={`${p.name}-${k}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: 0.2 } }} className="hidden lg:inline">
-                      <motion.path d={`M${fromX} ${s.y} C${midX} ${s.y} ${midX} ${s.at[1]} ${s.at[0]} ${s.at[1]}`} fill="none" stroke="#d5b678" strokeOpacity={0.55} strokeWidth={1} strokeDasharray="3 4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.8 + k * 0.08, ease }} />
-                      <motion.circle cx={s.at[0]} cy={s.at[1]} r={5} fill="#f6f0e3" stroke="#062820" strokeWidth={2} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.2 + k * 0.08, type: "spring", stiffness: 300, damping: 16 }} style={{ transformOrigin: `${s.at[0]}px ${s.at[1]}px` }} />
-                    </motion.g>
-                  );
-                })}
-              </AnimatePresence>
+              <motion.g style={{ opacity: postsVisible }} className="hidden lg:inline">
+                <AnimatePresence>
+                  {shape.slots.map((s, k) => {
+                    const fromX = s.side === "left" ? SLOT_X.left + CARD_HALF : SLOT_X.right - CARD_HALF;
+                    const midX = (fromX + s.at[0]) / 2;
+                    return (
+                      <motion.g key={`${prov.name}-${k}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: 0.15 } }}>
+                        <motion.path d={`M${fromX} ${s.y} C${midX} ${s.y} ${midX} ${s.at[1]} ${s.at[0]} ${s.at[1]}`} fill="none" stroke="#d5b678" strokeOpacity={0.55} strokeWidth={1} strokeDasharray="3 4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.7, delay: 0.15 + k * 0.06, ease }} />
+                        <motion.circle cx={s.at[0]} cy={s.at[1]} r={5} fill="#f6f0e3" stroke="#062820" strokeWidth={2} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.5 + k * 0.06, type: "spring", stiffness: 300, damping: 16 }} style={{ transformOrigin: `${s.at[0]}px ${s.at[1]}px` }} />
+                      </motion.g>
+                    );
+                  })}
+                </AnimatePresence>
+              </motion.g>
             </svg>
 
             {/* the posts, arranged around the map (desktop) */}
-            <AnimatePresence>
-              {shape.slots.map((s, k) => (
-                <motion.div
-                  key={`${p.name}-card-${k}`}
-                  initial={{ opacity: 0, x: s.side === "left" ? -24 : 24, filter: "blur(6px)" }}
-                  animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, transition: { duration: 0.2 } }}
-                  transition={{ duration: 0.55, delay: 0.5 + k * 0.08, ease }}
-                  style={{ left: `${(SLOT_X[s.side] / 1000) * 100}%`, top: `${(s.y / 640) * 100}%`, width: `${(CARD_HALF * 2 / 1000) * 100}%` }}
-                  className="absolute hidden -translate-x-1/2 -translate-y-1/2 lg:block"
-                >
-                  <PostCard post={s.post} align={s.side} />
-                </motion.div>
-              ))}
-            </AnimatePresence>
+            <motion.div style={{ opacity: postsVisible }} className="absolute inset-0 hidden lg:block">
+              <AnimatePresence>
+                {shape.slots.map((s, k) => (
+                  <motion.div
+                    key={`${prov.name}-card-${k}`}
+                    initial={{ opacity: 0, x: s.side === "left" ? -24 : 24, filter: "blur(6px)" }}
+                    animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, transition: { duration: 0.15 } }}
+                    transition={{ duration: 0.5, delay: k * 0.06, ease }}
+                    style={{ left: `${(SLOT_X[s.side] / 1000) * 100}%`, top: `${(s.y / 640) * 100}%`, width: `${((CARD_HALF * 2) / 1000) * 100}%` }}
+                    className="absolute -translate-x-1/2 -translate-y-1/2"
+                  >
+                    <PostCard post={s.post} align={s.side} />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
           </div>
 
           {/* the posts as a compact list (mobile) */}
-          <AnimatePresence mode="wait">
-            <motion.ul key={p.name} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="mt-3 grid w-full grid-cols-2 gap-2 lg:hidden">
-              {p.posts.slice(0, 4).map((post) => (
-                <li key={post.title + post.place} className="rounded-xl bg-forest-950/60 px-3 py-2 ring-1 ring-ivory/10">
-                  <p className="text-xs leading-tight font-medium">{post.title}</p>
-                  <p className="mt-0.5 text-[11px] text-ivory/50">{post.place}</p>
-                </li>
-              ))}
-            </motion.ul>
-          </AnimatePresence>
+          <motion.div style={{ opacity: postsVisible }} className="mt-3 w-full lg:hidden">
+            <AnimatePresence mode="wait">
+              <motion.ul key={prov.name} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="grid grid-cols-2 gap-2">
+                {prov.posts.slice(0, 4).map((post) => (
+                  <li key={post.title + post.place} className="rounded-xl bg-forest-950/60 px-3 py-2 ring-1 ring-ivory/10">
+                    <p className="text-xs leading-tight font-medium">{post.title}</p>
+                    <p className="mt-0.5 text-[11px] text-ivory/50">{post.place}</p>
+                  </li>
+                ))}
+              </motion.ul>
+            </AnimatePresence>
+          </motion.div>
         </div>
 
-        {/* province rail: shows progress and lets visitors jump */}
+        {/* province rail: a continuous progress line, and names to jump between */}
         <div className="container-page relative mt-4 w-full">
-          <div className="grid grid-cols-6 gap-2">
+          <div className="relative h-px bg-ivory/15">
+            <motion.div style={{ scaleX: p }} className="absolute inset-0 origin-left bg-brass-light" />
+          </div>
+          <div className="mt-3 grid grid-cols-6 gap-2">
             {provinces.map((q, n) => (
               <button key={q.name} onClick={() => jump(n)} className="group text-left" aria-label={`Show ${q.name}`} aria-current={n === i}>
-                <span className="block h-0.5 overflow-hidden rounded-full bg-ivory/15">
-                  <span className={cn("block h-full origin-left bg-brass-light transition-transform duration-500", n <= i ? "scale-x-100" : "scale-x-0")} />
+                <span className={cn("block truncate text-[11px] transition-colors sm:text-xs", n === i ? "text-ivory" : "text-ivory/40 group-hover:text-ivory/75")}>
+                  <span className="sm:hidden">{String(n + 1).padStart(2, "0")}</span>
+                  <span className="hidden sm:inline">{q.name}</span>
                 </span>
-                <span className={cn("mt-2 hidden truncate text-xs transition-colors sm:block", n === i ? "text-ivory" : "text-ivory/45 group-hover:text-ivory/75")}>{q.name}</span>
               </button>
             ))}
           </div>
-          <motion.div style={{ scaleX: bar }} className="mt-3 h-px origin-left bg-ivory/20 sm:hidden" />
-          <p className="mt-3 text-right text-[11px] text-ivory/35">Illustrative outlines, not to scale</p>
+          <p className="mt-2 text-right text-[11px] text-ivory/35">Illustrative outlines, not to scale</p>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
