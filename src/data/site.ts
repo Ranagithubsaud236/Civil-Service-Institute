@@ -11,22 +11,8 @@ export const site = {
   examDate: "2027-02-15T09:00:00+05:00",
 };
 
-export const nav = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Programmes", href: "/programmes" },
-  { label: "Faculty", href: "/faculty" },
-  { label: "Results", href: "/results" },
-  { label: "Contact", href: "/contact" },
-];
-
-export const notices = [
-  "CSS 2027 Foundation Batch (Morning) commences Mon, 3 Nov 2026",
-  "Free orientation seminar this Sunday, 11:00 AM — Rawalpindi campus",
-  "Essay & Précis 40-Day Clinic — only 6 seats left",
-  "PMS Punjab Intensive Written: registration open",
-  "Monthly Current Affairs Review — October 2026 edition now available",
-];
+/** Header tabs. Only Home is built for the demo; the rest are placeholders. */
+export const nav = ["Home", "About", "Programmes", "Faculty", "Results", "Contact"];
 
 export const stats = [
   { value: 40, suffix: "", label: "Max seats per batch", note: "Small cohorts so every aspirant is known by name." },

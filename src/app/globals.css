@@ -1,80 +1,103 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------
-   Brand tokens — swap these to match the client's logo colours.
+   Design tokens — restrained palette: warm neutrals, crest navy,
+   and a single muted gold accent used sparingly.
    ------------------------------------------------------------------ */
 @theme {
-  --color-ink-950: #050d1f;
-  --color-ink-900: #0b1f44;
-  --color-ink-800: #12295a;
-  --color-ink-700: #1b3a78;
-  --color-ink-100: #e6ebf5;
+  --color-canvas: #fafaf7;
+  --color-surface: #ffffff;
+  --color-subtle: #f3f2ed;
+  --color-line: #e7e5de;
 
-  --color-gold-300: #ecd79a;
-  --color-gold-400: #dfbf6a;
-  --color-gold-500: #c9a24b;
-  --color-gold-600: #a8822f;
+  --color-ink: #0f1b2d;
+  --color-ink-soft: #4a5567;
+  --color-ink-mute: #6b7485;
 
-  --color-emerald-brand: #0f6b4f;
-  --color-crimson: #b3261e;
+  --color-navy: #0b3a68;
+  --color-navy-deep: #0a2440;
 
-  --color-paper: #f8f4ea;
-  --color-paper-200: #efe7d4;
-  --color-paper-300: #e2d6bb;
+  --color-gold: #a97c2f;
+  --color-gold-soft: #f4ecdc;
+  --color-gold-light: #d9b877;
 
-  --font-display: var(--font-fraunces), Georgia, serif;
-  --font-sans: var(--font-jakarta), system-ui, sans-serif;
-  --font-mono: var(--font-mono-jb), ui-monospace, monospace;
-  --font-hand: var(--font-caveat), cursive;
+  --font-display: var(--font-newsreader), Georgia, serif;
+  --font-sans: var(--font-geist), system-ui, sans-serif;
 
-  --animate-marquee: marquee 40s linear infinite;
-  --animate-spin-slow: spin 60s linear infinite;
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-shine: shine 3.5s ease-in-out infinite;
-
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0) rotate(-2deg); }
-    50% { transform: translateY(-12px) rotate(-1deg); }
-  }
-  @keyframes shine {
-    0% { background-position: -200% center; }
-    60%, 100% { background-position: 200% center; }
-  }
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @layer base {
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    overflow-x: clip;
+  }
   body {
-    background: var(--color-paper);
-    color: var(--color-ink-900);
+    background: var(--color-canvas);
+    color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
-  ::selection { background: var(--color-gold-400); color: var(--color-ink-950); }
+  ::selection {
+    background: var(--color-navy);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  button {
+    cursor: pointer;
+  }
 }
 
 @layer utilities {
-  .text-gold-shine {
-    background: linear-gradient(110deg, var(--color-gold-600) 20%, var(--color-gold-300) 40%, var(--color-gold-500) 60%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: var(--animate-shine);
+  .container-page {
+    margin-inline: auto;
+    max-width: 76rem;
+    padding-inline: 1.25rem;
   }
-  .paper-grain {
-    background-image: radial-gradient(rgba(11, 31, 68, 0.06) 1px, transparent 1px);
-    background-size: 18px 18px;
+  @media (min-width: 640px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
   }
-  .ruled {
-    background-image: repeating-linear-gradient(to bottom, transparent 0 27px, rgba(11, 31, 68, 0.08) 27px 28px);
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 1.25rem;
+    height: 1px;
+    background: currentColor;
+  }
+  .grid-fade {
+    background-image:
+      linear-gradient(to right, rgba(15, 27, 45, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(15, 27, 45, 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
