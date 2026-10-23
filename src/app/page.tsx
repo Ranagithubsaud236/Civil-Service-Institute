@@ -21,6 +21,13 @@ import { MentorChat } from "@/components/nation/MentorChat";
 import { OfficerCard } from "@/components/nation/OfficerCard";
 import { FinalCta } from "@/components/nation/FinalCta";
 import { ChapterNav } from "@/components/nation/ChapterNav";
+import { Calligraphy } from "@/components/nation/Calligraphy";
+import { PaperOrbit } from "@/components/nation/PaperOrbit";
+import { Hourglass } from "@/components/nation/Hourglass";
+import { Flashcards } from "@/components/nation/Flashcards";
+import { MemoryGame } from "@/components/nation/MemoryGame";
+import { InkFlood } from "@/components/nation/InkFlood";
+import { Pledge } from "@/components/nation/Pledge";
 
 /**
  * "From Aspirant to Nation Builder" — Pakistan unfolds as you scroll. The hero, the map and
@@ -33,25 +40,32 @@ export default function Home() {
       <Hero />
       <BigWord word="SERVICE" urdu="خدمت" />
       <WhatIs />
+      <Calligraphy />
       <NationMap />
       <ProvinceStory />
       <History />
       <Paths />
+      <PaperOrbit />
       <VelocityMarquee />
       <Constellation />
       <Quiz />
       <BigWord word="LEADERSHIP" urdu="قیادت" />
       <DayInLife />
       <Journey />
+      <Hourglass />
       <Bookshelf />
       <Toolkit />
+      <Flashcards />
+      <MemoryGame />
       <RedPen />
       <Torch />
       <BigWord word="IMPACT" urdu="اثر" />
       <Impact />
       <Stories />
+      <InkFlood />
       <ScatterQuote />
       <MentorChat />
+      <Pledge />
       <OfficerCard />
       <FinalCta />
     </>
