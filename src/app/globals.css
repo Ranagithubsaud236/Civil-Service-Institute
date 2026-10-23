@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Brand tokens — swap these to match the client's logo colours.
+   ------------------------------------------------------------------ */
+@theme {
+  --color-ink-950: #050d1f;
+  --color-ink-900: #0b1f44;
+  --color-ink-800: #12295a;
+  --color-ink-700: #1b3a78;
+  --color-ink-100: #e6ebf5;
+
+  --color-gold-300: #ecd79a;
+  --color-gold-400: #dfbf6a;
+  --color-gold-500: #c9a24b;
+  --color-gold-600: #a8822f;
+
+  --color-emerald-brand: #0f6b4f;
+  --color-crimson: #b3261e;
+
+  --color-paper: #f8f4ea;
+  --color-paper-200: #efe7d4;
+  --color-paper-300: #e2d6bb;
+
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+  --font-mono: var(--font-mono-jb), ui-monospace, monospace;
+  --font-hand: var(--font-caveat), cursive;
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-spin-slow: spin 60s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-shine: shine 3.5s ease-in-out infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-12px) rotate(-1deg); }
+  }
+  @keyframes shine {
+    0% { background-position: -200% center; }
+    60%, 100% { background-position: 200% center; }
+  }
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink-900);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--color-gold-400); color: var(--color-ink-950); }
+}
+
+@layer utilities {
+  .text-gold-shine {
+    background: linear-gradient(110deg, var(--color-gold-600) 20%, var(--color-gold-300) 40%, var(--color-gold-500) 60%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: var(--animate-shine);
+  }
+  .paper-grain {
+    background-image: radial-gradient(rgba(11, 31, 68, 0.06) 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+  .ruled {
+    background-image: repeating-linear-gradient(to bottom, transparent 0 27px, rgba(11, 31, 68, 0.08) 27px 28px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
