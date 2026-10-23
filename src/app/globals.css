@@ -30,6 +30,8 @@
   --font-display: var(--font-newsreader), Georgia, serif;
   --font-sans: var(--font-geist), system-ui, sans-serif;
   --font-urdu: var(--font-nastaliq), serif;
+  --font-hand: var(--font-caveat), cursive;
+  --color-redpen: #c0392b;
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }

@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { Fragment, useRef } from "react";
 import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from "motion/react";
 import { Button } from "@/components/ui/Button";
 import { useFinePointer } from "@/lib/useFinePointer";
+import { useIntroReady } from "@/components/layout/Intro";
 import { Contours } from "./Contours";
 import { Skyline } from "./Skyline";
 
@@ -28,6 +29,7 @@ export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const fine = useFinePointer();
+  const ready = useIntroReady();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
 
   const contourY = useLayer(scrollYProgress, 180, reduce);
@@ -72,6 +74,8 @@ export function Hero() {
         className="relative isolate flex min-h-[100svh] origin-top items-center overflow-hidden bg-forest-950 pt-28 pb-[30vh] text-ivory"
       >
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_70%_60%_at_70%_30%,rgba(15,74,57,0.8),transparent_70%)]" />
+        {/* remounted when the opening curtain lifts, so the whole sequence plays in view */}
+        <Fragment key={ready ? "go" : "wait"}>
         <motion.div style={{ y: contourY }} className="absolute inset-0 -z-10">
           <motion.div style={{ x: contourX, y: contourPY }} className="absolute -inset-10 text-brass-light/25">
             <Contours cx={1080} cy={300} count={14} className="absolute inset-0 size-full" />
@@ -142,6 +146,7 @@ export function Hero() {
             <motion.span className="absolute inset-x-0 top-0 h-1/3 bg-ivory/70" animate={reduce ? undefined : { y: ["-100%", "300%"] }} transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }} />
           </span>
         </motion.div>
+        </Fragment>
       </motion.div>
     </section>
   );

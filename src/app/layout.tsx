@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Newsreader, Noto_Nastaliq_Urdu } from "next/font/google";
+import { Caveat, Geist, Newsreader, Noto_Nastaliq_Urdu } from "next/font/google";
 import { Providers } from "@/components/layout/Providers";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -11,6 +11,8 @@ const newsreader = Newsreader({ variable: "--font-newsreader", subsets: ["latin"
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
 // decorative Urdu words only, so it is not preloaded
 const nastaliq = Noto_Nastaliq_Urdu({ variable: "--font-nastaliq", subsets: ["arabic"], weight: ["400"], preload: false });
+// examiner's handwriting in the red-pen section only
+const caveat = Caveat({ variable: "--font-caveat", subsets: ["latin"], preload: false });
 
 export const metadata: Metadata = {
   title: "Civil Services Institute | From Aspirant to Nation Builder",
@@ -21,11 +23,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     // suppressHydrationWarning: extensions also add attributes to <html>/<body> themselves
-    <html lang="en" className={`${newsreader.variable} ${geist.variable} ${nastaliq.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${newsreader.variable} ${geist.variable} ${nastaliq.variable} ${caveat.variable}`} suppressHydrationWarning>
       <head>
         <ExtensionGuard />
       </head>
-      <body className="min-h-screen overflow-x-hidden" suppressHydrationWarning>
+      <body className="min-h-screen overflow-x-clip" suppressHydrationWarning>
         <Providers>
           <Navbar />
           <main>{children}</main>

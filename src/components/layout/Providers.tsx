@@ -3,6 +3,8 @@
 import { useEffect } from "react";
 import { MotionConfig } from "motion/react";
 import Lenis from "lenis";
+import { IntroProvider } from "./Intro";
+import { Cursor } from "./Cursor";
 
 /** Honours the OS "reduce motion" setting and adds Lenis smooth scrolling when motion is allowed. */
 export function Providers({ children }: { children: React.ReactNode }) {
@@ -13,5 +15,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
     return () => lenis.destroy();
   }, []);
 
-  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
+  return (
+    <MotionConfig reducedMotion="user">
+      <IntroProvider>{children}</IntroProvider>
+      <Cursor />
+    </MotionConfig>
+  );
 }

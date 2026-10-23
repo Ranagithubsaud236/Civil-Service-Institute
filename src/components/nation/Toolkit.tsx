@@ -37,6 +37,7 @@ export function Toolkit() {
 
       <div
         ref={track}
+        data-cursor="Drag"
         tabIndex={0}
         aria-label="Preparation tools"
         onKeyDown={(e) => {

@@ -89,6 +89,7 @@ export function Constellation() {
 
         <div
           ref={ref}
+          data-cursor="Explore"
           className="relative -mx-5 sm:mx-0"
           onPointerMove={
             fine

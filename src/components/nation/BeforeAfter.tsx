@@ -127,6 +127,7 @@ export function BeforeAfter() {
     <div>
       <div
         ref={ref}
+        data-cursor="Drag"
         className="relative aspect-[4/3] cursor-ew-resize touch-pan-y overflow-hidden rounded-[26px] ring-1 ring-line select-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brass sm:aspect-[16/9]"
         onPointerDown={(e) => {
           dragging.current = true;
