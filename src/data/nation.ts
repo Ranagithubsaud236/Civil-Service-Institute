@@ -26,21 +26,23 @@ export type City = {
   institution: string;
   topic: string;
   path: string;
+  /** governance topics revealed when the city is selected */
+  topics: string[];
   /** which side of the dot the label sits on, to keep labels inside the map */
   label?: "left" | "right";
 };
 
 export const cities: City[] = [
-  { name: "Islamabad", lon: 73.05, lat: 33.68, institution: "Federal Public Service Commission", topic: "The federal capital, where the CSS examination is conducted and national policy is drafted in the ministries.", path: "Pakistan Administrative Service · Foreign Service", label: "right" },
-  { name: "Lahore", lon: 74.35, lat: 31.55, institution: "Civil Services Academy", topic: "Where newly selected officers of every group begin their common training, and where the Punjab Public Service Commission sits.", path: "Common Training Programme · PMS Punjab", label: "left" },
-  { name: "Karachi", lon: 67.0, lat: 24.86, institution: "Customs & Inland Revenue", topic: "The country's commercial heart — trade, ports and the revenue that funds public services nationwide.", path: "Pakistan Customs · Inland Revenue Service", label: "right" },
-  { name: "Peshawar", lon: 71.52, lat: 34.0, institution: "Khyber Pakhtunkhwa PSC", topic: "Provincial administration across districts, tribal merged areas and border regions.", path: "PMS Khyber Pakhtunkhwa · Police Service", label: "left" },
-  { name: "Quetta", lon: 67.0, lat: 30.18, institution: "Balochistan PSC", topic: "Governance across Pakistan's largest province — water, mining, roads and long-distance service delivery.", path: "PMS Balochistan · Commerce & Trade", label: "right" },
-  { name: "Hyderabad", lon: 68.37, lat: 25.39, institution: "Sindh PSC", topic: "Provincial recruitment for Sindh's administration, revenue and local government.", path: "PMS Sindh · Revenue administration", label: "right" },
-  { name: "Multan", lon: 71.47, lat: 30.2, institution: "South Punjab Secretariat", topic: "Bringing provincial departments closer to the people of southern Punjab.", path: "Provincial secretariat · District management", label: "right" },
-  { name: "Gilgit", lon: 74.31, lat: 35.92, institution: "Gilgit-Baltistan administration", topic: "District management among the world's highest mountains — tourism, disaster response and connectivity.", path: "District administration", label: "left" },
-  { name: "Muzaffarabad", lon: 73.47, lat: 34.37, institution: "AJK Public Service Commission", topic: "Administration, reconstruction and development across Azad Jammu & Kashmir.", path: "AJK civil service", label: "right" },
-  { name: "Gwadar", lon: 62.32, lat: 25.13, institution: "Port & coastal development", topic: "Deep-sea port, coastal communities and the economic corridor — commerce meets public planning.", path: "Commerce & Trade · Planning", label: "right" },
+  { name: "Islamabad", lon: 73.05, lat: 33.68, institution: "Federal Public Service Commission", topic: "The federal capital, where the CSS examination is conducted and national policy is drafted in the ministries.", path: "Pakistan Administrative Service · Foreign Service", topics: ["Federal policy", "Foreign affairs", "Civil service reform"], label: "right" },
+  { name: "Lahore", lon: 74.35, lat: 31.55, institution: "Civil Services Academy", topic: "Where newly selected officers of every group begin their common training, and where the Punjab Public Service Commission sits.", path: "Common Training Programme · PMS Punjab", topics: ["Officer training", "Urban governance", "Heritage & culture"], label: "left" },
+  { name: "Karachi", lon: 67.0, lat: 24.86, institution: "Customs & Inland Revenue", topic: "The country's commercial heart — trade, ports and the revenue that funds public services nationwide.", path: "Pakistan Customs · Inland Revenue Service", topics: ["Trade & ports", "Revenue collection", "Urban services"], label: "right" },
+  { name: "Peshawar", lon: 71.52, lat: 34.0, institution: "Khyber Pakhtunkhwa PSC", topic: "Provincial administration across districts, tribal merged areas and border regions.", path: "PMS Khyber Pakhtunkhwa · Police Service", topics: ["Merged districts", "Border management", "Education access"], label: "left" },
+  { name: "Quetta", lon: 67.0, lat: 30.18, institution: "Balochistan PSC", topic: "Governance across Pakistan's largest province — water, mining, roads and long-distance service delivery.", path: "PMS Balochistan · Commerce & Trade", topics: ["Water management", "Mining & minerals", "Rural roads"], label: "right" },
+  { name: "Hyderabad", lon: 68.37, lat: 25.39, institution: "Sindh PSC", topic: "Provincial recruitment for Sindh's administration, revenue and local government.", path: "PMS Sindh · Revenue administration", topics: ["Irrigation", "Land records", "Local government"], label: "right" },
+  { name: "Multan", lon: 71.47, lat: 30.2, institution: "South Punjab Secretariat", topic: "Bringing provincial departments closer to the people of southern Punjab.", path: "Provincial secretariat · District management", topics: ["Agriculture", "Regional secretariat", "Health services"], label: "right" },
+  { name: "Gilgit", lon: 74.31, lat: 35.92, institution: "Gilgit-Baltistan administration", topic: "District management among the world's highest mountains — tourism, disaster response and connectivity.", path: "District administration", topics: ["Disaster response", "Tourism", "Mountain connectivity"], label: "left" },
+  { name: "Muzaffarabad", lon: 73.47, lat: 34.37, institution: "AJK Public Service Commission", topic: "Administration, reconstruction and development across Azad Jammu & Kashmir.", path: "AJK civil service", topics: ["Reconstruction", "Hydropower", "Public works"], label: "right" },
+  { name: "Gwadar", lon: 62.32, lat: 25.13, institution: "Port & coastal development", topic: "Deep-sea port, coastal communities and the economic corridor — commerce meets public planning.", path: "Commerce & Trade · Planning", topics: ["Port development", "Coastal communities", "Economic corridor"], label: "right" },
 ];
 
 export const pathTabs = ["CSS", "PMS", "Eligibility", "Exam stages", "Career groups"] as const;
@@ -119,4 +121,42 @@ export const stories = [
   { name: "Hira Naveed", role: "Pakistan Administrative Service", year: "CSS 2025", quote: "I grew up queuing outside offices for simple documents. Now I sit on the other side of that desk, and I try to make the queue shorter.", place: "Rawalpindi" },
   { name: "Hamza Iqbal", role: "Foreign Service of Pakistan", year: "CSS 2025", quote: "My essay score doubled once I stopped writing to impress and started writing to argue. That lesson now shapes every brief I draft.", place: "Jhelum" },
   { name: "Mahnoor Ali", role: "Police Service of Pakistan", year: "CSS 2025", quote: "The mock boards were harder than the real one. I walked into the commission calm, because I had already faced the toughest questions.", place: "Multan" },
+];
+
+/** Career constellation — an interactive preview, not a live map of official recruitment systems. */
+export const constellation = [
+  {
+    key: "CSS",
+    title: "Central Superior Services",
+    body: "One competitive examination by the FPSC opens twelve federal occupational groups. Your merit and preferences decide where you serve.",
+    x: 260,
+    y: 170,
+    routes: ["Administrative Service", "Police Service", "Foreign Service", "Inland Revenue", "Customs", "Audit & Accounts"],
+  },
+  {
+    key: "PMS",
+    title: "Provincial Management Service",
+    body: "Each province recruits its own officers. Serve closest to the people as an assistant commissioner, section officer or in provincial departments.",
+    x: 750,
+    y: 190,
+    routes: ["Punjab", "Sindh", "Khyber Pakhtunkhwa", "Balochistan"],
+  },
+  {
+    key: "Other pathways",
+    title: "Other public-sector routes",
+    body: "Explore other public-sector recruitment routes, official vacancies and their eligibility criteria through federal and provincial commissions.",
+    x: 520,
+    y: 500,
+    routes: ["General recruitment", "Departmental posts", "Autonomous bodies", "Special drives"],
+  },
+];
+
+/** Swipeable preparation tools. */
+export const resources = [
+  { title: "Syllabus map", tag: "Discover", body: "Every compulsory and optional paper broken into weekly units you can tick off.", tone: "from-[#0f4a39] to-[#062820]" },
+  { title: "Daily current affairs", tag: "Prepare", body: "A ten-minute brief each morning, linked to the papers it will help you answer.", tone: "from-[#5c4a26] to-[#2a2112]" },
+  { title: "Essay & précis clinic", tag: "Prepare", body: "Fifteen essays, each returned with line-by-line remarks and a rewrite session.", tone: "from-[#1d4b5a] to-[#0b2530]" },
+  { title: "Mock MPT", tag: "Compete", body: "Timed computer-based screening tests with topic-wise explanations.", tone: "from-[#4a2a3a] to-[#1f1118]" },
+  { title: "Hall-condition papers", tag: "Compete", body: "Full written papers every Saturday, under real time limits and invigilation.", tone: "from-[#3c4a1f] to-[#1a210c]" },
+  { title: "Mock viva board", tag: "Serve", body: "Recorded interviews with retired officers, reviewed with you one-on-one.", tone: "from-[#0a382b] to-[#03150f]" },
 ];

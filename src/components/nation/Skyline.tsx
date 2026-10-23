@@ -27,10 +27,13 @@ const landmarks = [
 
 const columns = Array.from({ length: 13 }, (_, i) => 480 + i * 14);
 
-export function Skyline({ hillsY, cityY }: { hillsY: MotionValue<number>; cityY: MotionValue<number> }) {
+type Props = { hillsY: MotionValue<number>; cityY: MotionValue<number>; hillsX?: MotionValue<number>; cityX?: MotionValue<number> };
+
+/** Hills and landmarks sit on separate layers so scroll and cursor move them at different speeds. */
+export function Skyline({ hillsY, cityY, hillsX, cityX }: Props) {
   return (
     <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[34vh] min-h-56" aria-hidden>
-      <motion.svg style={{ y: hillsY }} viewBox="0 0 1440 320" preserveAspectRatio="xMidYMax slice" className="absolute inset-0 size-full">
+      <motion.svg style={{ y: hillsY, x: hillsX }} viewBox="0 0 1440 320" preserveAspectRatio="xMidYMax slice" className="absolute inset-y-0 -inset-x-10 h-full w-[calc(100%+5rem)]">
         {/* Margalla Hills, far and near */}
         <motion.path
           d="M0 200 C 120 162 250 140 380 168 S 610 110 770 144 S 1030 104 1170 134 S 1370 112 1440 140 L1440 320 L0 320 Z"
@@ -49,7 +52,7 @@ export function Skyline({ hillsY, cityY }: { hillsY: MotionValue<number>; cityY:
         />
       </motion.svg>
 
-      <motion.svg style={{ y: cityY }} viewBox="0 0 1440 320" preserveAspectRatio="xMidYMax slice" className="absolute inset-0 size-full">
+      <motion.svg style={{ y: cityY, x: cityX }} viewBox="0 0 1440 320" preserveAspectRatio="xMidYMax slice" className="absolute inset-y-0 -inset-x-10 h-full w-[calc(100%+5rem)]">
         {landmarks.map((d, i) => (
           <motion.path
             key={i}

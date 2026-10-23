@@ -2,14 +2,15 @@
 @import "lenis/dist/lenis.css";
 
 /* ------------------------------------------------------------------
-   "From Aspirant to Nation Builder" — deep Pakistan green, warm ivory
-   and muted brass. National identity comes from atmosphere, not flags.
+   "From Aspirant to Nation Builder" — deep emerald, warm ivory and
+   antique gold. National identity comes from atmosphere, not flags.
    ------------------------------------------------------------------ */
 @theme {
-  --color-forest-950: #04170f;
-  --color-forest-900: #072519;
-  --color-forest-800: #0b3324;
-  --color-forest-700: #114531;
+  --color-forest-950: #03150f;
+  --color-forest-900: #062820;
+  --color-forest-800: #0a382b;
+  --color-forest-700: #0f4a39;
+  --color-emerald-glow: #1f7a5c;
   --color-flag: #01411c;
 
   --color-ivory: #f6f0e3;
@@ -18,8 +19,8 @@
   --color-paper: #fbf8f1;
   --color-line: #e2d8c3;
 
-  --color-brass: #a8834a;
-  --color-brass-light: #d6bb85;
+  --color-brass: #a07a3c;
+  --color-brass-light: #d5b678;
   --color-brass-soft: #efe3c8;
 
   --color-ink: #13211a;

@@ -5,7 +5,9 @@ import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring, useTra
 import { GraduationCap, HeartPulse, Route, UsersRound } from "lucide-react";
 import { impact } from "@/data/nation";
 import { cn } from "@/lib/cn";
+import { Reveal } from "@/components/ui/Reveal";
 import { Heading } from "./Heading";
+import { BeforeAfter } from "./BeforeAfter";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 const icons = [GraduationCap, HeartPulse, Route, UsersRound];
@@ -96,6 +98,13 @@ export function Impact() {
           })}
         </div>
       </div>
+
+      <div className="container-page mt-24 grid items-center gap-10 lg:mt-32 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
+        <Heading eyebrow="See the difference" title="Drag to see a community transformed." intro="The same village, before and after a school was rebuilt, a clinic opened and the road was paved — the everyday work of public service." />
+        <Reveal delay={0.1}>
+          <BeforeAfter />
+        </Reveal>
+      </div>
     </section>
   );
 }
@@ -106,10 +115,10 @@ function Link({ d, progress, index, on }: { d: string; progress: ReturnType<type
   const reduce = useReducedMotion();
   return (
     <>
-      <motion.path d={d} fill="none" stroke="#a8834a" strokeWidth={on ? 2.2 : 1.2} strokeOpacity={on ? 1 : 0.45} style={{ pathLength: length }} className="transition-[stroke-width,stroke-opacity] duration-300" />
+      <motion.path d={d} fill="none" stroke="#a07a3c" strokeWidth={on ? 2.2 : 1.2} strokeOpacity={on ? 1 : 0.45} style={{ pathLength: length }} className="transition-[stroke-width,stroke-opacity] duration-300" />
       {/* a pulse travelling from the officer to the outcome */}
       {on && !reduce && (
-        <circle r={4} fill="#a8834a">
+        <circle r={4} fill="#a07a3c">
           <animateMotion dur="1.8s" repeatCount="indefinite" path={d} />
         </circle>
       )}

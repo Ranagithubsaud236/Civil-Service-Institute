@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useInView, useMotionValueEvent, useScroll, useSpring, useTransform } from "motion/react";
+import { motion, useInView, useMotionValue, useMotionValueEvent, useScroll, useSpring, useTransform } from "motion/react";
 import { Check, Flame } from "lucide-react";
 import { milestones, weekPlan } from "@/data/nation";
 import { cn } from "@/lib/cn";
@@ -20,9 +20,21 @@ export function Journey() {
   const draw = useSpring(scrollYProgress, { stiffness: 90, damping: 26, mass: 0.4 });
   const lineScale = useTransform(draw, [0, 1], [0, 1]);
   const [reached, setReached] = useState(-1);
+  const geometry = useRef<SVGPathElement>(null);
+  const tipX = useMotionValue("30%");
+  const tipY = useMotionValue("0%");
+  const tipMobile = useTransform(draw, (v) => `${v * 100}%`);
 
   // a milestone "arrives" just before the drawn line reaches its bend
   useMotionValueEvent(scrollYProgress, "change", (v) => setReached(Math.min(3, Math.floor((v + 0.05) / 0.25))));
+  // a glowing spark rides the tip of the drawn line
+  useMotionValueEvent(draw, "change", (v) => {
+    const path = geometry.current;
+    if (!path) return;
+    const pt = path.getPointAtLength(path.getTotalLength() * Math.min(Math.max(v, 0), 1));
+    tipX.set(`${pt.x / 10}%`);
+    tipY.set(`${pt.y / 16}%`);
+  });
 
   return (
     <section id="begin" data-theme="dark" className="relative isolate overflow-hidden bg-forest-950 py-24 text-ivory lg:py-32">
@@ -38,13 +50,24 @@ export function Journey() {
         <div ref={ref} className="relative mt-16 lg:mt-24">
           {/* desktop: a winding road whose gold centre line is drawn by scrolling */}
           <svg viewBox="0 0 1000 1600" preserveAspectRatio="none" className="absolute inset-0 hidden size-full lg:block" aria-hidden>
-            <path d={road} fill="none" stroke="#0b3324" strokeWidth={34} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-            <path d={road} fill="none" stroke="#d6bb85" strokeOpacity={0.15} strokeWidth={1.5} strokeDasharray="6 10" vectorEffect="non-scaling-stroke" />
-            <motion.path d={road} fill="none" stroke="#d6bb85" strokeWidth={2.5} strokeLinecap="round" style={{ pathLength: draw }} vectorEffect="non-scaling-stroke" />
+            <path d={road} fill="none" stroke="#0a382b" strokeWidth={34} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+            <path d={road} fill="none" stroke="#d5b678" strokeOpacity={0.15} strokeWidth={1.5} strokeDasharray="6 10" vectorEffect="non-scaling-stroke" />
+            <motion.path
+              d={road}
+              fill="none"
+              stroke="#d5b678"
+              strokeWidth={2.5}
+              strokeLinecap="round"
+              style={{ pathLength: draw, filter: "drop-shadow(0 0 6px rgba(213,182,120,0.85))" }}
+              vectorEffect="non-scaling-stroke"
+            />
+            <path ref={geometry} d={road} fill="none" stroke="none" />
           </svg>
+          <motion.span style={{ left: tipX, top: tipY }} className="pointer-events-none absolute z-10 hidden size-3 -translate-1/2 rounded-full bg-[#fff1cf] shadow-[0_0_18px_6px_rgba(213,182,120,0.7)] lg:block" aria-hidden />
           {/* mobile: a straight thread down the left edge */}
           <div className="absolute top-0 bottom-0 left-[19px] w-px bg-ivory/10 lg:hidden" aria-hidden>
-            <motion.div style={{ scaleY: lineScale }} className="h-full w-full origin-top bg-brass-light" />
+            <motion.div style={{ scaleY: lineScale }} className="h-full w-full origin-top bg-brass-light shadow-[0_0_8px_rgba(213,182,120,0.8)]" />
+            <motion.span style={{ top: tipMobile }} className="absolute left-1/2 size-2.5 -translate-1/2 rounded-full bg-[#fff1cf] shadow-[0_0_14px_5px_rgba(213,182,120,0.7)]" />
           </div>
 
           <ol className="relative grid gap-12 lg:block lg:h-[1600px]">
@@ -66,7 +89,13 @@ export function Journey() {
                       on ? "bg-brass-light" : "bg-forest-700",
                     )}
                   />
-                  <motion.div initial={false} animate={{ opacity: on ? 1 : 0.25, y: on ? 0 : 16 }} transition={{ duration: 0.6, ease }}>
+                  <motion.div
+                    initial={false}
+                    animate={{ opacity: on ? 1 : 0.2, rotateY: on ? 0 : roadLeft ? -55 : 55, x: on ? 0 : roadLeft ? -24 : 24 }}
+                    transition={{ duration: 0.9, ease }}
+                    // hinge on the edge facing the road, so each card opens out of the line
+                    style={{ transformPerspective: 1000, originX: roadLeft ? 0 : 1 }}
+                  >
                     <div className={cn("flex items-baseline gap-4", !roadLeft && "lg:flex-row-reverse")}>
                       <span className="text-xs tabular-nums text-ivory/45">0{i + 1}</span>
                       <span lang="ur" className="font-urdu text-lg text-brass-light/70">{m.urdu}</span>

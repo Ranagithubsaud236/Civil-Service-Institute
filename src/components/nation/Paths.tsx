@@ -7,6 +7,7 @@ import { css, eligibility, groups, pathTabs, pms, stages } from "@/data/nation";
 import { cn } from "@/lib/cn";
 import { Counter } from "@/components/ui/Counter";
 import { Reveal } from "@/components/ui/Reveal";
+import { Depth, Tilt } from "@/components/ui/Tilt";
 import { Heading } from "./Heading";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -101,15 +102,15 @@ export function Paths() {
               {tab === "Career groups" && (
                 <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {groups.map((g, i) => (
-                    <motion.li
-                      key={g}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.035, ease }}
-                      className="group flex items-center gap-4 rounded-2xl bg-ivory px-5 py-4 ring-1 ring-line transition-all duration-300 hover:-translate-y-0.5 hover:bg-forest-800 hover:ring-forest-800"
-                    >
-                      <span className="text-xs tabular-nums text-brass transition-colors group-hover:text-brass-light">{String(i + 1).padStart(2, "0")}</span>
-                      <span className="text-[15px] text-ink transition-colors group-hover:text-ivory">{g}</span>
+                    <motion.li key={g} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.035, ease }}>
+                      <Tilt max={10} className="group h-full rounded-2xl bg-ivory px-5 py-5 ring-1 ring-line transition-colors duration-300 hover:bg-forest-800 hover:ring-forest-800">
+                        <Depth z={18}>
+                          <span className="text-xs tabular-nums text-brass transition-colors group-hover:text-brass-light">{String(i + 1).padStart(2, "0")}</span>
+                        </Depth>
+                        <Depth z={36} className="mt-6">
+                          <span className="font-display text-xl leading-tight text-ink transition-colors group-hover:text-ivory">{g}</span>
+                        </Depth>
+                      </Tilt>
                     </motion.li>
                   ))}
                 </ul>

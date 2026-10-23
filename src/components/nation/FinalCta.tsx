@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion, useInView } from "motion/react";
+import { AnimatePresence, motion, useInView, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { CheckCircle2, ChevronDown, Loader2 } from "lucide-react";
 import { programmes } from "@/data/programmes";
@@ -15,6 +15,10 @@ const ease = [0.22, 1, 0.36, 1] as const;
 export function FinalCta() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const reduce = useReducedMotion();
+  // the closing scene opens out of a circle rising from the bottom of the screen
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "start 15%"] });
+  const clipPath = useTransform(scrollYProgress, (v) => (reduce ? "none" : `circle(${(12 + v * 140).toFixed(1)}% at 50% 100%)`));
   const [state, setState] = useState<"idle" | "sending" | "done">("idle");
   const [name, setName] = useState("");
 
@@ -26,7 +30,7 @@ export function FinalCta() {
   };
 
   return (
-    <section ref={ref} id="contact" data-theme="dark" className="relative isolate overflow-hidden bg-forest-900 py-24 text-ivory lg:py-36">
+    <motion.section ref={ref} id="contact" data-theme="dark" style={{ clipPath }} className="relative isolate overflow-hidden bg-forest-900 py-24 text-ivory lg:py-36">
       <div className="absolute inset-0 -z-10 text-brass-light/15">{inView && <Contours cx={720} cy={980} count={14} start={80} step={52} className="absolute inset-0 size-full" />}</div>
       <Parallax offset={{ base: 30, lg: 90 }} aria-hidden className="pointer-events-none absolute -top-6 left-1/2 -z-10 -translate-x-1/2 select-none font-urdu text-[10rem] leading-none text-ivory/[0.04] sm:text-[16rem]">
         <span lang="ur">کل</span>
@@ -98,7 +102,7 @@ export function FinalCta() {
           </div>
         </Reveal>
       </div>
-    </section>
+    </motion.section>
   );
 }
 
