@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { ArrowUpRight, ChevronLeft, ChevronRight, Play, X } from "lucide-react";
 import { channel, ig, posts, reel, thumb, videos, youtubeUrl, type Img } from "@/data/media";
 import { cn } from "@/lib/cn";
-import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { gsap, useGSAP } from "@/lib/gsap";
 import { SectionHeading } from "./SectionHeading";
 
 type Item = { key: string; tab: Tab; title: string; img: Img; videoId?: string; href: string };
@@ -27,37 +27,55 @@ const items: Item[] = [
 ];
 const tabs: ("All" | Tab)[] = ["All", "Campus & books", "Classes", "Lectures"];
 
-/** Masonry gallery of real CSI photos and lectures, with a lightbox that plays videos in place. */
+/** Column count by width: 3 on phones, 5 on tablets, 7 on desktop. */
+function useColumns() {
+  return useSyncExternalStore(
+    (cb) => {
+      const qs = [matchMedia("(min-width: 768px)"), matchMedia("(min-width: 1024px)")];
+      qs.forEach((q) => q.addEventListener("change", cb));
+      return () => qs.forEach((q) => q.removeEventListener("change", cb));
+    },
+    () => (matchMedia("(min-width: 1024px)").matches ? 7 : matchMedia("(min-width: 768px)").matches ? 5 : 3),
+    () => 7,
+  );
+}
+
+/** How far each column sits below the centre one, so the tops form an arch. */
+const ARCH = [0, 0.45, 1, 1.7];
+
+/**
+ * Gallery of real CSI photos and lectures laid out as an arch of columns. On scroll the columns
+ * rise from below and close in towards the centre until they settle into place (scrubbed).
+ * The lightbox plays videos in place.
+ */
 export function Gallery() {
   const [tab, setTab] = useState<(typeof tabs)[number]>("All");
   const [open, setOpen] = useState<number | null>(null);
   const list = items.filter((x) => tab === "All" || x.tab === tab);
+  const cols = useColumns();
+  const center = (cols - 1) / 2;
+  const columns = Array.from({ length: cols }, (_, c) => list.map((x, n) => ({ x, n })).filter((_, n) => n % cols === c));
   const grid = useRef<HTMLDivElement>(null);
 
-  // Scroll reveal: each card's mask opens from the bottom up while its photo rises into place,
-  // in small staggered batches. Runs once, for the cards on the page when it loads.
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        const cards = gsap.utils.toArray<HTMLElement>("[data-reveal]");
-        gsap.set(cards, { clipPath: "inset(100% 0% 0% 0%)" });
-        gsap.set("[data-reveal-inner]", { yPercent: 18 });
-        ScrollTrigger.batch(cards, {
-          start: "top 92%",
-          once: true,
-          onEnter: (batch) => {
-            gsap.to(batch, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.1, ease: "power3.out", stagger: 0.12, clearProps: "clipPath" });
-            gsap.to(batch.map((el) => el.querySelector("[data-reveal-inner]")), { yPercent: 0, duration: 1.3, ease: "power3.out", stagger: 0.12 });
-          },
+        gsap.utils.toArray<HTMLElement>("[data-col]").forEach((col) => {
+          const d = Number(col.dataset.col); // signed distance from the centre column
+          const tiles = col.querySelectorAll("[data-tile]");
+          const tl = gsap.timeline({ scrollTrigger: { trigger: grid.current, start: "top bottom", end: "top 20%", scrub: 1 } });
+          tl.fromTo(col, { y: 260 + Math.abs(d) * 150, x: d * 70, opacity: 0.3 }, { y: 0, x: 0, opacity: 1, ease: "none" }, 0);
+          // tiles inside a column start spread apart and close up as they arrive
+          tl.fromTo(tiles, { y: (i: number) => i * 60, scale: 0.88 }, { y: 0, scale: 1, ease: "none" }, 0);
         });
       });
     },
-    { scope: grid },
+    { scope: grid, dependencies: [cols, tab], revertOnUpdate: true },
   );
 
   return (
-    <section id="gallery" className="bg-subtle/60 py-24 lg:py-32">
+    <section id="gallery" className="overflow-hidden bg-subtle/60 py-24 lg:py-32">
       <div className="container-page">
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <SectionHeading eyebrow="Gallery" title="Life, lectures and launches at CSI." intro={`Photos from CSI’s Instagram and free lectures from its YouTube channel — ${channel.subscribers} subscribers and counting.`} />
@@ -72,36 +90,34 @@ export function Gallery() {
             </div>
           </LayoutGroup>
         </div>
+      </div>
 
-        <motion.div ref={grid} layout className="mt-14 columns-2 gap-4 md:columns-3 lg:columns-4 [&>*]:mb-4">
-          <AnimatePresence mode="popLayout">
-            {list.map((x, n) => (
-              <motion.button
-                key={x.key}
-                layout
-                initial={{ opacity: 0, scale: 0.94 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.94 }}
-                transition={{ duration: 0.45, ease }}
-                onClick={() => setOpen(n)}
-                data-reveal
-                className="group relative block w-full break-inside-avoid overflow-hidden rounded-2xl bg-white text-left ring-1 ring-line"
-              >
-                <span data-reveal-inner className="block">
-                  <Image src={x.img.src} alt={x.img.alt || x.title} width={x.img.w} height={x.img.h} sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw" className="h-auto w-full transition-transform duration-700 ease-out-soft group-hover:scale-105" />
-                </span>
-                <span className="absolute inset-x-0 bottom-0 bg-navy-deep px-4 py-3 text-sm font-medium text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-coarse:opacity-100">
-                  {x.title}
-                </span>
-                {x.videoId && (
-                  <span className="absolute top-3 right-3 grid size-9 place-items-center rounded-full bg-white/95 text-navy-deep shadow">
-                    <Play className="ml-0.5 size-4 fill-current" />
+      <div ref={grid} className="mx-auto mt-16 flex max-w-[92rem] items-start gap-3 px-3 sm:gap-4 sm:px-6">
+        {columns.map((col, c) => {
+          const d = c - center;
+          return (
+            <div key={`${cols}-${c}`} data-col={d} className="flex min-w-0 flex-1 flex-col gap-3 sm:gap-4" style={{ marginTop: `calc(${ARCH[Math.round(Math.abs(d))] ?? 2.4} * clamp(48px, 9vw, 150px))` }}>
+              {col.map(({ x, n }) => (
+                <button
+                  key={x.key}
+                  data-tile
+                  onClick={() => setOpen(n)}
+                  className="group relative block aspect-[10/9] w-full overflow-hidden rounded-xl bg-white text-left ring-1 ring-line"
+                >
+                  <Image src={x.img.src} alt={x.img.alt || x.title} fill sizes="(min-width: 1024px) 14vw, (min-width: 768px) 20vw, 33vw" className="object-cover transition-transform duration-700 ease-out-soft group-hover:scale-105" />
+                  <span className="absolute inset-x-0 bottom-0 hidden bg-navy-deep px-3 py-2 text-xs font-medium text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:block">
+                    {x.title}
                   </span>
-                )}
-              </motion.button>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+                  {x.videoId && (
+                    <span className="absolute top-2 right-2 grid size-7 place-items-center rounded-full bg-white/95 text-navy-deep shadow sm:size-8">
+                      <Play className="ml-0.5 size-3.5 fill-current" />
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+          );
+        })}
       </div>
 
       <AnimatePresence>{open !== null && <Lightbox list={list} index={open} onChange={setOpen} />}</AnimatePresence>
