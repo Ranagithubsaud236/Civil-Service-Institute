@@ -123,7 +123,7 @@ function Note({ remark, active }: { remark: Remark; active: boolean }) {
       </span>
       <p className={cn("font-hand text-[19px] leading-[1.15]", remark.good ? "text-tick" : "text-pen")}>
         {remark.note}
-        {!remark.good && <span className="ml-1.5 rounded bg-pen px-1.5 font-sans text-[11px] font-semibold text-white">−{remark.deduct}</span>}
+        {!remark.good && <span className="ml-1.5 rounded bg-pen px-1.5 font-sans text-xs font-semibold text-white">−{remark.deduct}</span>}
       </p>
     </motion.div>
   );

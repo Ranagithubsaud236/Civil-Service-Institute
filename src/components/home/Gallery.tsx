@@ -27,7 +27,7 @@ const items: Item[] = [
 ];
 const tabs: ("All" | Tab)[] = ["All", "Campus & books", "Classes", "Lectures"];
 
-/** Column count by width: 3 on phones, 5 on tablets, 7 on desktop. */
+/** Column count by width: 2 on phones, 3 on tablets, 6 on desktop (18 photos fill even rows). */
 function useColumns() {
   return useSyncExternalStore(
     (cb) => {
@@ -35,17 +35,15 @@ function useColumns() {
       qs.forEach((q) => q.addEventListener("change", cb));
       return () => qs.forEach((q) => q.removeEventListener("change", cb));
     },
-    () => (matchMedia("(min-width: 1024px)").matches ? 7 : matchMedia("(min-width: 768px)").matches ? 5 : 3),
-    () => 7,
+    () => (matchMedia("(min-width: 1024px)").matches ? 6 : matchMedia("(min-width: 768px)").matches ? 3 : 2),
+    () => 6,
   );
 }
 
-/** How far each column sits below the centre one, so the tops form an arch. */
-const ARCH = [0, 0.45, 1, 1.7];
 
 /**
- * Gallery of real CSI photos and lectures laid out as an arch of columns. On scroll the columns
- * rise from below and close in towards the centre until they settle into place (scrubbed).
+ * Gallery of real CSI photos and lectures in equal columns. On scroll the columns rise from below
+ * in an arch (centre first, outer ones later), close in towards the centre and settle level.
  * The lightbox plays videos in place.
  */
 export function Gallery() {
@@ -63,9 +61,10 @@ export function Gallery() {
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         gsap.utils.toArray<HTMLElement>("[data-col]").forEach((col) => {
           const d = Number(col.dataset.col); // signed distance from the centre column
+          const far = Math.abs(d);
           const tiles = col.querySelectorAll("[data-tile]");
-          const tl = gsap.timeline({ scrollTrigger: { trigger: grid.current, start: "top bottom", end: "top 20%", scrub: 1 } });
-          tl.fromTo(col, { y: 260 + Math.abs(d) * 150, x: d * 70, opacity: 0.3 }, { y: 0, x: 0, opacity: 1, ease: "none" }, 0);
+          const tl = gsap.timeline({ scrollTrigger: { trigger: grid.current, start: "top bottom", end: "top 35%", scrub: 1 } });
+          tl.fromTo(col, { y: 240 + far * far * 70, x: d * 60, opacity: 0.25 }, { y: 0, x: 0, opacity: 1, ease: "none" }, 0);
           // tiles inside a column start spread apart and close up as they arrive
           tl.fromTo(tiles, { y: (i: number) => i * 60, scale: 0.88 }, { y: 0, scale: 1, ease: "none" }, 0);
         });
@@ -92,19 +91,19 @@ export function Gallery() {
         </div>
       </div>
 
-      <div ref={grid} className="mx-auto mt-16 flex max-w-[92rem] items-start gap-3 px-3 sm:gap-4 sm:px-6">
+      <div ref={grid} className="container-page mt-14 flex items-start gap-3 sm:gap-4">
         {columns.map((col, c) => {
           const d = c - center;
           return (
-            <div key={`${cols}-${c}`} data-col={d} className="flex min-w-0 flex-1 flex-col gap-3 sm:gap-4" style={{ marginTop: `calc(${ARCH[Math.round(Math.abs(d))] ?? 2.4} * clamp(48px, 9vw, 150px))` }}>
+            <div key={`${cols}-${c}`} data-col={d} className="flex min-w-0 flex-1 flex-col gap-3 sm:gap-4">
               {col.map(({ x, n }) => (
                 <button
                   key={x.key}
                   data-tile
                   onClick={() => setOpen(n)}
-                  className="group relative block aspect-[10/9] w-full overflow-hidden rounded-xl bg-white text-left ring-1 ring-line"
+                  className="group relative block aspect-square w-full overflow-hidden rounded-2xl bg-white text-left ring-1 ring-line"
                 >
-                  <Image src={x.img.src} alt={x.img.alt || x.title} fill sizes="(min-width: 1024px) 14vw, (min-width: 768px) 20vw, 33vw" className="object-cover transition-transform duration-700 ease-out-soft group-hover:scale-105" />
+                  <Image src={x.img.src} alt={x.img.alt || x.title} fill sizes="(min-width: 1024px) 200px, (min-width: 768px) 33vw, 50vw" className="object-cover transition-transform duration-700 ease-out-soft group-hover:scale-105" />
                   <span className="absolute inset-x-0 bottom-0 hidden bg-navy-deep px-3 py-2 text-xs font-medium text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:block">
                     {x.title}
                   </span>

@@ -81,8 +81,8 @@ function FlipCard({ star }: { star: Star }) {
           </p>
           <h3 className="mt-2 font-display text-3xl tracking-tight">{star.name}</h3>
           <p className="mt-1.5 text-white/70">{star.result}</p>
-          <p className="mt-0.5 text-sm text-white/45">{star.service}</p>
-          <span className="mt-6 inline-flex items-center gap-1.5 text-xs text-white/40">
+          <p className="mt-0.5 text-sm text-white/65">{star.service}</p>
+          <span className="mt-6 inline-flex items-center gap-1.5 text-xs text-white/60">
             <RotateCcw className="size-3.5" />
             <span>
               <span className="pointer-fine:hidden">Tap</span>

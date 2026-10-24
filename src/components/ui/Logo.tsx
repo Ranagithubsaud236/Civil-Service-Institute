@@ -17,7 +17,7 @@ export function Logo({ light }: { light?: boolean }) {
       <Crest size={40} className="transition-transform duration-500 ease-out-soft group-hover:rotate-[-8deg]" />
       <span className="leading-tight">
         <span className={cn("block font-display text-[17px] font-medium tracking-tight", light ? "text-white" : "text-ink")}>{site.name}</span>
-        <span className={cn("block text-[11px]", light ? "text-white/55" : "text-ink-mute")}>{site.tagline}</span>
+        <span className={cn("block text-xs", light ? "text-white/65" : "text-ink-mute")}>{site.tagline}</span>
       </span>
     </a>
   );

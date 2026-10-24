@@ -50,7 +50,7 @@ export function Journey() {
                   {step.step}
                 </span>
                 <p className={cn("mt-5 font-display text-xl transition-colors duration-200", active === i ? "text-white" : "text-white/70")}>{step.title}</p>
-                <p className="mt-1 text-sm text-white/45">{step.detail}</p>
+                <p className="mt-1 text-sm text-white/65">{step.detail}</p>
               </button>
             ))}
           </div>
