@@ -27,7 +27,7 @@ export function Journey() {
         />
 
         <div ref={ref} className="relative mt-16">
-          <div className="absolute top-5 right-0 left-0 hidden h-px bg-white/12 md:block" />
+          <div className="absolute top-5 right-0 left-0 hidden h-px bg-navy md:block" />
           <motion.div style={{ scaleX }} className="absolute top-5 right-0 left-0 hidden h-px origin-left bg-gold-light md:block" />
 
           <div role="tablist" aria-label="Exam stages" className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-6">
@@ -55,7 +55,7 @@ export function Journey() {
             ))}
           </div>
 
-          <div className="mt-12 overflow-hidden rounded-2xl bg-white/[0.04] ring-1 ring-white/10">
+          <div className="mt-12 overflow-hidden rounded-2xl bg-navy ring-1 ring-white/10">
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={active}
@@ -74,7 +74,7 @@ export function Journey() {
                     <span>Progress</span>
                     <span className="tabular-nums">{Math.round(((active + 1) / journey.length) * 100)}%</span>
                   </div>
-                  <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/10">
+                  <div className="mt-2 h-1 overflow-hidden rounded-full bg-navy-deep">
                     <motion.div className="h-full rounded-full bg-gold-light" initial={false} animate={{ width: `${((active + 1) / journey.length) * 100}%` }} transition={{ duration: 0.5, ease }} />
                   </div>
                 </div>

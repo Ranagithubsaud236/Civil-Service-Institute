@@ -21,8 +21,8 @@ export function Faculty() {
         <Reveal>
           <article className="relative h-full overflow-hidden rounded-3xl bg-navy-deep p-8 text-white sm:p-10">
             <div className="relative flex flex-wrap items-start justify-between gap-4">
-              <span className="grid size-20 place-items-center rounded-2xl bg-white/10 font-display text-3xl text-gold-light ring-1 ring-white/15">SM</span>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs text-white/80 ring-1 ring-white/15">
+              <span className="grid size-20 place-items-center rounded-2xl bg-navy font-display text-3xl text-gold-light ring-1 ring-white/15">SM</span>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-navy px-3 py-1 text-xs text-white/80 ring-1 ring-white/15">
                 <BadgeCheck className="size-3.5 text-gold-light" /> Verified from public profiles
               </span>
             </div>
@@ -33,7 +33,7 @@ export function Faculty() {
             <div className="relative mt-8 grid gap-3 sm:grid-cols-2">
               {m.facts.map((f, i) => (
                 <Reveal key={f} delay={0.1 + i * 0.07}>
-                  <div className="flex h-full gap-3 rounded-2xl bg-white/[0.06] p-4 text-sm leading-snug text-white/85 ring-1 ring-white/10">
+                  <div className="flex h-full gap-3 rounded-2xl bg-navy p-4 text-sm leading-snug text-white/85 ring-1 ring-white/10">
                     <span className="mt-0.5 font-display text-gold-light">0{i + 1}</span>
                     {f}
                   </div>

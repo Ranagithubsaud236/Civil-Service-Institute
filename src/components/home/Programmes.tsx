@@ -15,7 +15,7 @@ export function Programmes() {
   const list = programmes.filter((p) => cat === "All" || p.category === cat);
 
   return (
-    <section id="programmes" className="bg-subtle/60 py-24 lg:py-32">
+    <section id="programmes" className="bg-subtle py-24 lg:py-32">
       <div className="container-page">
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <SectionHeading
@@ -74,7 +74,7 @@ function ProgrammeCard({ p }: { p: Programme }) {
       )}
     >
       <div className="flex items-start justify-between gap-4">
-        <span className={cn("rounded-full px-3 py-1 text-xs font-medium", dark ? "bg-white/10 text-gold-light" : "bg-gold-soft text-gold")}>{p.tag}</span>
+        <span className={cn("rounded-full px-3 py-1 text-xs font-medium", dark ? "bg-navy text-gold-light" : "bg-gold-soft text-gold")}>{p.tag}</span>
         <span className={cn("text-xs", dark ? "text-white/50" : "text-ink-mute")}>{p.duration}</span>
       </div>
 

@@ -74,7 +74,7 @@ export function Gallery() {
   );
 
   return (
-    <section id="gallery" className="overflow-hidden bg-subtle/60 py-24 lg:py-32">
+    <section id="gallery" className="overflow-hidden bg-subtle py-24 lg:py-32">
       <div className="container-page">
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <SectionHeading eyebrow="Gallery" title="Life, lectures and launches at CSI." intro={`Photos from CSI’s Instagram and free lectures from its YouTube channel — ${channel.subscribers} subscribers and counting.`} />
@@ -108,7 +108,7 @@ export function Gallery() {
                     {x.title}
                   </span>
                   {x.videoId && (
-                    <span className="absolute top-2 right-2 grid size-7 place-items-center rounded-full bg-white/95 text-navy-deep sm:size-8">
+                    <span className="absolute top-2 right-2 grid size-7 place-items-center rounded-full bg-white text-navy-deep sm:size-8">
                       <Play className="ml-0.5 size-3.5 fill-current" />
                     </span>
                   )}
@@ -159,7 +159,7 @@ function Lightbox({ list, index, onChange }: { list: Item[]; index: number; onCh
         <span className="text-sm text-white/60 tabular-nums">
           {index + 1} / {list.length}
         </span>
-        <button onClick={() => onChange(null)} aria-label="Close" className="grid size-11 place-items-center rounded-full bg-white/10 transition-colors hover:bg-white hover:text-navy-deep">
+        <button onClick={() => onChange(null)} aria-label="Close" className="grid size-11 place-items-center rounded-full bg-navy transition-colors hover:bg-white hover:text-navy-deep">
           <X className="size-5" />
         </button>
       </div>
@@ -173,7 +173,7 @@ function Lightbox({ list, index, onChange }: { list: Item[]; index: number; onCh
                 title={x.title}
                 allow="autoplay; encrypted-media; picture-in-picture"
                 allowFullScreen
-                className="aspect-video w-full max-w-5xl rounded-2xl bg-black"
+                className="aspect-video w-full max-w-5xl rounded-2xl bg-ink"
               />
             ) : (
               <Image src={x.img.src} alt={x.img.alt} width={x.img.w} height={x.img.h} sizes="640px" style={{ width: "auto", height: "auto" }} className="max-h-full max-w-full rounded-2xl object-contain" />
@@ -197,7 +197,7 @@ function Lightbox({ list, index, onChange }: { list: Item[]; index: number; onCh
 function NavButton({ side, onClick }: { side: "left" | "right"; onClick: () => void }) {
   const Icon = side === "left" ? ChevronLeft : ChevronRight;
   return (
-    <button onClick={onClick} aria-label={side === "left" ? "Previous" : "Next"} className={cn("absolute top-1/2 grid size-12 -translate-y-1/2 place-items-center rounded-full bg-white/10 transition-colors hover:bg-white hover:text-navy-deep", side === "left" ? "left-0" : "right-0")}>
+    <button onClick={onClick} aria-label={side === "left" ? "Previous" : "Next"} className={cn("absolute top-1/2 grid size-12 -translate-y-1/2 place-items-center rounded-full bg-navy transition-colors hover:bg-white hover:text-navy-deep", side === "left" ? "left-0" : "right-0")}>
       <Icon className="size-6" />
     </button>
   );

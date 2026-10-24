@@ -15,8 +15,8 @@ const LAST = stages.length - 1;
 
 /** Degrees the planet turns between two stops. */
 const STEP = 24;
-/** Sky tint per stop: pale blue and cream from the crest palette. */
-const SKY = ["#e7eef5", "#f3efe5", "#e7eef5", "#f3efe5", "#e7eef5", "#f3efe5"];
+/** Sky tint per stop, alternating the site's two warm neutrals (subtle and gold-soft). */
+const SKY = ["#f3f2ed", "#f6eddc", "#f3f2ed", "#f6eddc", "#f3f2ed", "#f6eddc"];
 
 // trees spread around the planet, leaving room for the markers at each stop
 const TREES = Array.from({ length: 40 }, (_, n) => -24 + n * 7.3)
@@ -53,7 +53,7 @@ export function AlumniRoad() {
         <Birds />
 
         {/* the sun, with the stop's text centred inside it */}
-        <div className="absolute top-[max(84px,9svh)] left-1/2 aspect-square w-[min(112vw,74svh,640px)] -translate-x-1/2 rounded-full bg-white/55">
+        <div className="absolute top-[max(84px,9svh)] left-1/2 aspect-square w-[min(112vw,74svh,640px)] -translate-x-1/2 rounded-full bg-white">
           <svg viewBox="0 0 40 40" className="absolute top-[3%] right-[1%] w-[13%] animate-[bob_5s_ease-in-out_infinite]" aria-hidden>
             <defs>
               <mask id="moon-cut">
@@ -77,7 +77,7 @@ export function AlumniRoad() {
         <Cloud className="top-[48svh] right-[6%] scale-x-[-1] animate-[drift_34s_ease-in-out_infinite] [animation-delay:-12s]" small />
 
         {/* the planet: rotates with scroll, carrying everything placed on its surface */}
-        <motion.div style={{ rotate }} className="absolute top-[74svh] left-1/2 aspect-square w-[max(2000px,240vw)] -translate-x-1/2 rounded-full bg-navy/[0.14]">
+        <motion.div style={{ rotate }} className="absolute top-[74svh] left-1/2 aspect-square w-[max(2000px,240vw)] -translate-x-1/2 rounded-full bg-navy-soft">
           <div className="absolute inset-[28px] rounded-full border-[3px] border-dashed border-white/70" />
           {TREES.map((t) => (
             <OnSurface key={t.a} angle={t.a}>
@@ -173,8 +173,8 @@ function OnSurface({ angle, sink = 6, children }: { angle: number; sink?: number
 function Tree({ size, lean, delay }: { size: number; lean: number; delay: number }) {
   return (
     <svg viewBox="0 0 160 280" className="block h-[clamp(120px,26svh,250px)] w-auto origin-bottom animate-[sway_6s_ease-in-out_infinite]" style={{ scale: size, animationDelay: `${delay}s` }} aria-hidden>
-      <circle cx="80" cy="82" r="72" fill="#0b4f8c" opacity="0.16" />
-      <g stroke="#7c8692" strokeLinecap="round" transform={`rotate(${lean} 80 280)`}>
+      <circle cx="80" cy="82" r="72" fill="var(--color-navy-soft)" />
+      <g stroke="#6b7485" strokeLinecap="round" transform={`rotate(${lean} 80 280)`}>
         <line x1="80" y1="280" x2="84" y2="44" strokeWidth="8" />
         <path d="M 82 150 L 46 116 M 83 112 L 116 82 M 82 132 L 58 120 M 84 92 L 104 70" strokeWidth="5" />
       </g>
@@ -216,7 +216,7 @@ function Marker({ kind, live }: { kind: Stage["kind"]; live: boolean }) {
 function Cloud({ className, small }: { className?: string; small?: boolean }) {
   return (
     <svg viewBox="0 0 140 60" className={cn("absolute hidden w-[clamp(90px,11vw,170px)] sm:block", small && "w-[clamp(70px,8vw,130px)]", className)} aria-hidden>
-      <g fill="#fff" opacity="0.92">
+      <g fill="#fff">
         <circle cx="34" cy="34" r="22" />
         <circle cx="66" cy="24" r="24" />
         <circle cx="98" cy="34" r="20" />
@@ -240,7 +240,7 @@ function Birds() {
     <div className="pointer-events-none absolute top-[16svh] left-0 w-40 animate-[fly_32s_linear_infinite]" aria-hidden>
       {flock.map((b, i) => (
         <svg key={i} viewBox="0 0 40 20" className="absolute w-10 origin-center animate-[flap_0.9s_ease-in-out_infinite]" style={{ left: b.x, top: b.y, scale: b.s, animationDelay: `${b.d}s` }}>
-          <path d="M 2 4 Q 12 14 20 12 Q 28 14 38 4" fill="none" stroke="#8a8f99" strokeWidth="3" strokeLinecap="round" />
+          <path d="M 2 4 Q 12 14 20 12 Q 28 14 38 4" fill="none" stroke="#6b7485" strokeWidth="3" strokeLinecap="round" />
         </svg>
       ))}
     </div>

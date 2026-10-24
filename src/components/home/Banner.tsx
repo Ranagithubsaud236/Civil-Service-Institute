@@ -83,7 +83,7 @@ export function Banner() {
           <div key={s.src} data-slide aria-hidden={n !== index} className={cn("absolute inset-0", n !== 0 && "invisible opacity-0")}>
             <Image src={s.src} alt={s.alt} fill sizes="100vw" priority={n === 0} className="pointer-events-none object-cover object-[50%_30%]" />
             {/* flat tint so white captions stay readable on bright photos */}
-            <div className="absolute inset-0 bg-black/35" />
+            <div className="absolute inset-0 bg-ink/40" />
             <div data-caption className="absolute inset-x-0 bottom-10 px-16 text-center text-white sm:bottom-14">
               <h2 className="font-display text-3xl tracking-tight text-balance sm:text-5xl">{s.title}</h2>
               <p className="mt-3 text-sm text-white/90 sm:text-lg">{s.sub}</p>

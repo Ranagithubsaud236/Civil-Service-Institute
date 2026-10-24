@@ -13,8 +13,8 @@ export function AdmissionsIcon({ className }: IconProps) {
       <rect x="8" y="7" width="32" height="38" rx="5" fill={BLUE} />
       <rect x="12" y="13" width="24" height="28" rx="2.5" fill="#fff" />
       <rect x="17" y="4" width="14" height="7" rx="3" fill={GOLD} />
-      <rect x="16" y="19" width="16" height="2.6" rx="1.3" fill="#c8d6e5" />
-      <rect x="16" y="25" width="11" height="2.6" rx="1.3" fill="#c8d6e5" />
+      <rect x="16" y="19" width="16" height="2.6" rx="1.3" fill="#e7e5de" />
+      <rect x="16" y="25" width="11" height="2.6" rx="1.3" fill="#e7e5de" />
       <circle cx="30" cy="34" r="7" fill={GOLD} />
       <path d="m26.8 34 2.2 2.2 4.3-4.4" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
@@ -27,7 +27,7 @@ export function ProgrammesIcon({ className }: IconProps) {
     <svg viewBox="0 0 48 48" className={className} aria-hidden>
       <path d="M12 23v9c0 3.6 5.4 6.5 12 6.5s12-2.9 12-6.5v-9l-12 6Z" fill={DEEP} />
       <path d="M24 8 2 19l22 11 22-11Z" fill={BLUE} />
-      <path d="M24 15.5 8.5 20.6" fill="none" stroke="#3d78b5" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M24 15.5 8.5 20.6" fill="none" stroke="#ffffff" strokeOpacity="0.35" strokeWidth="1.6" strokeLinecap="round" />
       <path d="M40 22v11" stroke={GOLD} strokeWidth="2.4" strokeLinecap="round" />
       <path d="M37 33h6l-1 7h-4Z" fill={GOLD} />
       <circle cx="24" cy="19" r="2.2" fill={GOLD} />

@@ -65,7 +65,7 @@ function FlipCard({ star }: { star: Star }) {
         )}
       >
         {/* front */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center rounded-3xl bg-white/[0.06] p-8 text-center ring-1 ring-white/12 [backface-visibility:hidden]">
+        <div className="absolute inset-0 flex flex-col items-center justify-center rounded-3xl bg-navy p-8 text-center ring-1 ring-white/12 [backface-visibility:hidden]">
           <span className="relative block size-44">
             <svg viewBox="0 0 200 200" className="absolute -inset-3 size-[calc(100%+1.5rem)] animate-[spin_24s_linear_infinite] text-gold-light" aria-hidden>
               <circle cx="100" cy="100" r="96" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 7" />

@@ -23,7 +23,7 @@ export function EssayReview() {
   const done = seen.length === remarks.length;
 
   return (
-    <section id="essay" className="bg-subtle/60 py-24 lg:py-32">
+    <section id="essay" className="bg-subtle py-24 lg:py-32">
       <div className="container-page">
         <SectionHeading
           eyebrow="Red-pen evaluation"

@@ -16,6 +16,7 @@
 
   --color-navy: #0b4f8c;
   --color-navy-deep: #083d6e;
+  --color-navy-soft: #e3ebf3;
 
   --color-gold: #a8772a;
   --color-gold-soft: #f6eddc;
@@ -28,7 +29,7 @@
   /* examiner's red pen */
   --color-pen: #c0352b;
   --color-pen-soft: #fbeceb;
-  --color-tick: #1f7a52;
+  --color-tick: #0b4f8c; /* correct answers use the crest blue, not a separate green */
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
