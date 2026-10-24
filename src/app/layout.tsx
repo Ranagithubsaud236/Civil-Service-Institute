@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Newsreader } from "next/font/google";
+import { Caveat, Geist, Newsreader } from "next/font/google";
 import { Providers } from "@/components/layout/Providers";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -9,6 +9,8 @@ import "./globals.css";
 
 const newsreader = Newsreader({ variable: "--font-newsreader", subsets: ["latin"], style: ["normal", "italic"], axes: ["opsz"] });
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
+// examiner's red-pen handwriting in the essay review
+const caveat = Caveat({ variable: "--font-caveat", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Civil Services Institute Rawalpindi | CSS & PMS Academy",
@@ -19,11 +21,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     // suppressHydrationWarning: extensions also add attributes to <html>/<body> themselves
-    <html lang="en" data-scroll-behavior="smooth" className={`${newsreader.variable} ${geist.variable}`} suppressHydrationWarning>
+    <html lang="en" data-scroll-behavior="smooth" className={`${newsreader.variable} ${geist.variable} ${caveat.variable}`} suppressHydrationWarning>
       <head>
         <ExtensionGuard />
       </head>
-      <body className="min-h-screen overflow-x-hidden" suppressHydrationWarning>
+      <body className="min-h-screen overflow-x-clip" suppressHydrationWarning>
         <Providers>
           <Navbar />
           <main>{children}</main>

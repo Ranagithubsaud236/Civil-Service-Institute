@@ -23,6 +23,12 @@
 
   --font-display: var(--font-newsreader), Georgia, serif;
   --font-sans: var(--font-geist), system-ui, sans-serif;
+  --font-hand: var(--font-caveat), cursive;
+
+  /* examiner's red pen */
+  --color-pen: #c0352b;
+  --color-pen-soft: #fbeceb;
+  --color-tick: #1f7a52;
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -100,4 +106,14 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* alumni road scene */
+@keyframes sway {
+  0%, 100% { transform: rotate(-1.6deg); }
+  50% { transform: rotate(1.6deg); }
+}
+@keyframes drift {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(46px); }
 }

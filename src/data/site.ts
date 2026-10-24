@@ -3,11 +3,14 @@ export const site = {
   short: "CSI",
   tagline: "Rawalpindi · CSS & PMS Academy",
   established: 2024,
-  address: "Peshawar Road, Rawalpindi Cantt, Pakistan",
-  phone: "+92 300 000 0000",
-  whatsapp: "923000000000",
-  email: "admissions@csirawalpindi.edu.pk",
-  hours: "Mon–Sat, 8:00 AM – 8:00 PM",
+  // contact details from CSI's public Instagram bio (@civil_services_institute), checked Oct 2026;
+  // the street address is not published, so only the city is shown until the client confirms it
+  address: "Rawalpindi, Pakistan",
+  phone: "0339 0058140",
+  whatsapp: "923390058140",
+  instagram: { handle: "@civil_services_institute", url: "https://www.instagram.com/civil_services_institute/", followers: "111K+" },
+  youtube: { name: "Civil Services Institute", url: "https://www.youtube.com/@sassimaliksher777" },
+  hours: "Online classes across Pakistan",
   examDate: "2027-02-15T09:00:00+05:00",
 };
 

@@ -1,5 +1,6 @@
-import { Mail, MapPin, Phone, Clock } from "lucide-react";
+import { AtSign, Globe, MapPin, Phone } from "lucide-react";
 import { nav, site } from "@/data/site";
+import { photoCredits } from "@/data/photos";
 import { programmes } from "@/data/programmes";
 import { Logo } from "@/components/ui/Logo";
 
@@ -30,12 +31,18 @@ export function Footer() {
           <FooterCol title="Contact" className="col-span-2 lg:col-span-1">
             <li className="flex gap-3"><MapPin className="mt-0.5 size-4 shrink-0 text-white/40" />{site.address}</li>
             <li className="flex gap-3"><Phone className="mt-0.5 size-4 shrink-0 text-white/40" />{site.phone}</li>
-            <li className="flex gap-3"><Mail className="mt-0.5 size-4 shrink-0 text-white/40" />{site.email}</li>
-            <li className="flex gap-3"><Clock className="mt-0.5 size-4 shrink-0 text-white/40" />{site.hours}</li>
+            <li className="flex gap-3"><AtSign className="mt-0.5 size-4 shrink-0 text-white/40" /><a href={site.instagram.url} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">{site.instagram.handle}</a></li>
+            <li className="flex gap-3"><Globe className="mt-0.5 size-4 shrink-0 text-white/40" />{site.hours}</li>
           </FooterCol>
         </div>
 
-        <div className="mt-12 flex flex-col justify-between gap-2 border-t lg:mt-16 border-white/10 pt-8 text-xs text-white/45 md:flex-row">
+        <p className="mt-12 text-xs leading-relaxed text-white/35">
+          Photos: {photoCredits.map((c, i) => (
+            <span key={c.name}>{i > 0 && ", "}<a href={c.url} target="_blank" rel="noopener noreferrer" className="underline-offset-2 hover:text-white/70 hover:underline">{c.name}</a></span>
+          ))} on Unsplash.
+        </p>
+
+        <div className="mt-6 flex flex-col justify-between gap-2 border-t border-white/10 pt-8 text-xs text-white/45 md:flex-row">
           <span>© {site.established + 2} {site.name}, Rawalpindi</span>
           <span>Not affiliated with FPSC or PPSC</span>
         </div>

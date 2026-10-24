@@ -6,29 +6,39 @@ export const batches = [
   { name: "MPT & MCQ Sprint", note: "12 computerised mocks", date: "SAT 14 NOV", time: "10:00–14:00", mode: "Online", left: 33, total: 60, status: "Boarding" },
 ];
 
-export const faculty = [
-  { group: "PAS", name: "Dr. Ahsan Rafiq", title: "Federal Secretary (Retd.) · Ph.D. Public Policy", subject: "Governance & Public Policy", bio: "Three decades across federal ministries; now leads CSI's public administration and policy-writing clinics." },
-  { group: "FSP", name: "Amb. (R) Saima Qureshi", title: "Foreign Service of Pakistan · M.Phil IR", subject: "Current Affairs & IR", bio: "Served in missions across Europe and the Gulf; teaches foreign policy through real diplomatic case files." },
-  { group: "EVAL", name: "Prof. Tariq Mansoor", title: "Chief Essay Evaluator · M.Phil Linguistics", subject: "English Essay & Précis", bio: "Thirty years of essay evaluation; known for his unforgiving red pen and his students' essay scores." },
-  { group: "PSP", name: "Zeeshan Altaf", title: "Police Service of Pakistan · LL.M.", subject: "Criminology & Constitutional Law", bio: "Brings district command experience into the classroom: case law, procedure and the realities of policing." },
-  { group: "GSA", name: "Dr. Ayesha Siddiqui", title: "Ph.D. Environmental Physics", subject: "General Science & Ability", bio: "Makes GSA, the most feared compulsory for arts students, a scoring paper through concept mapping." },
-  { group: "PMS", name: "Farah Javed", title: "Provincial Management Service · M.A. Urdu", subject: "Urdu Essay & Punjab Affairs", bio: "A PMS officer who teaches the Urdu essay as a craft — structure first, then voice." },
-];
+/**
+ * Real faculty, verified from public sources (Oct 2026):
+ * - CSI Instagram and YouTube credit Dr. Sassi Malik Sher; the YouTube channel is named "Civil Services Institute".
+ * - CSS 2017, first attempt, précis & composition topper; MLCG, 46th CTP: her YouTube video descriptions and channel bio.
+ * - TEDxQAU speaker, Dec 2024: ted.com/tedx/events/59084.
+ * Other faculty are not published anywhere, so they stay as open slots until CSI confirms names.
+ */
+export const leadFaculty = {
+  name: "Dr. Sassi Malik Sher",
+  role: "Founder mentor · English Précis & Composition",
+  group: "MLCG",
+  facts: [
+    "Cleared CSS 2017 in her first attempt",
+    "Précis & Composition topper, CSS 2017",
+    "Military Lands & Cantonments Group, 46th CTP",
+    "MBBS · TEDxQAU speaker (2024)",
+  ],
+  bio: "A serving civil servant who teaches the paper she topped. Her free précis and composition lectures on YouTube are where many aspirants first meet CSI.",
+};
 
-export const achievers = [
-  { name: "Hira Naveed", exam: "CSS 2025", group: "PAS", merit: "Top 10" },
-  { name: "Hamza Iqbal", exam: "CSS 2025", group: "FSP", merit: "Top 20" },
-  { name: "Mahnoor Ali", exam: "CSS 2025", group: "PSP", merit: "Top 50" },
-  { name: "Usman Khalid", exam: "CSS 2025", group: "PAS", merit: "Top 50" },
-  { name: "Bilal Ahmed Khan", exam: "PMS Punjab 2025", group: "PMS", merit: "2nd Punjab" },
-  { name: "Areeba Fatima", exam: "CSS 2025", group: "PSP", merit: "Top 100" },
-];
+/** Open seats on the faculty board — filled once CSI shares its teaching panel. */
+export const facultySlots = ["Current Affairs", "Pakistan Affairs", "General Science & Ability"];
 
-export const testimonials = [
-  { quote: "The Saturday mocks were harder than the real paper. By February, sitting in the FPSC hall felt routine.", name: "Hira Naveed", meta: "PAS · CSS 2025" },
-  { quote: "My essay went from 28 to 61 marks. Prof. Mansoor returned every draft covered in red ink — that was the point.", name: "Hamza Iqbal", meta: "FSP · CSS 2025" },
-  { quote: "The mock viva board asked me tougher questions than the actual one. I walked in calm.", name: "Mahnoor Ali", meta: "PSP · CSS 2025" },
-];
+/**
+ * Alumni officers and reviews. No verified names are public yet (CSI keeps them in its
+ * Instagram "Our stars" and "Testimonials" highlights), so these are empty, clearly marked slots.
+ */
+export const alumniStations = [
+  { kind: "officer", label: "Officer 01", hint: "Name · service group · CSS year" },
+  { kind: "review", label: "Review 01", hint: "A student review in their own words" },
+  { kind: "officer", label: "Officer 02", hint: "Name · service group · CSS year" },
+  { kind: "review", label: "Review 02", hint: "A student review in their own words" },
+] as const;
 
 export const optionals: Record<string, { subjects: [string, number][]; why: string }> = {
   "Engineering & Sciences": {
