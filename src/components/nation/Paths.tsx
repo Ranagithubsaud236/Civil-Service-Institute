@@ -32,7 +32,7 @@ export function Paths() {
                 className={cn("relative shrink-0 px-4 pt-2 pb-4 text-[15px] transition-colors duration-200", tab === t ? "text-ink" : "text-ink-mute hover:text-ink")}
               >
                 {t}
-                {tab === t && <motion.span layoutId="path-tab" className="absolute inset-x-2 -bottom-px h-0.5 rounded-full bg-brass" transition={{ type: "spring", stiffness: 420, damping: 34 }} />}
+                {tab === t && <motion.span layoutId="path-tab" className="absolute inset-x-2 -bottom-px h-0.5 rounded-full bg-gold" transition={{ type: "spring", stiffness: 420, damping: 34 }} />}
               </button>
             ))}
           </div>
@@ -50,7 +50,7 @@ export function Paths() {
                   <div className="grid grid-cols-3 gap-px self-start overflow-hidden rounded-2xl bg-line ring-1 ring-line">
                     {css.facts.map((f) => (
                       <div key={f.label} className="bg-ivory p-5 sm:p-6">
-                        <p className="font-display text-4xl tracking-tight text-forest-800 sm:text-5xl"><Counter to={+f.value} /></p>
+                        <p className="font-display text-4xl tracking-tight text-navy-800 sm:text-5xl"><Counter to={+f.value} /></p>
                         <p className="mt-2 text-xs leading-snug text-ink-mute sm:text-sm">{f.label}</p>
                       </div>
                     ))}
@@ -88,10 +88,10 @@ export function Paths() {
 
               {tab === "Exam stages" && (
                 <ol className="relative grid gap-6 sm:grid-cols-3 lg:grid-cols-6">
-                  <motion.span aria-hidden className="absolute top-5 right-0 left-0 hidden h-px origin-left bg-brass/50 lg:block" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, ease }} />
+                  <motion.span aria-hidden className="absolute top-5 right-0 left-0 hidden h-px origin-left bg-gold/50 lg:block" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, ease }} />
                   {stages.map((s, i) => (
                     <motion.li key={s.title} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 + i * 0.1, ease }} className="relative">
-                      <span className="relative grid size-10 place-items-center rounded-full bg-forest-800 text-sm text-ivory ring-4 ring-paper">{i + 1}</span>
+                      <span className="relative grid size-10 place-items-center rounded-full bg-navy-800 text-sm text-ivory ring-4 ring-paper">{i + 1}</span>
                       <p className="mt-5 font-display text-2xl">{s.title}</p>
                       <p className="mt-1 text-sm leading-relaxed text-ink-mute">{s.detail}</p>
                     </motion.li>
@@ -103,9 +103,9 @@ export function Paths() {
                 <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {groups.map((g, i) => (
                     <motion.li key={g} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.035, ease }}>
-                      <Tilt max={10} className="group h-full rounded-2xl bg-ivory px-5 py-5 ring-1 ring-line transition-colors duration-300 hover:bg-forest-800 hover:ring-forest-800">
+                      <Tilt max={10} className="group h-full rounded-2xl bg-ivory px-5 py-5 ring-1 ring-line transition-colors duration-300 hover:bg-navy-800 hover:ring-navy-800">
                         <Depth z={18}>
-                          <span className="text-xs tabular-nums text-brass transition-colors group-hover:text-brass-light">{String(i + 1).padStart(2, "0")}</span>
+                          <span className="text-xs tabular-nums text-gold transition-colors group-hover:text-gold-light">{String(i + 1).padStart(2, "0")}</span>
                         </Depth>
                         <Depth z={36} className="mt-6">
                           <span className="font-display text-xl leading-tight text-ink transition-colors group-hover:text-ivory">{g}</span>

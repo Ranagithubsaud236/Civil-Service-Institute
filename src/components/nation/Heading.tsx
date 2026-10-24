@@ -14,7 +14,7 @@ export function Heading({ eyebrow, title, intro, dark, className }: Props) {
   return (
     <div className={cn("max-w-2xl", className)}>
       <Reveal>
-        <p className={cn("eyebrow", dark ? "text-brass-light" : "text-brass")}>
+        <p className={cn("eyebrow", dark ? "text-gold-light" : "text-gold")}>
           <Scramble text={eyebrow} />
         </p>
       </Reveal>

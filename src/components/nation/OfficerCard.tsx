@@ -31,7 +31,7 @@ export function OfficerCard() {
   const rotY = useSpring(useTransform(mx, [0, 1], [-14, 14]), { stiffness: 160, damping: 18 });
   const flip = useSpring(0, { stiffness: 120, damping: 18 });
   const rotateY = useTransform(() => rotY.get() + flip.get());
-  const sheen = useTransform(() => `radial-gradient(circle at ${mx.get() * 100}% ${my.get() * 100}%, rgba(255,240,205,0.55), transparent 45%), linear-gradient(${110 + mx.get() * 60}deg, rgba(120,220,190,0.18), rgba(214,182,120,0.25), rgba(190,150,255,0.16), rgba(120,220,190,0.18))`);
+  const sheen = useTransform(() => `radial-gradient(circle at ${mx.get() * 100}% ${my.get() * 100}%, rgba(255,240,205,0.55), transparent 45%), linear-gradient(${110 + mx.get() * 60}deg, rgba(120,220,190,0.18), rgba(206,151,68,0.25), rgba(190,150,255,0.16), rgba(120,220,190,0.18))`);
 
   const display = name.trim() || "Your Name";
   const cells = seal(name);
@@ -55,13 +55,13 @@ export function OfficerCard() {
                   maxLength={28}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Ayesha Khan"
-                  className="mt-2 h-12 w-full rounded-xl bg-paper px-4 text-[15px] ring-1 ring-line transition-all duration-200 outline-none focus:ring-forest-700"
+                  className="mt-2 h-12 w-full rounded-xl bg-paper px-4 text-[15px] ring-1 ring-line transition-all duration-200 outline-none focus:ring-navy-700"
                 />
               </div>
               <div>
                 <label htmlFor="pass-group" className="text-sm font-medium">Dream service group</label>
                 <div className="relative mt-2">
-                  <select id="pass-group" value={group} onChange={(e) => setGroup(e.target.value)} className="h-12 w-full cursor-pointer appearance-none rounded-xl bg-paper pr-10 pl-4 text-[15px] ring-1 ring-line transition-all duration-200 outline-none focus:ring-forest-700">
+                  <select id="pass-group" value={group} onChange={(e) => setGroup(e.target.value)} className="h-12 w-full cursor-pointer appearance-none rounded-xl bg-paper pr-10 pl-4 text-[15px] ring-1 ring-line transition-all duration-200 outline-none focus:ring-navy-700">
                     {groups.map((g) => (
                       <option key={g}>{g}</option>
                     ))}
@@ -93,13 +93,13 @@ export function OfficerCard() {
             className="relative aspect-[1.3] w-full max-w-[440px] text-left sm:aspect-[1.586]"
           >
             {/* front */}
-            <div className="absolute inset-0 overflow-hidden rounded-[22px] bg-gradient-to-br from-forest-700 via-forest-900 to-forest-950 p-6 text-ivory shadow-[0_40px_80px_-30px_rgba(3,21,15,0.7)] ring-1 ring-brass-light/30 [backface-visibility:hidden] sm:p-7">
+            <div className="absolute inset-0 overflow-hidden rounded-[22px] bg-gradient-to-br from-navy-700 via-navy-900 to-navy-950 p-6 text-ivory shadow-[0_40px_80px_-30px_rgba(1,26,51,0.7)] ring-1 ring-gold-light/30 [backface-visibility:hidden] sm:p-7">
               <motion.div style={{ background: sheen }} className="pointer-events-none absolute inset-0 mix-blend-screen" />
               <div className="relative flex items-start justify-between">
                 <div className="flex items-center gap-3">
                   <Crest size={38} />
                   <div className="leading-tight">
-                    <p className="text-[10px] tracking-[0.25em] text-brass-light uppercase">Civil Services Institute</p>
+                    <p className="text-[10px] tracking-[0.25em] text-gold-light uppercase">Civil Services Institute</p>
                     <p className="font-display text-sm text-ivory/80">Aspirant pass · CSS 2027</p>
                   </div>
                 </div>
@@ -107,18 +107,18 @@ export function OfficerCard() {
               </div>
 
               <div className="relative mt-5 flex items-end gap-5 sm:mt-7">
-                <span className="grid size-16 shrink-0 place-items-center rounded-2xl bg-ivory/10 font-display text-2xl text-brass-light ring-1 ring-brass-light/30 sm:size-24 sm:text-3xl">{initials(display)}</span>
+                <span className="grid size-16 shrink-0 place-items-center rounded-2xl bg-ivory/10 font-display text-2xl text-gold-light ring-1 ring-gold-light/30 sm:size-24 sm:text-3xl">{initials(display)}</span>
                 <div className="min-w-0 flex-1">
                   <motion.p key={display} initial={{ opacity: 0.4, y: 4 }} animate={{ opacity: 1, y: 0 }} className="truncate font-display text-2xl leading-tight tracking-tight sm:text-3xl">
                     {display}
                   </motion.p>
-                  <motion.p key={group} initial={{ opacity: 0.4 }} animate={{ opacity: 1 }} className="mt-1 truncate text-sm text-brass-light">
+                  <motion.p key={group} initial={{ opacity: 0.4 }} animate={{ opacity: 1 }} className="mt-1 truncate text-sm text-gold-light">
                     {group}
                   </motion.p>
                 </div>
                 <div className="grid shrink-0 grid-cols-7 gap-[2px] rounded-md bg-ivory/90 p-1.5" aria-hidden>
                   {cells.map((c, k) => (
-                    <span key={k} className={`size-[5px] sm:size-[6px] ${c ? "bg-forest-950" : "bg-transparent"}`} />
+                    <span key={k} className={`size-[5px] sm:size-[6px] ${c ? "bg-navy-950" : "bg-transparent"}`} />
                   ))}
                 </div>
               </div>
@@ -127,11 +127,11 @@ export function OfficerCard() {
 
             {/* back */}
             <div className="absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[22px] bg-paper p-6 text-ink ring-1 ring-line [backface-visibility:hidden] [transform:rotateY(180deg)] sm:p-7">
-              <p lang="ur" className="font-urdu text-2xl leading-loose text-forest-800">کام، کام اور صرف کام</p>
+              <p lang="ur" className="font-urdu text-2xl leading-loose text-navy-800">کام، کام اور صرف کام</p>
               <p className="font-display text-lg leading-snug text-ink-soft">&ldquo;Work, work and only work.&rdquo; — Quaid-e-Azam Muhammad Ali Jinnah</p>
               <div className="flex items-end justify-between">
                 <div>
-                  <p className="font-hand text-3xl leading-none text-forest-800">{display}</p>
+                  <p className="font-hand text-3xl leading-none text-navy-800">{display}</p>
                   <p className="mt-1 border-t border-ink/20 pt-1 text-[10px] tracking-wider text-ink-mute uppercase">Signature of the aspirant</p>
                 </div>
                 <Crest size={34} />

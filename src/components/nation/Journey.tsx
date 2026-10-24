@@ -37,8 +37,8 @@ export function Journey() {
   });
 
   return (
-    <section id="begin" data-theme="dark" className="relative isolate overflow-hidden bg-forest-950 py-24 text-ivory lg:py-32">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgba(17,69,49,0.6),transparent)]" />
+    <section id="begin" data-theme="dark" className="relative isolate overflow-hidden bg-navy-950 py-24 text-ivory lg:py-32">
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgba(2,77,132,0.6),transparent)]" />
       <div className="container-page">
         <Heading
           dark
@@ -50,24 +50,24 @@ export function Journey() {
         <div ref={ref} className="relative mt-16 lg:mt-24">
           {/* desktop: a winding road whose gold centre line is drawn by scrolling */}
           <svg viewBox="0 0 1000 1600" preserveAspectRatio="none" className="absolute inset-0 hidden size-full lg:block" aria-hidden>
-            <path d={road} fill="none" stroke="#0a382b" strokeWidth={34} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-            <path d={road} fill="none" stroke="#d5b678" strokeOpacity={0.15} strokeWidth={1.5} strokeDasharray="6 10" vectorEffect="non-scaling-stroke" />
+            <path d={road} fill="none" stroke="#023b6b" strokeWidth={34} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+            <path d={road} fill="none" stroke="#ce9744" strokeOpacity={0.15} strokeWidth={1.5} strokeDasharray="6 10" vectorEffect="non-scaling-stroke" />
             <motion.path
               d={road}
               fill="none"
-              stroke="#d5b678"
+              stroke="#ce9744"
               strokeWidth={2.5}
               strokeLinecap="round"
-              style={{ pathLength: draw, filter: "drop-shadow(0 0 6px rgba(213,182,120,0.85))" }}
+              style={{ pathLength: draw, filter: "drop-shadow(0 0 6px rgba(206,151,68,0.85))" }}
               vectorEffect="non-scaling-stroke"
             />
             <path ref={geometry} d={road} fill="none" stroke="none" />
           </svg>
-          <motion.span style={{ left: tipX, top: tipY }} className="pointer-events-none absolute z-10 hidden size-3 -translate-1/2 rounded-full bg-[#fff1cf] shadow-[0_0_18px_6px_rgba(213,182,120,0.7)] lg:block" aria-hidden />
+          <motion.span style={{ left: tipX, top: tipY }} className="pointer-events-none absolute z-10 hidden size-3 -translate-1/2 rounded-full bg-[#fff1cf] shadow-[0_0_18px_6px_rgba(206,151,68,0.7)] lg:block" aria-hidden />
           {/* mobile: a straight thread down the left edge */}
           <div className="absolute top-0 bottom-0 left-[19px] w-px bg-ivory/10 lg:hidden" aria-hidden>
-            <motion.div style={{ scaleY: lineScale }} className="h-full w-full origin-top bg-brass-light shadow-[0_0_8px_rgba(213,182,120,0.8)]" />
-            <motion.span style={{ top: tipMobile }} className="absolute left-1/2 size-2.5 -translate-1/2 rounded-full bg-[#fff1cf] shadow-[0_0_14px_5px_rgba(213,182,120,0.7)]" />
+            <motion.div style={{ scaleY: lineScale }} className="h-full w-full origin-top bg-gold-light shadow-[0_0_8px_rgba(206,151,68,0.8)]" />
+            <motion.span style={{ top: tipMobile }} className="absolute left-1/2 size-2.5 -translate-1/2 rounded-full bg-[#fff1cf] shadow-[0_0_14px_5px_rgba(206,151,68,0.7)]" />
           </div>
 
           <ol className="relative grid gap-12 lg:block lg:h-[1600px]">
@@ -84,9 +84,9 @@ export function Journey() {
                   {/* the marker on the road: 8% of the container (≈19% of this card) away from the card edge */}
                   <span
                     className={cn(
-                      "absolute top-1 left-[11px] size-[17px] rounded-full ring-4 ring-forest-950 transition-colors duration-500 lg:top-1/2 lg:-translate-y-1/2",
+                      "absolute top-1 left-[11px] size-[17px] rounded-full ring-4 ring-navy-950 transition-colors duration-500 lg:top-1/2 lg:-translate-y-1/2",
                       roadLeft ? "lg:left-[calc(-19%-9px)]" : "lg:right-[calc(-19%-9px)] lg:left-auto",
-                      on ? "bg-brass-light" : "bg-forest-700",
+                      on ? "bg-gold-light" : "bg-navy-700",
                     )}
                   />
                   <motion.div
@@ -98,7 +98,7 @@ export function Journey() {
                   >
                     <div className={cn("flex items-baseline gap-4", !roadLeft && "lg:flex-row-reverse")}>
                       <span className="text-xs tabular-nums text-ivory/45">0{i + 1}</span>
-                      <span lang="ur" className="font-urdu text-lg text-brass-light/70">{m.urdu}</span>
+                      <span lang="ur" className="font-urdu text-lg text-gold-light/70">{m.urdu}</span>
                     </div>
                     <h3 className="mt-2 font-display text-5xl tracking-tight sm:text-6xl lg:text-7xl">{m.key}</h3>
                     <p className="mt-4 max-w-md leading-relaxed text-ivory/65 lg:inline-block">{m.body}</p>
@@ -134,7 +134,7 @@ function Tracker() {
     <Reveal className="mt-24 lg:mt-32">
       <div className="grid overflow-hidden rounded-[28px] bg-ivory text-ink ring-1 ring-ivory/10 lg:grid-cols-[0.8fr_1.2fr]">
         <div className="flex flex-col items-center justify-center gap-6 bg-ivory-200 p-10 text-center">
-          <p className="eyebrow text-brass">This week</p>
+          <p className="eyebrow text-gold">This week</p>
           <div className="relative size-40">
             <svg ref={ringRef} viewBox="0 0 128 128" className="size-full -rotate-90">
               <circle cx="64" cy="64" r={R} fill="none" className="stroke-ivory-300" strokeWidth={8} />
@@ -143,7 +143,7 @@ function Tracker() {
                 cy="64"
                 r={R}
                 fill="none"
-                className="stroke-forest-800"
+                className="stroke-navy-800"
                 strokeWidth={8}
                 strokeLinecap="round"
                 strokeDasharray={C}
@@ -160,7 +160,7 @@ function Tracker() {
             </div>
           </div>
           <p className="inline-flex items-center gap-2 rounded-full bg-paper px-3.5 py-1.5 text-sm ring-1 ring-line">
-            <Flame className="size-4 text-brass" /> 12-day preparation streak
+            <Flame className="size-4 text-gold" /> 12-day preparation streak
           </p>
         </div>
 
@@ -175,7 +175,7 @@ function Tracker() {
                   aria-pressed={done[i]}
                   className="group flex w-full items-center gap-4 py-3.5 text-left"
                 >
-                  <span className={cn("grid size-6 shrink-0 place-items-center rounded-md ring-1 transition-all duration-300", done[i] ? "bg-forest-800 text-ivory ring-forest-800" : "ring-ink/25 group-hover:ring-ink/50")}>
+                  <span className={cn("grid size-6 shrink-0 place-items-center rounded-md ring-1 transition-all duration-300", done[i] ? "bg-navy-800 text-ivory ring-navy-800" : "ring-ink/25 group-hover:ring-ink/50")}>
                     <motion.span initial={false} animate={{ scale: done[i] ? 1 : 0 }} transition={{ type: "spring", stiffness: 500, damping: 26 }}>
                       <Check className="size-3.5" />
                     </motion.span>

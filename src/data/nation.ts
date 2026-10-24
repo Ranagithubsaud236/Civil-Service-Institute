@@ -153,10 +153,10 @@ export const constellation = [
 
 /** Swipeable preparation tools. */
 export const resources = [
-  { title: "Syllabus map", tag: "Discover", body: "Every compulsory and optional paper broken into weekly units you can tick off.", tone: "from-[#0f4a39] to-[#062820]" },
-  { title: "Daily current affairs", tag: "Prepare", body: "A ten-minute brief each morning, linked to the papers it will help you answer.", tone: "from-[#5c4a26] to-[#2a2112]" },
-  { title: "Essay & précis clinic", tag: "Prepare", body: "Fifteen essays, each returned with line-by-line remarks and a rewrite session.", tone: "from-[#1d4b5a] to-[#0b2530]" },
-  { title: "Mock MPT", tag: "Compete", body: "Timed computer-based screening tests with topic-wise explanations.", tone: "from-[#4a2a3a] to-[#1f1118]" },
-  { title: "Hall-condition papers", tag: "Compete", body: "Full written papers every Saturday, under real time limits and invigilation.", tone: "from-[#3c4a1f] to-[#1a210c]" },
-  { title: "Mock viva board", tag: "Serve", body: "Recorded interviews with retired officers, reviewed with you one-on-one.", tone: "from-[#0a382b] to-[#03150f]" },
+  { title: "Syllabus map", tag: "Discover", body: "Every compulsory and optional paper broken into weekly units you can tick off.", tone: "from-[#024d84] to-[#022b52]" },
+  { title: "Daily current affairs", tag: "Prepare", body: "A ten-minute brief each morning, linked to the papers it will help you answer.", tone: "from-[#a8742c] to-[#5a3d14]" },
+  { title: "Essay & précis clinic", tag: "Prepare", body: "Fifteen essays, each returned with line-by-line remarks and a rewrite session.", tone: "from-[#376c92] to-[#0f3254]" },
+  { title: "Mock MPT", tag: "Compete", body: "Timed computer-based screening tests with topic-wise explanations.", tone: "from-[#1b3150] to-[#0a1a2e]" },
+  { title: "Hall-condition papers", tag: "Compete", body: "Full written papers every Saturday, under real time limits and invigilation.", tone: "from-[#5f89a6] to-[#24496a]" },
+  { title: "Mock viva board", tag: "Serve", body: "Recorded interviews with retired officers, reviewed with you one-on-one.", tone: "from-[#023b6b] to-[#011a33]" },
 ];

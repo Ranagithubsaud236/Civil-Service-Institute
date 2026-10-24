@@ -5,7 +5,7 @@ import { Logo } from "@/components/ui/Logo";
 
 export function Footer() {
   return (
-    <footer data-theme="dark" className="bg-forest-950 text-ivory/60">
+    <footer data-theme="dark" className="bg-navy-950 text-ivory/60">
       <div className="container-page pt-20 pb-10">
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-[1.4fr_1fr_1.2fr_1.4fr] lg:gap-12">
           <div className="col-span-2 lg:col-span-1">
@@ -28,10 +28,10 @@ export function Footer() {
           </FooterCol>
 
           <FooterCol title="Contact" className="col-span-2 lg:col-span-1">
-            <li className="flex gap-3"><MapPin className="mt-0.5 size-4 shrink-0 text-brass-light/60" />{site.address}</li>
-            <li className="flex gap-3"><Phone className="mt-0.5 size-4 shrink-0 text-brass-light/60" />{site.phone}</li>
-            <li className="flex gap-3"><Mail className="mt-0.5 size-4 shrink-0 text-brass-light/60" />{site.email}</li>
-            <li className="flex gap-3"><Clock className="mt-0.5 size-4 shrink-0 text-brass-light/60" />{site.hours}</li>
+            <li className="flex gap-3"><MapPin className="mt-0.5 size-4 shrink-0 text-gold-light/60" />{site.address}</li>
+            <li className="flex gap-3"><Phone className="mt-0.5 size-4 shrink-0 text-gold-light/60" />{site.phone}</li>
+            <li className="flex gap-3"><Mail className="mt-0.5 size-4 shrink-0 text-gold-light/60" />{site.email}</li>
+            <li className="flex gap-3"><Clock className="mt-0.5 size-4 shrink-0 text-gold-light/60" />{site.hours}</li>
           </FooterCol>
         </div>
 
@@ -57,7 +57,7 @@ function FooterCol({ title, children, className }: { title: string; children: Re
 function FooterItem({ children }: { children: React.ReactNode }) {
   return (
     <li>
-      <button type="button" className="text-left transition-colors duration-200 hover:text-brass-light">{children}</button>
+      <button type="button" className="text-left transition-colors duration-200 hover:text-gold-light">{children}</button>
     </li>
   );
 }

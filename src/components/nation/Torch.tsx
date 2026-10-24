@@ -18,7 +18,7 @@ function Grid({ bright }: { bright?: boolean }) {
     <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
       {qualities.map((q) => (
         <div key={q.word}>
-          <p lang="ur" className={bright ? "font-urdu text-2xl text-brass-light" : "font-urdu text-2xl text-ivory/[0.07]"}>{q.urdu}</p>
+          <p lang="ur" className={bright ? "font-urdu text-2xl text-gold-light" : "font-urdu text-2xl text-ivory/[0.07]"}>{q.urdu}</p>
           <p className={bright ? "font-display text-6xl tracking-tight text-ivory sm:text-7xl" : "font-display text-6xl tracking-tight text-ivory/[0.07] sm:text-7xl"}>{q.word}</p>
           <p className={bright ? "mt-2 text-ivory/75" : "mt-2 text-ivory/[0.05]"}>{q.line}</p>
         </div>
@@ -74,9 +74,9 @@ export function Torch() {
   }, [reduce]);
 
   return (
-    <section id="torch" data-theme="dark" className="bg-forest-950 py-24 text-ivory lg:py-32">
+    <section id="torch" data-theme="dark" className="bg-navy-950 py-24 text-ivory lg:py-32">
       <div className="container-page">
-        <p className="eyebrow text-brass-light">
+        <p className="eyebrow text-gold-light">
           <Scramble text="What the commission looks for" />
         </p>
         <h2 className="mt-4 max-w-2xl font-display text-4xl leading-[1.06] tracking-tight md:text-[3.4rem]">Some qualities only show when you shine a light on them.</h2>
@@ -98,7 +98,7 @@ export function Torch() {
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0 mix-blend-screen"
-            style={{ background: "radial-gradient(circle calc(var(--r) * 0.9) at var(--x, 50%) var(--y, 50%), rgba(213,182,120,0.16), transparent 70%)" }}
+            style={{ background: "radial-gradient(circle calc(var(--r) * 0.9) at var(--x, 50%) var(--y, 50%), rgba(206,151,68,0.16), transparent 70%)" }}
           />
         </div>
       </div>

@@ -28,8 +28,8 @@ function Row({ base, items, outline }: { base: number; items: string[]; outline?
   return (
     <motion.div style={{ x: pos, skewX: reduce ? 0 : skewX }} className="flex w-max gap-10 whitespace-nowrap">
       {[...items, ...items].map((g, i) => (
-        <span key={i} className={outline ? "font-display text-5xl tracking-tight text-transparent [-webkit-text-stroke:1px_rgba(213,182,120,0.6)] sm:text-7xl" : "font-display text-5xl tracking-tight text-ivory sm:text-7xl"}>
-          {g} <span className="text-brass-light">✦</span>
+        <span key={i} className={outline ? "font-display text-5xl tracking-tight text-transparent [-webkit-text-stroke:1px_rgba(206,151,68,0.6)] sm:text-7xl" : "font-display text-5xl tracking-tight text-ivory sm:text-7xl"}>
+          {g} <span className="text-gold-light">✦</span>
         </span>
       ))}
     </motion.div>
@@ -39,7 +39,7 @@ function Row({ base, items, outline }: { base: number; items: string[]; outline?
 /** Twelve occupational groups streaming past — the faster you scroll, the faster they fly. */
 export function VelocityMarquee() {
   return (
-    <section data-theme="dark" aria-label="CSS occupational groups" className="overflow-hidden bg-forest-950 py-12 sm:py-16">
+    <section data-theme="dark" aria-label="CSS occupational groups" className="overflow-hidden bg-navy-950 py-12 sm:py-16">
       <div className="flex flex-col gap-4 sm:gap-6">
         <Row base={-2.2} items={groups.slice(0, 6)} />
         <Row base={2.2} items={groups.slice(6)} outline />

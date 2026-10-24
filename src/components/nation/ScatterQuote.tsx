@@ -76,10 +76,10 @@ export function ScatterQuote() {
 
   let n = 0;
   return (
-    <section data-theme="dark" className="overflow-hidden bg-forest-900 py-28 text-ivory lg:py-40">
+    <section data-theme="dark" className="overflow-hidden bg-navy-900 py-28 text-ivory lg:py-40">
       <div className="container-page">
         <div ref={box} data-cursor={fine ? "Scatter" : undefined} className="relative mx-auto max-w-5xl text-center">
-          <span aria-hidden className="block font-display text-8xl leading-none text-brass-light/40">“</span>
+          <span aria-hidden className="block font-display text-8xl leading-none text-gold-light/40">“</span>
           <p aria-label={quote} className="-mt-6 font-display text-[2.1rem] leading-[1.25] tracking-tight sm:text-5xl lg:text-[3.6rem]">
             {words.map((w, wi) => (
               <span key={wi} aria-hidden className="inline-block whitespace-nowrap">
@@ -95,7 +95,7 @@ export function ScatterQuote() {
               </span>
             ))}
           </p>
-          <p className="mt-10 text-sm tracking-[0.2em] text-brass-light uppercase">Quaid-e-Azam Muhammad Ali Jinnah</p>
+          <p className="mt-10 text-sm tracking-[0.2em] text-gold-light uppercase">Quaid-e-Azam Muhammad Ali Jinnah</p>
           {fine && <p className="mt-2 text-xs text-ivory/35">Move your cursor through the words</p>}
         </div>
       </div>

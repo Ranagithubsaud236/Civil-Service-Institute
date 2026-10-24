@@ -56,20 +56,20 @@ export function IntroProvider({ children }: { children: React.ReactNode }) {
             exit={{ clipPath: "inset(0 0 100% 0)" }}
             transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
             style={{ clipPath: "inset(0 0 0% 0)" }}
-            className="fixed inset-0 z-[70] grid place-items-center bg-forest-950 text-ivory"
+            className="fixed inset-0 z-[70] grid place-items-center bg-navy-950 text-ivory"
           >
             <div className="flex flex-col items-center text-center">
               <motion.div initial={{ scale: 0.6, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
                 <Crest size={72} />
               </motion.div>
-              <motion.p lang="ur" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.8 }} className="mt-8 font-urdu text-4xl leading-loose text-brass-light">
+              <motion.p lang="ur" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.8 }} className="mt-8 font-urdu text-4xl leading-loose text-gold-light">
                 خوش آمدید
               </motion.p>
               <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-1 text-xs tracking-[0.3em] text-ivory/50 uppercase">
                 Civil Services Institute
               </motion.p>
               <div className="mt-10 h-px w-48 overflow-hidden bg-ivory/10">
-                <motion.div className="h-full origin-left bg-brass-light" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.7, ease: [0.65, 0, 0.35, 1] }} />
+                <motion.div className="h-full origin-left bg-gold-light" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.7, ease: [0.65, 0, 0.35, 1] }} />
               </div>
               <motion.span className="mt-4 font-display text-sm tabular-nums text-ivory/45">{shown}</motion.span>
             </div>

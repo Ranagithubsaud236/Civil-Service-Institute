@@ -92,12 +92,12 @@ export function Quiz() {
       <div className="container-page grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
         <Heading eyebrow="Find your fit" title="Which service suits you?" intro="Four quick questions. No right answers — just a first hint at where your instincts might take you." />
 
-        <div className="relative min-h-[26rem] overflow-hidden rounded-[28px] bg-forest-900 p-7 text-ivory sm:p-10">
+        <div className="relative min-h-[26rem] overflow-hidden rounded-[28px] bg-navy-900 p-7 text-ivory sm:p-10">
           {/* progress */}
           <div className="mb-8 flex items-center justify-between">
             <div className="flex gap-1.5">
               {questions.map((_, i) => (
-                <span key={i} className={cn("h-1 rounded-full transition-all duration-500", i < step ? "w-8 bg-brass-light" : i === step ? "w-8 bg-ivory/40" : "w-4 bg-ivory/15")} />
+                <span key={i} className={cn("h-1 rounded-full transition-all duration-500", i < step ? "w-8 bg-gold-light" : i === step ? "w-8 bg-ivory/40" : "w-4 bg-ivory/15")} />
               ))}
             </div>
             {step > 0 && !done && (
@@ -122,7 +122,7 @@ export function Quiz() {
                       onClick={() => choose(i)}
                       className={cn(
                         "group flex items-center justify-between rounded-2xl px-5 py-4 text-left ring-1 transition-all duration-200",
-                        answers[step] === i ? "bg-brass-light text-forest-950 ring-brass-light" : "bg-ivory/[0.04] ring-ivory/10 hover:bg-ivory/[0.09] hover:ring-ivory/30",
+                        answers[step] === i ? "bg-gold-light text-navy-950 ring-gold-light" : "bg-ivory/[0.04] ring-ivory/10 hover:bg-ivory/[0.09] hover:ring-ivory/30",
                       )}
                     >
                       <span>{o.label}</span>
@@ -137,7 +137,7 @@ export function Quiz() {
                   {burst.map((b, i) => (
                     <motion.span
                       key={i}
-                      className="absolute rounded-full bg-brass-light"
+                      className="absolute rounded-full bg-gold-light"
                       style={{ width: b.s, height: b.s }}
                       initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
                       animate={{ x: b.x, y: b.y, opacity: 0, scale: 0.4 }}
@@ -145,8 +145,8 @@ export function Quiz() {
                     />
                   ))}
                 </div>
-                <p className="text-xs tracking-[0.2em] text-brass-light uppercase">Your closest match</p>
-                <p lang="ur" className="mt-4 font-urdu text-3xl leading-loose text-brass-light/80">{results[best].urdu}</p>
+                <p className="text-xs tracking-[0.2em] text-gold-light uppercase">Your closest match</p>
+                <p lang="ur" className="mt-4 font-urdu text-3xl leading-loose text-gold-light/80">{results[best].urdu}</p>
                 <h3 className="mt-1 font-display text-4xl leading-tight tracking-tight">{results[best].name}</h3>
                 <p className="mx-auto mt-4 max-w-md leading-relaxed text-ivory/70">{results[best].body}</p>
                 <button onClick={restart} className="mt-8 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm ring-1 ring-ivory/25 transition-colors hover:bg-ivory/10">

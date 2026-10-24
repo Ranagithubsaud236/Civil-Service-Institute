@@ -41,7 +41,7 @@ function Note({ at, children, tone = "red" }: { at: number; children: React.Reac
   const ink = useInk(at, 0.08);
   const clip = useTransform(ink, (v) => `inset(0 ${100 - v * 100}% 0 0)`);
   return (
-    <motion.p style={{ clipPath: clip }} className={cn("font-hand text-[1.55rem] leading-tight -rotate-2", tone === "good" ? "text-forest-700" : "text-redpen")}>
+    <motion.p style={{ clipPath: clip }} className={cn("font-hand text-[1.55rem] leading-tight -rotate-2", tone === "good" ? "text-navy-700" : "text-redpen")}>
       {children}
     </motion.p>
   );
@@ -68,8 +68,8 @@ export function RedPen() {
         <Progress.Provider value={p}>
           <div ref={ref} className="relative">
             {/* answer-sheet paper: ruled lines and a red margin */}
-            <div className="relative overflow-hidden rounded-[22px] bg-paper p-6 shadow-[0_30px_60px_-30px_rgba(19,33,26,0.35)] ring-1 ring-line sm:p-10">
-              <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(to_bottom,transparent_0_43px,rgba(19,33,26,0.07)_43px_44px)]" />
+            <div className="relative overflow-hidden rounded-[22px] bg-paper p-6 shadow-[0_30px_60px_-30px_rgba(14,28,46,0.35)] ring-1 ring-line sm:p-10">
+              <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(to_bottom,transparent_0_43px,rgba(14,28,46,0.07)_43px_44px)]" />
               <div className="pointer-events-none absolute inset-y-0 left-10 w-px bg-redpen/30 sm:left-14" />
 
               <p className="relative pl-6 text-xs tracking-[0.2em] text-ink-mute uppercase sm:pl-8">Essay · Climate change and governance in Pakistan</p>

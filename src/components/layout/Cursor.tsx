@@ -7,7 +7,7 @@ import { useFinePointer } from "@/lib/useFinePointer";
 const interactive = "a, button, [role=button], [role=tab], input, select, label, [data-cursor]";
 
 /**
- * A brass ring that trails the pointer, swells over anything interactive and shows a short
+ * A gold ring that trails the pointer, swells over anything interactive and shows a short
  * label where an element asks for one (data-cursor="Drag"). Mouse devices only; the native
  * cursor stays visible for accessibility.
  */
@@ -55,18 +55,18 @@ export function Cursor() {
         <motion.div
           animate={{ width: size, height: size, scale: down ? 0.85 : 1 }}
           transition={{ type: "spring", stiffness: 380, damping: 28 }}
-          className={`grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-brass-light/80 transition-colors duration-200 ${label ? "bg-brass-light" : "bg-brass-light/10"}`}
+          className={`grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-gold-light/80 transition-colors duration-200 ${label ? "bg-gold-light" : "bg-gold-light/10"}`}
         >
           <AnimatePresence>
             {label && (
-              <motion.span initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.6 }} className="text-[11px] font-semibold tracking-wide whitespace-nowrap text-forest-950">
+              <motion.span initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.6 }} className="text-[11px] font-semibold tracking-wide whitespace-nowrap text-navy-950">
                 {label}
               </motion.span>
             )}
           </AnimatePresence>
         </motion.div>
       </motion.div>
-      <motion.div style={{ x, y }} className="absolute top-0 left-0 size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brass" />
+      <motion.div style={{ x, y }} className="absolute top-0 left-0 size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold" />
     </div>
   );
 }

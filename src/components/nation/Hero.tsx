@@ -71,13 +71,13 @@ export function Hero() {
       <motion.div
         data-theme="dark"
         style={{ scale: stageScale, borderBottomLeftRadius: stageRadius, borderBottomRightRadius: stageRadius }}
-        className="relative isolate flex min-h-[100svh] origin-top items-center overflow-hidden bg-forest-950 pt-28 pb-[30vh] text-ivory"
+        className="relative isolate flex min-h-[100svh] origin-top items-center overflow-hidden bg-navy-950 pt-28 pb-[30vh] text-ivory"
       >
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_70%_60%_at_70%_30%,rgba(15,74,57,0.8),transparent_70%)]" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_70%_60%_at_70%_30%,rgba(2,77,132,0.8),transparent_70%)]" />
         {/* remounted when the opening curtain lifts, so the whole sequence plays in view */}
         <Fragment key={ready ? "go" : "wait"}>
         <motion.div style={{ y: contourY }} className="absolute inset-0 -z-10">
-          <motion.div style={{ x: contourX, y: contourPY }} className="absolute -inset-10 text-brass-light/25">
+          <motion.div style={{ x: contourX, y: contourPY }} className="absolute -inset-10 text-gold-light/25">
             <Contours cx={1080} cy={300} count={14} className="absolute inset-0 size-full" />
             <Contours cx={160} cy={760} count={7} start={40} step={38} delay={0.6} className="absolute inset-0 size-full" />
           </motion.div>
@@ -89,22 +89,22 @@ export function Hero() {
             initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 2.4, delay: 1.2, ease }}
-            className="size-56 rounded-full bg-[radial-gradient(circle,rgba(242,205,130,0.55)_0%,rgba(213,182,120,0.18)_38%,transparent_68%)] sm:size-80"
+            className="size-56 rounded-full bg-[radial-gradient(circle,rgba(240,194,122,0.55)_0%,rgba(206,151,68,0.18)_38%,transparent_68%)] sm:size-80"
           >
-            <motion.div animate={reduce ? undefined : { scale: [1, 1.06, 1] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} className="absolute inset-[36%] rounded-full bg-[#f2cd82]/70 blur-sm" />
+            <motion.div animate={reduce ? undefined : { scale: [1, 1.06, 1] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} className="absolute inset-[36%] rounded-full bg-[#f0c27a]/70 blur-sm" />
           </motion.div>
         </motion.div>
 
         <motion.div style={{ y: textY, opacity: textOpacity }} className="container-page w-full [perspective:1200px]">
           <motion.div style={{ rotateX: tiltX, rotateY: tiltY }}>
             <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.8, ease }} className="flex flex-wrap items-center gap-x-4 gap-y-1">
-              <span className="eyebrow text-brass-light">From aspirant to nation builder</span>
+              <span className="eyebrow text-gold-light">From aspirant to nation builder</span>
               <span lang="ur" dir="rtl" className="font-urdu text-lg leading-loose text-ivory/45">قوم کی خدمت</span>
             </motion.p>
 
             <h1 className="relative mt-6 max-w-4xl font-display text-[3.1rem] leading-[1.02] tracking-[-0.02em] sm:text-7xl lg:text-[6.2rem]">
               {/* the gold line travels across, unveiling each line of the headline behind it */}
-              {["Be the change", <>you want to <em className="text-brass-light">see.</em></>].map((line, i) => (
+              {["Be the change", <>you want to <em className="text-gold-light">see.</em></>].map((line, i) => (
                 <span key={i} className="relative block">
                   <motion.span
                     className="block"
@@ -116,7 +116,7 @@ export function Hero() {
                   </motion.span>
                   <motion.span
                     aria-hidden
-                    className="absolute bottom-[0.12em] left-0 h-px w-full origin-left bg-brass-light shadow-[0_0_12px_rgba(213,182,120,0.9)]"
+                    className="absolute bottom-[0.12em] left-0 h-px w-full origin-left bg-gold-light shadow-[0_0_12px_rgba(206,151,68,0.9)]"
                     initial={{ scaleX: 0, opacity: 1 }}
                     animate={{ scaleX: 1, opacity: 0 }}
                     transition={{ scaleX: { duration: 1.3, delay: 0.5 + i * 0.35, ease: [0.65, 0, 0.35, 1] }, opacity: { duration: 0.6, delay: 1.9 + i * 0.35 } }}
@@ -142,7 +142,7 @@ export function Hero() {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3 }} className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-[11px] tracking-[0.2em] text-ivory/55 uppercase sm:flex">
           Scroll to unfold
           <span className="relative h-12 w-px overflow-hidden bg-ivory/15">
-            <motion.span style={{ scaleY: indicator }} className="absolute inset-0 origin-top bg-brass-light" />
+            <motion.span style={{ scaleY: indicator }} className="absolute inset-0 origin-top bg-gold-light" />
             <motion.span className="absolute inset-x-0 top-0 h-1/3 bg-ivory/70" animate={reduce ? undefined : { y: ["-100%", "300%"] }} transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }} />
           </span>
         </motion.div>

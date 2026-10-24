@@ -93,15 +93,15 @@ export function MemoryGame() {
                 <button key={id} onClick={() => flip(c)} aria-label={shown ? c.face : "Hidden card"} className="aspect-[4/3] [perspective:900px]" data-cursor={shown ? undefined : "Flip"}>
                   <motion.span animate={{ rotateY: shown ? 180 : 0 }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }} className="relative block size-full [transform-style:preserve-3d]">
                     {/* back */}
-                    <span className="absolute inset-0 grid place-items-center rounded-2xl bg-forest-800 text-brass-light ring-1 ring-forest-700 [backface-visibility:hidden]">
+                    <span className="absolute inset-0 grid place-items-center rounded-2xl bg-navy-800 text-gold-light ring-1 ring-navy-700 [backface-visibility:hidden]">
                       <Scale className="size-7 opacity-70" />
-                      <span className="absolute inset-2 rounded-xl border border-brass-light/20" />
+                      <span className="absolute inset-2 rounded-xl border border-gold-light/20" />
                     </span>
                     {/* face */}
                     <span
                       className={cn(
                         "absolute inset-0 grid place-items-center rounded-2xl p-3 text-center ring-1 [backface-visibility:hidden] [transform:rotateY(180deg)]",
-                        done ? "bg-brass-light text-forest-950 ring-brass" : "bg-ivory text-ink ring-line",
+                        done ? "bg-gold-light text-navy-950 ring-gold" : "bg-ivory text-ink ring-line",
                       )}
                     >
                       <span className={c.kind === "article" ? "font-display text-xl sm:text-2xl" : "text-xs leading-snug sm:text-sm"}>{c.face}</span>
@@ -113,11 +113,11 @@ export function MemoryGame() {
           </div>
 
           {won && (
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ type: "spring", stiffness: 200, damping: 18 }} className="absolute inset-0 grid place-items-center rounded-3xl bg-forest-900/92 text-center text-ivory backdrop-blur-sm">
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ type: "spring", stiffness: 200, damping: 18 }} className="absolute inset-0 grid place-items-center rounded-3xl bg-navy-900/92 text-center text-ivory backdrop-blur-sm">
               <div>
                 <p className="font-display text-5xl tracking-tight">All six matched.</p>
                 <p className="mt-3 text-ivory/70">{moves} moves in {seconds} seconds{moves <= 8 ? " — a constitutional scholar in the making." : "."}</p>
-                <button onClick={reset} className="mt-6 inline-flex items-center gap-2 rounded-full bg-brass-light px-5 py-2.5 text-sm font-medium text-forest-950">
+                <button onClick={reset} className="mt-6 inline-flex items-center gap-2 rounded-full bg-gold-light px-5 py-2.5 text-sm font-medium text-navy-950">
                   <RotateCcw className="size-4" /> Play again
                 </button>
               </div>

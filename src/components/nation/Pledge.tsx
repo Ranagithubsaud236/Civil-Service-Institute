@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Eraser } from "lucide-react";
 import { Heading } from "./Heading";
 
-/** Sign a pledge with mouse or finger; sealing it brings down a brass stamp. */
+/** Sign a pledge with mouse or finger; sealing it brings down a gold stamp. */
 export function Pledge() {
   const canvas = useRef<HTMLCanvasElement>(null);
   const drawing = useRef(false);
@@ -26,7 +26,7 @@ export function Pledge() {
       ctx.scale(dpr, dpr);
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
-      ctx.strokeStyle = "#0a382b";
+      ctx.strokeStyle = "#023b6b";
     };
     fit();
     window.addEventListener("resize", fit);
@@ -79,7 +79,7 @@ export function Pledge() {
       <div className="container-page grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
         <Heading eyebrow="Make it official — to yourself" title="Sign your pledge." intro="Every officer takes an oath. Yours can start today. Sign with your mouse or finger, then seal it." />
 
-        <motion.div animate={sealed ? { x: [0, -6, 6, -3, 0] } : {}} transition={{ duration: 0.35, delay: 0.25 }} className="relative overflow-hidden rounded-[26px] bg-paper p-7 shadow-[0_30px_60px_-30px_rgba(19,33,26,0.35)] ring-1 ring-line sm:p-10">
+        <motion.div animate={sealed ? { x: [0, -6, 6, -3, 0] } : {}} transition={{ duration: 0.35, delay: 0.25 }} className="relative overflow-hidden rounded-[26px] bg-paper p-7 shadow-[0_30px_60px_-30px_rgba(14,28,46,0.35)] ring-1 ring-line sm:p-10">
           <p className="text-xs tracking-[0.2em] text-ink-mute uppercase">Pledge of preparation</p>
           <p className="mt-4 font-display text-2xl leading-snug text-ink sm:text-[1.7rem]">
             I will prepare with honesty, read with an open mind and, if I am chosen, serve every citizen without fear or favour.
@@ -107,7 +107,7 @@ export function Pledge() {
             <button
               onClick={seal}
               disabled={!inked || sealed}
-              className="sweep inline-flex h-11 items-center rounded-full bg-forest-800 px-6 text-sm font-medium text-ivory transition-all hover:bg-forest-900 disabled:cursor-not-allowed disabled:opacity-40"
+              className="sweep inline-flex h-11 items-center rounded-full bg-navy-800 px-6 text-sm font-medium text-ivory transition-all hover:bg-navy-900 disabled:cursor-not-allowed disabled:opacity-40"
             >
               {sealed ? "Sealed" : "Seal my pledge"}
             </button>
@@ -126,13 +126,13 @@ export function Pledge() {
                   <defs>
                     <path id="stamp-ring" d="M80 80 m -58 0 a 58 58 0 1 1 116 0 a 58 58 0 1 1 -116 0" />
                   </defs>
-                  <circle cx="80" cy="80" r="74" fill="none" stroke="#a07a3c" strokeWidth="4" />
-                  <circle cx="80" cy="80" r="44" fill="none" stroke="#a07a3c" strokeWidth="2" />
-                  <text className="fill-[#a07a3c] font-sans text-[13px] font-semibold tracking-[0.3em]">
+                  <circle cx="80" cy="80" r="74" fill="none" stroke="#a8742c" strokeWidth="4" />
+                  <circle cx="80" cy="80" r="44" fill="none" stroke="#a8742c" strokeWidth="2" />
+                  <text className="fill-[#a8742c] font-sans text-[13px] font-semibold tracking-[0.3em]">
                     <textPath href="#stamp-ring">CIVIL SERVICES INSTITUTE · PLEDGE ·</textPath>
                   </text>
-                  <text x="80" y="76" textAnchor="middle" className="fill-[#a07a3c] font-display text-[22px]">CSS</text>
-                  <text x="80" y="98" textAnchor="middle" className="fill-[#a07a3c] font-display text-[22px]">2027</text>
+                  <text x="80" y="76" textAnchor="middle" className="fill-[#a8742c] font-display text-[22px]">CSS</text>
+                  <text x="80" y="98" textAnchor="middle" className="fill-[#a8742c] font-display text-[22px]">2027</text>
                 </svg>
               </motion.div>
             )}

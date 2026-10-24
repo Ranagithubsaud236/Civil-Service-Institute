@@ -55,7 +55,7 @@ export function Navbar() {
         className={cn(
           "relative mx-auto flex max-w-[76rem] items-center justify-between overflow-hidden rounded-2xl px-3 py-2 transition-all duration-500 ease-out-soft sm:px-5 sm:py-2.5",
           !scrolled && !open && "bg-transparent",
-          (scrolled || open) && (dark ? "bg-forest-950/70 ring-1 ring-ivory/10 backdrop-blur-xl" : "bg-paper/85 shadow-[0_8px_30px_-12px_rgba(19,33,26,0.2)] ring-1 ring-line backdrop-blur-xl"),
+          (scrolled || open) && (dark ? "bg-navy-950/70 ring-1 ring-ivory/10 backdrop-blur-xl" : "bg-paper/85 shadow-[0_8px_30px_-12px_rgba(14,28,46,0.2)] ring-1 ring-line backdrop-blur-xl"),
         )}
       >
         <Logo light={dark} />
@@ -78,7 +78,7 @@ export function Navbar() {
                   <span
                     className={cn(
                       "absolute inset-x-3.5 bottom-1 h-px origin-center transition-transform duration-300 ease-out-soft",
-                      dark ? "bg-brass-light" : "bg-brass",
+                      dark ? "bg-gold-light" : "bg-gold",
                       active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100",
                     )}
                   />
@@ -89,7 +89,7 @@ export function Navbar() {
         </ul>
 
         <div className="hidden lg:block">
-          <Button href="#begin" variant={dark ? "brass" : "forest"} className="h-10 px-5">Begin your journey</Button>
+          <Button href="#begin" variant={dark ? "gold" : "navy"} className="h-10 px-5">Begin your journey</Button>
         </div>
 
         <button
@@ -108,7 +108,7 @@ export function Navbar() {
         <motion.span
           aria-hidden
           style={{ scaleX: progress }}
-          className={cn("absolute inset-x-0 bottom-0 h-0.5 origin-left transition-opacity duration-300", dark ? "bg-brass-light/80" : "bg-brass", scrolled ? "opacity-100" : "opacity-0")}
+          className={cn("absolute inset-x-0 bottom-0 h-0.5 origin-left transition-opacity duration-300", dark ? "bg-gold-light/80" : "bg-gold", scrolled ? "opacity-100" : "opacity-0")}
         />
       </nav>
 
@@ -121,7 +121,7 @@ export function Navbar() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={() => setOpen(false)}
-            className="fixed inset-0 -z-10 bg-forest-950/40 backdrop-blur-[2px] lg:hidden"
+            className="fixed inset-0 -z-10 bg-navy-950/40 backdrop-blur-[2px] lg:hidden"
           />
         )}
         {open && (
@@ -144,11 +144,11 @@ export function Navbar() {
                 className={cn("flex w-full items-center justify-between rounded-xl px-4 py-3.5 text-left text-base transition-colors hover:bg-ivory-200", label === "Home" ? "font-medium text-ink" : "text-ink-soft")}
               >
                 {label}
-                {label === "Home" && <span className="size-1.5 rounded-full bg-brass" />}
+                {label === "Home" && <span className="size-1.5 rounded-full bg-gold" />}
               </motion.button>
             ))}
             <div onClick={() => setOpen(false)}>
-              <Button href="#begin" variant="forest" className="mt-2 w-full justify-center">Begin your journey</Button>
+              <Button href="#begin" variant="navy" className="mt-2 w-full justify-center">Begin your journey</Button>
             </div>
           </motion.div>
         )}

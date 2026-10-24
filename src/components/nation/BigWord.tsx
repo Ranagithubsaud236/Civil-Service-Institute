@@ -20,17 +20,17 @@ export function BigWord({ word, urdu, dark }: Props) {
   const opacity = useTransform(p, [0, 0.35, 0.65, 1], [0.15, 1, 1, 0.15]);
 
   return (
-    <div ref={ref} data-theme={dark ? "dark" : "light"} aria-hidden className={cn("relative overflow-hidden py-10 select-none sm:py-14", dark ? "bg-forest-950" : "bg-ivory")}>
+    <div ref={ref} data-theme={dark ? "dark" : "light"} aria-hidden className={cn("relative overflow-hidden py-10 select-none sm:py-14", dark ? "bg-navy-950" : "bg-ivory")}>
       <motion.p
         style={{ x, opacity }}
         className={cn(
           "font-display text-[22vw] leading-[0.85] font-medium tracking-[-0.04em] whitespace-nowrap sm:text-[16vw]",
-          dark ? "text-transparent [-webkit-text-stroke:1px_rgba(213,182,120,0.45)]" : "text-transparent [-webkit-text-stroke:1px_rgba(10,56,43,0.35)]",
+          dark ? "text-transparent [-webkit-text-stroke:1px_rgba(206,151,68,0.45)]" : "text-transparent [-webkit-text-stroke:1px_rgba(2,59,107,0.35)]",
         )}
       >
         {word} · {word}
       </motion.p>
-      <motion.p style={{ x: xUrdu }} lang="ur" className={cn("-mt-2 text-right font-urdu text-5xl whitespace-nowrap sm:text-7xl", dark ? "text-brass-light/30" : "text-brass/40")}>
+      <motion.p style={{ x: xUrdu }} lang="ur" className={cn("-mt-2 text-right font-urdu text-5xl whitespace-nowrap sm:text-7xl", dark ? "text-gold-light/30" : "text-gold/40")}>
         {urdu} · {urdu} · {urdu}
       </motion.p>
     </div>

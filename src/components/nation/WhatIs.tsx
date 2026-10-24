@@ -32,13 +32,13 @@ export function WhatIs() {
 
   return (
     <section id="about" data-theme="light" className="grain relative isolate overflow-hidden py-28 lg:py-40">
-      <Parallax offset={{ base: 40, lg: 120 }} aria-hidden className="pointer-events-none absolute top-10 -right-6 -z-10 select-none font-urdu text-[9rem] leading-none text-forest-800/[0.05] sm:text-[14rem] lg:text-[18rem]">
+      <Parallax offset={{ base: 40, lg: 120 }} aria-hidden className="pointer-events-none absolute top-10 -right-6 -z-10 select-none font-urdu text-[9rem] leading-none text-navy-800/[0.05] sm:text-[14rem] lg:text-[18rem]">
         <span lang="ur">خدمت</span>
       </Parallax>
 
       <div className="container-page">
         <Reveal>
-          <p className="eyebrow text-brass">What is civil service?</p>
+          <p className="eyebrow text-gold">What is civil service?</p>
         </Reveal>
         <p ref={ref} className="mt-8 max-w-5xl font-display text-[2rem] leading-[1.18] tracking-tight text-ink sm:text-5xl lg:text-[3.6rem]">
           {words.map((w, i) => (
@@ -48,8 +48,8 @@ export function WhatIs() {
 
         <div className="mt-20 grid gap-px overflow-hidden rounded-3xl bg-line ring-1 ring-line md:grid-cols-3">
           {tiers.map((t, i) => (
-            <Reveal key={t.title} delay={i * 0.08} className="group bg-paper p-8 transition-colors duration-500 hover:bg-forest-900 lg:p-10">
-              <t.icon className="size-6 text-brass transition-colors duration-500 group-hover:text-brass-light" />
+            <Reveal key={t.title} delay={i * 0.08} className="group bg-paper p-8 transition-colors duration-500 hover:bg-navy-900 lg:p-10">
+              <t.icon className="size-6 text-gold transition-colors duration-500 group-hover:text-gold-light" />
               <h3 className="mt-8 font-display text-3xl tracking-tight text-ink transition-colors duration-500 group-hover:text-ivory">{t.title}</h3>
               <p className="mt-3 leading-relaxed text-ink-soft transition-colors duration-500 group-hover:text-ivory/70">{t.body}</p>
             </Reveal>

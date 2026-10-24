@@ -60,22 +60,22 @@ function After() {
       <Land after />
       {/* paved road with lane markings */}
       <path d="M330 450 L390 300 L430 300 L520 450 Z" fill="#4a4f52" />
-      <path d="M410 305 L412 330 M414 350 L417 380 M420 400 L424 440" stroke="#f6f0e3" strokeWidth="3" />
+      <path d="M410 305 L412 330 M414 350 L417 380 M420 400 L424 440" stroke="#f5f6f8" strokeWidth="3" />
       {/* rebuilt school */}
       <rect x="110" y="215" width="170" height="95" fill="#f1e6cf" />
-      <path d="M100 218 L195 172 L290 218 Z" fill="#0a382b" />
+      <path d="M100 218 L195 172 L290 218 Z" fill="#023b6b" />
       <rect x="130" y="240" width="30" height="26" fill="#9cc3d9" />
       <rect x="230" y="240" width="30" height="26" fill="#9cc3d9" />
-      <rect x="182" y="262" width="26" height="48" fill="#0f4a39" />
-      <text x="195" y="232" textAnchor="middle" className="fill-[#0a382b] font-sans text-[11px] font-semibold">SCHOOL</text>
+      <rect x="182" y="262" width="26" height="48" fill="#024d84" />
+      <text x="195" y="232" textAnchor="middle" className="fill-[#023b6b] font-sans text-[11px] font-semibold">SCHOOL</text>
       {/* clinic */}
-      <rect x="540" y="235" width="110" height="75" fill="#fbf8f1" />
-      <rect x="535" y="228" width="120" height="10" fill="#a07a3c" />
-      <path d="M595 252 V278 M582 265 H608" stroke="#1f7a5c" strokeWidth="6" />
+      <rect x="540" y="235" width="110" height="75" fill="#ffffff" />
+      <rect x="535" y="228" width="120" height="10" fill="#a8742c" />
+      <path d="M595 252 V278 M582 265 H608" stroke="#2a6fb0" strokeWidth="6" />
       <rect x="560" y="285" width="22" height="25" fill="#9cc3d9" />
       {/* water tank */}
-      <rect x="300" y="170" width="44" height="34" rx="4" fill="#d5b678" />
-      <path d="M306 204 L300 300 M338 204 L344 300" stroke="#a07a3c" strokeWidth="4" />
+      <rect x="300" y="170" width="44" height="34" rx="4" fill="#ce9744" />
+      <path d="M306 204 L300 300 M338 204 L344 300" stroke="#a8742c" strokeWidth="4" />
       {/* solar street lights */}
       {[360, 470].map((x) => (
         <g key={x}>
@@ -93,7 +93,7 @@ function After() {
           <circle cx={x - 12} cy={268 - i * 4} r={18} fill="#4d8c56" />
         </g>
       ))}
-      <text x="776" y="40" textAnchor="end" className="fill-[#0a382b] font-sans text-[18px] font-semibold tracking-[0.2em]">AFTER</text>
+      <text x="776" y="40" textAnchor="end" className="fill-[#023b6b] font-sans text-[18px] font-semibold tracking-[0.2em]">AFTER</text>
     </svg>
   );
 }
@@ -128,7 +128,7 @@ export function BeforeAfter() {
       <div
         ref={ref}
         data-cursor="Drag"
-        className="relative aspect-[4/3] cursor-ew-resize touch-pan-y overflow-hidden rounded-[26px] ring-1 ring-line select-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brass sm:aspect-[16/9]"
+        className="relative aspect-[4/3] cursor-ew-resize touch-pan-y overflow-hidden rounded-[26px] ring-1 ring-line select-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-gold sm:aspect-[16/9]"
         onPointerDown={(e) => {
           dragging.current = true;
           e.currentTarget.setPointerCapture(e.pointerId);
@@ -143,7 +143,7 @@ export function BeforeAfter() {
         </motion.div>
         <motion.div style={{ left }} className="pointer-events-none absolute inset-y-0 -translate-x-1/2">
           <div className="absolute inset-y-0 left-1/2 w-0.5 -translate-x-1/2 bg-ivory shadow-[0_0_12px_rgba(0,0,0,0.25)]" />
-          <div className="absolute top-1/2 left-1/2 grid size-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-ivory text-forest-800 shadow-lg ring-1 ring-line">
+          <div className="absolute top-1/2 left-1/2 grid size-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-ivory text-navy-800 shadow-lg ring-1 ring-line">
             <MoveHorizontal className="size-5" />
           </div>
         </motion.div>

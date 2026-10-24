@@ -5,7 +5,7 @@ import { site } from "@/data/site";
 /** Official CSI crest. The logo has a white background, so it sits inside a white disc. */
 export function Crest({ size = 44, className }: { size?: number; className?: string }) {
   return (
-    <span className={cn("relative inline-grid shrink-0 place-items-center overflow-hidden rounded-full bg-white ring-1 ring-brass/40", className)} style={{ width: size, height: size }}>
+    <span className={cn("relative inline-grid shrink-0 place-items-center overflow-hidden rounded-full bg-white ring-1 ring-gold/40", className)} style={{ width: size, height: size }}>
       <Image src="/logo-256.png" alt={`${site.name} crest`} width={size} height={size} className="scale-[1.06]" priority />
     </span>
   );

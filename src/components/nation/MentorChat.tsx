@@ -56,7 +56,7 @@ export function MentorChat() {
       <div className="container-page grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
         <Heading eyebrow="Ask a mentor" title="Questions every aspirant asks — answered in seconds." intro="Tap a question to hear how our mentors usually answer it. At the academy, you can ask them yourself." />
 
-        <div className="overflow-hidden rounded-[28px] bg-ivory ring-1 ring-line shadow-[0_30px_60px_-34px_rgba(19,33,26,0.4)]">
+        <div className="overflow-hidden rounded-[28px] bg-ivory ring-1 ring-line shadow-[0_30px_60px_-34px_rgba(14,28,46,0.4)]">
           <div className="flex items-center gap-3 border-b border-line bg-paper px-5 py-4">
             <Crest size={36} />
             <div className="leading-tight">
@@ -71,7 +71,7 @@ export function MentorChat() {
             <AnimatePresence initial={false}>
               {msgs.map((m, i) => (
                 <motion.div key={i} initial={{ opacity: 0, y: 10, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.25 }} className={cn("flex", m.from === "you" ? "justify-end" : "justify-start")}>
-                  <p className={cn("max-w-[85%] rounded-2xl px-4 py-3 text-[15px] leading-relaxed", m.from === "you" ? "rounded-br-md bg-forest-800 text-ivory" : "rounded-bl-md bg-paper text-ink ring-1 ring-line")}>
+                  <p className={cn("max-w-[85%] rounded-2xl px-4 py-3 text-[15px] leading-relaxed", m.from === "you" ? "rounded-br-md bg-navy-800 text-ivory" : "rounded-bl-md bg-paper text-ink ring-1 ring-line")}>
                     {m.text}
                     {m.from === "mentor" && i === msgs.length - 1 && m.text.length < (qa.find((x) => x.a.startsWith(m.text))?.a.length ?? 0) && <span className="ml-0.5 inline-block h-4 w-0.5 animate-pulse bg-ink/50 align-middle" />}
                   </p>
@@ -96,7 +96,7 @@ export function MentorChat() {
                   key={x.q}
                   onClick={() => ask(i)}
                   disabled={typing || asked.includes(i)}
-                  className="rounded-full bg-ivory px-3.5 py-2 text-left text-xs text-ink ring-1 ring-line transition-all duration-200 hover:ring-forest-700 disabled:cursor-default disabled:opacity-40"
+                  className="rounded-full bg-ivory px-3.5 py-2 text-left text-xs text-ink ring-1 ring-line transition-all duration-200 hover:ring-navy-700 disabled:cursor-default disabled:opacity-40"
                 >
                   {x.q}
                 </button>

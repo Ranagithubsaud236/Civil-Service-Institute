@@ -18,7 +18,7 @@ function Drop({ d, p }: { d: (typeof drops)[number]; p: MotionValue<number> }) {
 
 /**
  * Ink drops fall and merge into a rising pool until the page floods dark — a liquid hand-off
- * from the ivory stories into the deep green quote that follows. Entirely driven by the
+ * from the ivory stories into the deep navy quote that follows. Entirely driven by the
  * visitor's own scrolling, so it renders the same for everyone (no server/client mismatch).
  */
 export function InkFlood() {
@@ -43,7 +43,7 @@ export function InkFlood() {
               <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 34 -14" />
             </filter>
           </defs>
-          <g filter="url(#goo)" className="fill-forest-900">
+          <g filter="url(#goo)" className="fill-navy-900">
             {drops.map((d, i) => (
               <Drop key={i} d={d} p={p} />
             ))}
@@ -52,7 +52,7 @@ export function InkFlood() {
         </svg>
         <motion.div style={{ opacity: textOpacity }} className="absolute inset-0 grid place-items-center px-6 text-center">
           <p className="max-w-3xl font-display text-4xl leading-tight tracking-tight text-ivory sm:text-6xl">
-            Every officer was once an aspirant with a <em className="text-brass-light">blank page.</em>
+            Every officer was once an aspirant with a <em className="text-gold-light">blank page.</em>
           </p>
         </motion.div>
       </div>

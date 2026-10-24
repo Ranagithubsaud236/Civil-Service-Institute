@@ -19,8 +19,8 @@ const CARD_HALF = 132;
 const HOLD = 0.5;
 // N − 1 morphs plus a final hold, so the last province gets its moment too
 const SPAN = N - 1 + HOLD;
-// a slightly different green behind each province
-const tints = ["#0a382b", "#0b3a3a", "#0d3a2a", "#2a3220", "#0c3442", "#123d30"];
+// a slightly different blue behind each province
+const tints = ["#023b6b", "#033a63", "#0a3560", "#14304f", "#06406e", "#0b3d66"];
 
 const rand = (n: number) => ((Math.sin(n * 12.9898 + 4.1414) * 43758.5453) % 1 + 1) % 1;
 const smooth = (t: number) => t * t * (3 - 2 * t);
@@ -151,17 +151,17 @@ export function ProvinceStory() {
   return (
     <section ref={ref} id="provinces" data-theme="dark" className="relative text-ivory" style={{ height: `${N * 100 + 60}vh` }}>
       <motion.div style={{ backgroundColor: bg }} className="sticky top-0 flex h-[100svh] flex-col overflow-hidden pt-24 pb-6 lg:pt-28">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_50%_55%,rgba(31,122,92,0.28),transparent_70%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_50%_55%,rgba(42,111,176,0.28),transparent_70%)]" />
 
         <div className="container-page relative flex w-full items-end justify-between gap-6">
           <div className="min-h-[7.5rem] sm:min-h-[8.5rem]">
-            <p className="eyebrow text-brass-light">One country · {N} administrations</p>
+            <p className="eyebrow text-gold-light">One country · {N} administrations</p>
             <div className="relative mt-3 overflow-hidden">
               <AnimatePresence mode="popLayout" initial={false}>
                 <motion.div key={prov.name} initial={{ y: "100%", opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: "-100%", opacity: 0 }} transition={{ duration: 0.55, ease }}>
                   <h2 className="flex flex-wrap items-baseline gap-x-4 font-display text-4xl tracking-tight sm:text-6xl">
                     {prov.name}
-                    <span lang="ur" className="font-urdu text-2xl text-brass-light/70 sm:text-3xl">{prov.urdu}</span>
+                    <span lang="ur" className="font-urdu text-2xl text-gold-light/70 sm:text-3xl">{prov.urdu}</span>
                   </h2>
                   <p className="mt-2 max-w-xl text-sm text-ivory/60 sm:text-base">{prov.line}</p>
                 </motion.div>
@@ -182,11 +182,11 @@ export function ProvinceStory() {
             <div className="relative">
               <svg viewBox="0 0 160 160" className="size-32" aria-hidden>
                 {mini.map((d, k) => (
-                  <path key={k} d={d} className="transition-[fill,stroke] duration-500" fill={k === i ? "#d5b678" : "rgba(246,240,227,0.06)"} stroke={k === i ? "#d5b678" : "rgba(246,240,227,0.25)"} strokeWidth={0.8} strokeLinejoin="round" />
+                  <path key={k} d={d} className="transition-[fill,stroke] duration-500" fill={k === i ? "#ce9744" : "rgba(245,246,248,0.06)"} stroke={k === i ? "#ce9744" : "rgba(245,246,248,0.25)"} strokeWidth={0.8} strokeLinejoin="round" />
                 ))}
               </svg>
               <p className="mt-1 text-center font-display text-sm tabular-nums text-ivory/60">
-                <span className="text-brass-light">{String(i + 1).padStart(2, "0")}</span> / {String(N).padStart(2, "0")}
+                <span className="text-gold-light">{String(i + 1).padStart(2, "0")}</span> / {String(N).padStart(2, "0")}
               </p>
             </div>
           </div>
@@ -197,9 +197,9 @@ export function ProvinceStory() {
             <svg viewBox="0 0 1000 640" className="absolute inset-0 size-full" role="img" aria-label={`Illustrated map of ${prov.name} with key posts`}>
               {/* the dots, positioned every frame from the scroll */}
               {shapes[0].dots.map(([x, y], k) => (
-                <circle key={k} ref={(el) => { dotEls.current[k] = el; }} r={2.3} fill="#d5b678" opacity={0.78} transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`} />
+                <circle key={k} ref={(el) => { dotEls.current[k] = el; }} r={2.3} fill="#ce9744" opacity={0.78} transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`} />
               ))}
-              <path ref={outline} d={toPath(shapes[0].ring)} fill="rgba(15,74,57,0.35)" stroke="#d5b678" strokeWidth={1.6} strokeLinejoin="round" style={{ filter: "drop-shadow(0 0 8px rgba(213,182,120,0.35))" }} />
+              <path ref={outline} d={toPath(shapes[0].ring)} fill="rgba(2,77,132,0.35)" stroke="#ce9744" strokeWidth={1.6} strokeLinejoin="round" style={{ filter: "drop-shadow(0 0 8px rgba(206,151,68,0.35))" }} />
 
               {/* lines from each post card to its place on the map */}
               <motion.g style={{ opacity: postsVisible }} className="hidden lg:inline">
@@ -209,8 +209,8 @@ export function ProvinceStory() {
                     const midX = (fromX + s.at[0]) / 2;
                     return (
                       <motion.g key={`${prov.name}-${k}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: 0.15 } }}>
-                        <motion.path d={`M${fromX} ${s.y} C${midX} ${s.y} ${midX} ${s.at[1]} ${s.at[0]} ${s.at[1]}`} fill="none" stroke="#d5b678" strokeOpacity={0.55} strokeWidth={1} strokeDasharray="3 4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.7, delay: 0.15 + k * 0.06, ease }} />
-                        <motion.circle cx={s.at[0]} cy={s.at[1]} r={5} fill="#f6f0e3" stroke="#062820" strokeWidth={2} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.5 + k * 0.06, type: "spring", stiffness: 300, damping: 16 }} style={{ transformOrigin: `${s.at[0]}px ${s.at[1]}px` }} />
+                        <motion.path d={`M${fromX} ${s.y} C${midX} ${s.y} ${midX} ${s.at[1]} ${s.at[0]} ${s.at[1]}`} fill="none" stroke="#ce9744" strokeOpacity={0.55} strokeWidth={1} strokeDasharray="3 4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.7, delay: 0.15 + k * 0.06, ease }} />
+                        <motion.circle cx={s.at[0]} cy={s.at[1]} r={5} fill="#f5f6f8" stroke="#022b52" strokeWidth={2} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.5 + k * 0.06, type: "spring", stiffness: 300, damping: 16 }} style={{ transformOrigin: `${s.at[0]}px ${s.at[1]}px` }} />
                       </motion.g>
                     );
                   })}
@@ -243,7 +243,7 @@ export function ProvinceStory() {
             <AnimatePresence mode="wait">
               <motion.ul key={prov.name} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="grid grid-cols-2 gap-2">
                 {prov.posts.slice(0, 4).map((post) => (
-                  <li key={post.title + post.place} className="rounded-xl bg-forest-950/60 px-3 py-2 ring-1 ring-ivory/10">
+                  <li key={post.title + post.place} className="rounded-xl bg-navy-950/60 px-3 py-2 ring-1 ring-ivory/10">
                     <p className="text-xs leading-tight font-medium">{post.title}</p>
                     <p className="mt-0.5 text-[11px] text-ivory/50">{post.place}</p>
                   </li>
@@ -256,7 +256,7 @@ export function ProvinceStory() {
         {/* province rail: a continuous progress line, and names to jump between */}
         <div className="container-page relative mt-4 w-full">
           <div className="relative h-px bg-ivory/15">
-            <motion.div style={{ scaleX: p }} className="absolute inset-0 origin-left bg-brass-light" />
+            <motion.div style={{ scaleX: p }} className="absolute inset-0 origin-left bg-gold-light" />
           </div>
           <div className="mt-3 grid grid-cols-6 gap-2">
             {provinces.map((q, n) => (
@@ -277,8 +277,8 @@ export function ProvinceStory() {
 
 function PostCard({ post, align }: { post: Post; align: "left" | "right" }) {
   return (
-    <div className={cn("flex items-center gap-3 rounded-2xl bg-forest-950/70 p-3 ring-1 ring-ivory/10 backdrop-blur", align === "right" && "flex-row-reverse text-right")}>
-      <span className="grid size-10 shrink-0 place-items-center rounded-full bg-brass-light/15 text-brass-light ring-1 ring-brass-light/30">
+    <div className={cn("flex items-center gap-3 rounded-2xl bg-navy-950/70 p-3 ring-1 ring-ivory/10 backdrop-blur", align === "right" && "flex-row-reverse text-right")}>
+      <span className="grid size-10 shrink-0 place-items-center rounded-full bg-gold-light/15 text-gold-light ring-1 ring-gold-light/30">
         <UserRound className="size-5" />
       </span>
       <span className="min-w-0">

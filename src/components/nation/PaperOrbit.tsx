@@ -27,7 +27,7 @@ export function PaperOrbit() {
   const paused = active !== null;
 
   return (
-    <section id="orbit" data-theme="dark" className="overflow-hidden bg-forest-950 py-24 text-ivory lg:py-32">
+    <section id="orbit" data-theme="dark" className="overflow-hidden bg-navy-950 py-24 text-ivory lg:py-32">
       <div className="container-page grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr]">
         <div>
           <Heading dark eyebrow="Six compulsory papers" title="Everything orbits the 600 marks you can't skip." intro="Hover or tap a planet to stop the system and read about the paper." />
@@ -35,7 +35,7 @@ export function PaperOrbit() {
             <AnimatePresence mode="wait">
               {active !== null ? (
                 <motion.div key={active} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3 }}>
-                  <p className="text-sm text-brass-light">100 marks</p>
+                  <p className="text-sm text-gold-light">100 marks</p>
                   <h3 className="mt-1 font-display text-3xl tracking-tight">{papers[active].name}</h3>
                   <p className="mt-3 max-w-md leading-relaxed text-ivory/70">{papers[active].body}</p>
                 </motion.div>
@@ -50,7 +50,7 @@ export function PaperOrbit() {
 
         <div className="relative mx-auto aspect-square w-full max-w-[560px]" onMouseLeave={() => setActive(null)}>
           {/* the sun */}
-          <div className="absolute top-1/2 left-1/2 grid size-[24%] -translate-1/2 place-items-center rounded-full bg-[radial-gradient(circle,#f2cd82,#a07a3c)] text-center text-forest-950 shadow-[0_0_80px_20px_rgba(213,182,120,0.35)]">
+          <div className="absolute top-1/2 left-1/2 grid size-[24%] -translate-1/2 place-items-center rounded-full bg-[radial-gradient(circle,#f0c27a,#a8742c)] text-center text-navy-950 shadow-[0_0_80px_20px_rgba(206,151,68,0.35)]">
             <div>
               <p className="font-display text-2xl leading-none sm:text-4xl">600</p>
               <p className="text-[10px] tracking-wider uppercase sm:text-xs">marks</p>
@@ -84,7 +84,7 @@ export function PaperOrbit() {
                           style={{ rotate: `${-(k * 180 + r * 40)}deg` }}
                           className={cn(
                             "pointer-events-auto grid size-12 place-items-center rounded-full ring-1 transition-all duration-300 sm:size-16",
-                            active === i ? "scale-125 bg-brass-light text-forest-950 ring-brass-light shadow-[0_0_30px_rgba(213,182,120,0.7)]" : "bg-forest-800 text-brass-light ring-brass-light/40 hover:bg-forest-700",
+                            active === i ? "scale-125 bg-gold-light text-navy-950 ring-gold-light shadow-[0_0_30px_rgba(206,151,68,0.7)]" : "bg-navy-800 text-gold-light ring-gold-light/40 hover:bg-navy-700",
                           )}
                         >
                           <Icon className="size-5 sm:size-6" />

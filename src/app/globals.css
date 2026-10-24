@@ -2,30 +2,32 @@
 @import "lenis/dist/lenis.css";
 
 /* ------------------------------------------------------------------
-   "From Aspirant to Nation Builder" — deep emerald, warm ivory and
-   antique gold. National identity comes from atmosphere, not flags.
+   "From Aspirant to Nation Builder" — the CSI crest's royal blue,
+   gold and white. navy-700 is the logo blue (#024d84) and gold-light
+   the logo gold (#ce9744); gold is a deeper shade so small gold text
+   stays readable on white.
    ------------------------------------------------------------------ */
 @theme {
-  --color-forest-950: #03150f;
-  --color-forest-900: #062820;
-  --color-forest-800: #0a382b;
-  --color-forest-700: #0f4a39;
-  --color-emerald-glow: #1f7a5c;
+  --color-navy-950: #011a33;
+  --color-navy-900: #022b52;
+  --color-navy-800: #023b6b;
+  --color-navy-700: #024d84;
+  --color-navy-glow: #2a6fb0;
   --color-flag: #01411c;
 
-  --color-ivory: #f6f0e3;
-  --color-ivory-200: #ede4d0;
-  --color-ivory-300: #e1d4b8;
-  --color-paper: #fbf8f1;
-  --color-line: #e2d8c3;
+  --color-ivory: #f5f6f8;
+  --color-ivory-200: #e9edf3;
+  --color-ivory-300: #d6dee8;
+  --color-paper: #ffffff;
+  --color-line: #dde3eb;
 
-  --color-brass: #a07a3c;
-  --color-brass-light: #d5b678;
-  --color-brass-soft: #efe3c8;
+  --color-gold: #9a6a22;
+  --color-gold-light: #ce9744;
+  --color-gold-soft: #f6ead6;
 
-  --color-ink: #13211a;
-  --color-ink-soft: #46544c;
-  --color-ink-mute: #6b766f;
+  --color-ink: #0e1c2e;
+  --color-ink-soft: #46546a;
+  --color-ink-mute: #677387;
 
   --font-display: var(--font-newsreader), Georgia, serif;
   --font-sans: var(--font-geist), system-ui, sans-serif;
@@ -49,11 +51,11 @@
     text-rendering: optimizeLegibility;
   }
   ::selection {
-    background: var(--color-brass-light);
-    color: var(--color-forest-950);
+    background: var(--color-gold-light);
+    color: var(--color-navy-950);
   }
   :focus-visible {
-    outline: 2px solid var(--color-brass);
+    outline: 2px solid var(--color-gold);
     outline-offset: 3px;
     border-radius: 6px;
   }

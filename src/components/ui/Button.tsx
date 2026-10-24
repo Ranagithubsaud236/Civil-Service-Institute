@@ -7,8 +7,8 @@ import { cn } from "@/lib/cn";
 import { useFinePointer } from "@/lib/useFinePointer";
 
 const variants = {
-  brass: "bg-brass-light text-forest-950 hover:bg-[#e2c68e] shadow-[0_10px_30px_-12px_rgba(213,182,120,0.75)]",
-  forest: "bg-forest-800 text-ivory hover:bg-forest-900",
+  gold: "bg-gold-light text-navy-950 hover:bg-[#dcab5e] shadow-[0_10px_30px_-12px_rgba(206,151,68,0.75)]",
+  navy: "bg-navy-800 text-ivory hover:bg-navy-900",
   outlineLight: "text-ivory ring-1 ring-ivory/30 hover:ring-ivory/70 hover:bg-ivory/5",
   outlineDark: "text-ink ring-1 ring-ink/20 hover:ring-ink/50 hover:bg-ink/[0.03]",
 };
@@ -24,7 +24,7 @@ type Props = {
 };
 
 /** Pill button with a gold light sweep on hover. Only in-page anchors are used in the demo. */
-export function Button({ href, children, variant = "brass", arrow = true, magnetic = false, className }: Props) {
+export function Button({ href, children, variant = "gold", arrow = true, magnetic = false, className }: Props) {
   const ref = useRef<HTMLAnchorElement>(null);
   const fine = useFinePointer();
   const x = useSpring(useMotionValue(0), { stiffness: 220, damping: 16, mass: 0.4 });

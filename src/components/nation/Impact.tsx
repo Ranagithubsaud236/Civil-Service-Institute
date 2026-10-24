@@ -43,7 +43,7 @@ export function Impact() {
                   onClick={() => setActive(i)}
                   onMouseEnter={() => setActive(i)}
                   aria-pressed={active === i}
-                  className={cn("inline-flex h-11 items-center gap-2 rounded-full px-4 text-sm ring-1 transition-all duration-300", active === i ? "bg-forest-800 text-ivory ring-forest-800" : "bg-paper text-ink-soft ring-line hover:ring-ink/30")}
+                  className={cn("inline-flex h-11 items-center gap-2 rounded-full px-4 text-sm ring-1 transition-all duration-300", active === i ? "bg-navy-800 text-ivory ring-navy-800" : "bg-paper text-ink-soft ring-line hover:ring-ink/30")}
                 >
                   <Icon className="size-4" /> {d.key}
                 </button>
@@ -70,9 +70,9 @@ export function Impact() {
           </svg>
 
           {/* centre: the officer */}
-          <div className="absolute top-1/2 left-1/2 grid size-28 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-forest-800 text-center text-ivory shadow-[0_20px_50px_-20px_rgba(4,23,15,0.7)] sm:size-32">
+          <div className="absolute top-1/2 left-1/2 grid size-28 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-navy-800 text-center text-ivory shadow-[0_20px_50px_-20px_rgba(1,26,51,0.7)] sm:size-32">
             <div>
-              <p lang="ur" className="mb-3 font-urdu text-lg leading-none text-brass-light">افسر</p>
+              <p lang="ur" className="mb-3 font-urdu text-lg leading-none text-gold-light">افسر</p>
               <p className="font-display text-lg leading-tight">One officer</p>
             </div>
           </div>
@@ -89,7 +89,7 @@ export function Impact() {
                 style={{ left: `${(n.x / 500) * 100}%`, top: `${(n.y / 500) * 100}%` }}
                 className="group absolute -translate-x-1/2 -translate-y-1/2"
               >
-                <span className={cn("grid size-14 place-items-center rounded-2xl ring-1 transition-all duration-300 sm:size-16", active === i ? "scale-110 bg-brass-light text-forest-950 ring-brass" : "bg-paper text-forest-800 ring-line group-hover:ring-ink/30")}>
+                <span className={cn("grid size-14 place-items-center rounded-2xl ring-1 transition-all duration-300 sm:size-16", active === i ? "scale-110 bg-gold-light text-navy-950 ring-gold" : "bg-paper text-navy-800 ring-line group-hover:ring-ink/30")}>
                   <Icon className="size-6" />
                 </span>
                 <span className={cn("absolute top-full left-1/2 mt-2 -translate-x-1/2 text-xs font-medium whitespace-nowrap transition-colors", active === i ? "text-ink" : "text-ink-mute")}>{d.key}</span>
@@ -115,10 +115,10 @@ function Link({ d, progress, index, on }: { d: string; progress: ReturnType<type
   const reduce = useReducedMotion();
   return (
     <>
-      <motion.path d={d} fill="none" stroke="#a07a3c" strokeWidth={on ? 2.2 : 1.2} strokeOpacity={on ? 1 : 0.45} style={{ pathLength: length }} className="transition-[stroke-width,stroke-opacity] duration-300" />
+      <motion.path d={d} fill="none" stroke="#a8742c" strokeWidth={on ? 2.2 : 1.2} strokeOpacity={on ? 1 : 0.45} style={{ pathLength: length }} className="transition-[stroke-width,stroke-opacity] duration-300" />
       {/* a pulse travelling from the officer to the outcome */}
       {on && !reduce && (
-        <circle r={4} fill="#a07a3c">
+        <circle r={4} fill="#a8742c">
           <animateMotion dur="1.8s" repeatCount="indefinite" path={d} />
         </circle>
       )}

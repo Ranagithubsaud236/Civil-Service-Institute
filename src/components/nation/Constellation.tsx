@@ -45,8 +45,8 @@ export function Constellation() {
   const netY = useSpring(useTransform(my, [-0.5, 0.5], [-8, 8]), { stiffness: 60, damping: 20 });
 
   return (
-    <section id="constellation" data-theme="dark" className="relative isolate overflow-hidden bg-forest-950 py-24 text-ivory lg:py-32">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_50%_at_65%_45%,rgba(31,122,92,0.28),transparent_70%)]" />
+    <section id="constellation" data-theme="dark" className="relative isolate overflow-hidden bg-navy-950 py-24 text-ivory lg:py-32">
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_50%_at_65%_45%,rgba(42,111,176,0.28),transparent_70%)]" />
 
       <div className="container-page grid items-center gap-12 lg:grid-cols-[0.85fr_1.4fr] lg:gap-10">
         <div>
@@ -59,7 +59,7 @@ export function Constellation() {
                 role="tab"
                 aria-selected={active === i}
                 onClick={() => setActive(i)}
-                className={cn("h-10 rounded-full px-4 text-sm ring-1 transition-all duration-200", active === i ? "bg-brass-light text-forest-950 ring-brass-light" : "text-ivory/70 ring-ivory/15 hover:text-ivory hover:ring-ivory/40")}
+                className={cn("h-10 rounded-full px-4 text-sm ring-1 transition-all duration-200", active === i ? "bg-gold-light text-navy-950 ring-gold-light" : "text-ivory/70 ring-ivory/15 hover:text-ivory hover:ring-ivory/40")}
               >
                 {h.key}
               </button>
@@ -105,8 +105,8 @@ export function Constellation() {
           <svg viewBox="0 0 1000 640" className="h-auto w-full" role="img" aria-label="Constellation of civil service career pathways">
             <defs>
               <radialGradient id="glow">
-                <stop offset="0%" stopColor="#d5b678" stopOpacity="0.55" />
-                <stop offset="100%" stopColor="#d5b678" stopOpacity="0" />
+                <stop offset="0%" stopColor="#ce9744" stopOpacity="0.55" />
+                <stop offset="100%" stopColor="#ce9744" stopOpacity="0" />
               </radialGradient>
             </defs>
 
@@ -125,7 +125,7 @@ export function Constellation() {
                   y1={you.y}
                   x2={h.x}
                   y2={h.y}
-                  stroke="#d5b678"
+                  stroke="#ce9744"
                   strokeWidth={active === i ? 1.6 : 0.8}
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={inView ? { pathLength: 1, opacity: active === i ? 0.9 : 0.3 } : {}}
@@ -138,8 +138,8 @@ export function Constellation() {
                 {inView &&
                   routePoints(hub).map((p, i) => (
                     <motion.g key={`${hub.key}-${p.label}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: 0.2 } }}>
-                      <motion.line x1={hub.x} y1={hub.y} x2={p.x} y2={p.y} stroke="#d5b678" strokeOpacity={0.45} strokeWidth={1} strokeDasharray="3 5" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, delay: 0.15 + i * 0.06, ease }} />
-                      <motion.circle cx={p.x} cy={p.y} r={5} fill="#f6f0e3" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.45 + i * 0.06, type: "spring", stiffness: 300, damping: 16 }} style={{ transformOrigin: `${p.x}px ${p.y}px` }} />
+                      <motion.line x1={hub.x} y1={hub.y} x2={p.x} y2={p.y} stroke="#ce9744" strokeOpacity={0.45} strokeWidth={1} strokeDasharray="3 5" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, delay: 0.15 + i * 0.06, ease }} />
+                      <motion.circle cx={p.x} cy={p.y} r={5} fill="#f5f6f8" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.45 + i * 0.06, type: "spring", stiffness: 300, damping: 16 }} style={{ transformOrigin: `${p.x}px ${p.y}px` }} />
                       <motion.text
                         x={p.x}
                         y={p.y + (p.y > hub.y ? 30 : -18)}
@@ -175,8 +175,8 @@ export function Constellation() {
                     style={{ transformOrigin: `${h.x}px ${h.y}px` }}
                   >
                     <circle cx={h.x} cy={h.y} r={on ? 80 : 54} fill="url(#glow)" className="transition-all duration-500" />
-                    <circle cx={h.x} cy={h.y} r={on ? 15 : 11} fill={on ? "#d5b678" : "#0f4a39"} stroke="#d5b678" strokeWidth={1.5} className="transition-all duration-300" />
-                    <text x={h.x} y={h.y - 30} textAnchor="middle" className={cn("font-display text-[30px] transition-all duration-300", on ? "fill-brass-light" : "fill-ivory/80")}>
+                    <circle cx={h.x} cy={h.y} r={on ? 15 : 11} fill={on ? "#ce9744" : "#024d84"} stroke="#ce9744" strokeWidth={1.5} className="transition-all duration-300" />
+                    <text x={h.x} y={h.y - 30} textAnchor="middle" className={cn("font-display text-[30px] transition-all duration-300", on ? "fill-gold-light" : "fill-ivory/80")}>
                       {h.key}
                     </text>
                   </motion.g>
@@ -186,9 +186,9 @@ export function Constellation() {
               {/* you */}
               <motion.g initial={{ opacity: 0, scale: 0.5 }} animate={inView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.8, ease }} style={{ transformOrigin: `${you.x}px ${you.y}px` }}>
                 <circle cx={you.x} cy={you.y} r={60} fill="url(#glow)" />
-                <motion.circle cx={you.x} cy={you.y} r={26} fill="none" stroke="#d5b678" strokeOpacity={0.5} animate={{ r: [26, 44], opacity: [0.8, 0] }} transition={{ duration: 2.4, repeat: Infinity, ease: "easeOut" }} />
-                <circle cx={you.x} cy={you.y} r={24} fill="#f6f0e3" />
-                <text x={you.x} y={you.y + 6} textAnchor="middle" className="fill-forest-950 font-sans text-[16px] font-semibold">
+                <motion.circle cx={you.x} cy={you.y} r={26} fill="none" stroke="#ce9744" strokeOpacity={0.5} animate={{ r: [26, 44], opacity: [0.8, 0] }} transition={{ duration: 2.4, repeat: Infinity, ease: "easeOut" }} />
+                <circle cx={you.x} cy={you.y} r={24} fill="#f5f6f8" />
+                <text x={you.x} y={you.y + 6} textAnchor="middle" className="fill-navy-950 font-sans text-[16px] font-semibold">
                   You
                 </text>
               </motion.g>

@@ -48,8 +48,8 @@ export function Flashcards() {
           <div className="mt-8 min-h-28" aria-live="polite">
             <AnimatePresence mode="wait">
               {last && (
-                <motion.div key={index} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className={cn("rounded-2xl p-4 ring-1", last.correct ? "bg-forest-800/5 ring-forest-700/30" : "bg-redpen/5 ring-redpen/30")}>
-                  <p className={cn("flex items-center gap-2 font-medium", last.correct ? "text-forest-800" : "text-redpen")}>
+                <motion.div key={index} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className={cn("rounded-2xl p-4 ring-1", last.correct ? "bg-navy-800/5 ring-navy-700/30" : "bg-redpen/5 ring-redpen/30")}>
+                  <p className={cn("flex items-center gap-2 font-medium", last.correct ? "text-navy-800" : "text-redpen")}>
                     {last.correct ? <Check className="size-4" /> : <X className="size-4" />} {last.correct ? "Correct" : "Not quite"}
                   </p>
                   <p className="mt-1 text-sm leading-relaxed text-ink-soft">{last.why}</p>
@@ -69,9 +69,9 @@ export function Flashcards() {
               {!done ? (
                 <Card key={index} text={deck[index].text} n={index + 1} onAnswer={answer} />
               ) : (
-                <motion.div key="done" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.4, ease }} className="absolute inset-0 grid place-items-center rounded-[26px] bg-forest-900 p-8 text-center text-ivory">
+                <motion.div key="done" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.4, ease }} className="absolute inset-0 grid place-items-center rounded-[26px] bg-navy-900 p-8 text-center text-ivory">
                   <div>
-                    <p className="font-display text-7xl tabular-nums text-brass-light">{score}<span className="text-3xl text-ivory/40">/{deck.length}</span></p>
+                    <p className="font-display text-7xl tabular-nums text-gold-light">{score}<span className="text-3xl text-ivory/40">/{deck.length}</span></p>
                     <p className="mt-3 text-ivory/70">{score === deck.length ? "Perfect. The MPT has nothing on you." : score >= 4 ? "Strong start — keep revising." : "A good reason to join the MCQ sprint."}</p>
                     <button onClick={restart} className="mt-6 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm ring-1 ring-ivory/25 hover:bg-ivory/10">
                       <RotateCcw className="size-4" /> Try again
@@ -87,7 +87,7 @@ export function Flashcards() {
               <X className="size-6" />
             </button>
             <span className="text-xs text-ink-mute tabular-nums">{Math.min(index + 1, deck.length)} / {deck.length}</span>
-            <button onClick={() => answer(true)} disabled={done} aria-label="Answer: true" className="grid size-14 place-items-center rounded-full bg-paper text-forest-800 ring-1 ring-line transition-all hover:scale-105 hover:ring-forest-700/50 disabled:opacity-40">
+            <button onClick={() => answer(true)} disabled={done} aria-label="Answer: true" className="grid size-14 place-items-center rounded-full bg-paper text-navy-800 ring-1 ring-line transition-all hover:scale-105 hover:ring-navy-700/50 disabled:opacity-40">
               <Check className="size-6" />
             </button>
           </div>
@@ -123,7 +123,7 @@ function Card({ text, n, onAnswer }: { text: string; n: number; onAnswer: (v: bo
       data-cursor="Swipe"
       tabIndex={0}
       aria-label={`Statement ${n}: ${text}. Press right arrow for true, left for false.`}
-      className="absolute inset-0 flex cursor-grab touch-pan-y flex-col justify-between rounded-[26px] bg-paper p-8 shadow-[0_30px_60px_-30px_rgba(19,33,26,0.4)] ring-1 ring-line active:cursor-grabbing"
+      className="absolute inset-0 flex cursor-grab touch-pan-y flex-col justify-between rounded-[26px] bg-paper p-8 shadow-[0_30px_60px_-30px_rgba(14,28,46,0.4)] ring-1 ring-line active:cursor-grabbing"
     >
       <div className="flex items-center justify-between text-xs text-ink-mute">
         <span>Card {n}</span>
@@ -135,7 +135,7 @@ function Card({ text, n, onAnswer }: { text: string; n: number; onAnswer: (v: bo
         <span>True →</span>
       </div>
       {/* stamps that appear as the card is dragged */}
-      <motion.span style={{ opacity: trueOpacity }} className="absolute top-16 right-8 rotate-12 rounded-lg border-2 border-forest-700 px-3 py-1 font-display text-xl text-forest-700">TRUE</motion.span>
+      <motion.span style={{ opacity: trueOpacity }} className="absolute top-16 right-8 rotate-12 rounded-lg border-2 border-navy-700 px-3 py-1 font-display text-xl text-navy-700">TRUE</motion.span>
       <motion.span style={{ opacity: falseOpacity }} className="absolute top-16 left-8 -rotate-12 rounded-lg border-2 border-redpen px-3 py-1 font-display text-xl text-redpen">FALSE</motion.span>
     </motion.div>
   );

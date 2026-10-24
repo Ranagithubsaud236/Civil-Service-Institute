@@ -17,8 +17,8 @@ const moments = [
 
 // sky colours across the day: dawn → noon → afternoon → sunset → night
 const stops = [0, 0.25, 0.5, 0.72, 0.88, 1];
-const skyTop = ["#f2c48d", "#cfe3e6", "#e9dcbc", "#d9874f", "#16324a", "#03150f"];
-const skyBottom = ["#fbe7c6", "#f6f0e3", "#f6ebd2", "#f0c08a", "#0a382b", "#062820"];
+const skyTop = ["#f2c48d", "#cfe3e6", "#e9dcbc", "#d9874f", "#16324a", "#011a33"];
+const skyBottom = ["#fbe7c6", "#f5f6f8", "#f6ebd2", "#f0c08a", "#023b6b", "#022b52"];
 
 /** Scroll vertically, travel horizontally through a district officer's day as the sky turns from dawn to night. */
 export function DayInLife() {
@@ -59,22 +59,22 @@ export function DayInLife() {
       <motion.div style={{ background }} className="sticky top-0 h-[100svh] overflow-hidden">
         {/* sun and moon */}
         <motion.div style={{ left: sunX, top: sunY, opacity: sunOpacity }} className="absolute size-24 -translate-1/2 rounded-full bg-[radial-gradient(circle,#ffe3a1_0%,#f6c96b_45%,transparent_70%)] sm:size-32" />
-        <motion.div style={{ opacity: moonOpacity }} className="absolute top-[14%] right-[12%] size-16 rounded-full bg-[#f6f0e3] shadow-[0_0_60px_12px_rgba(246,240,227,0.25)] sm:size-20">
-          <span className="absolute top-2 left-4 size-4 rounded-full bg-[#e2d8c3]" />
-          <span className="absolute top-8 left-9 size-2.5 rounded-full bg-[#e2d8c3]" />
+        <motion.div style={{ opacity: moonOpacity }} className="absolute top-[14%] right-[12%] size-16 rounded-full bg-[#f5f6f8] shadow-[0_0_60px_12px_rgba(245,246,248,0.25)] sm:size-20">
+          <span className="absolute top-2 left-4 size-4 rounded-full bg-[#d6dee8]" />
+          <span className="absolute top-8 left-9 size-2.5 rounded-full bg-[#d6dee8]" />
         </motion.div>
 
         <div className={cn("container-page relative pt-28 transition-colors duration-700", night ? "text-ivory" : "text-ink")}>
-          <p className={cn("eyebrow transition-colors duration-700", night ? "text-brass-light" : "text-brass")}>A day in the life</p>
+          <p className={cn("eyebrow transition-colors duration-700", night ? "text-gold-light" : "text-gold")}>A day in the life</p>
           <h2 className="mt-3 max-w-2xl font-display text-4xl leading-[1.05] tracking-tight sm:text-5xl">Fifteen hours as a Deputy Commissioner.</h2>
         </div>
 
         {/* distant hills and town move slower than the cards — depth while travelling sideways */}
         <motion.svg style={{ x: groundX }} viewBox="0 0 3000 200" preserveAspectRatio="none" className="absolute bottom-0 left-0 h-[22vh] w-[300vw]" aria-hidden>
-          <path d="M0 120 C 300 60 520 110 800 80 S 1300 40 1600 90 S 2200 50 2500 85 S 2850 70 3000 90 V200 H0 Z" className={cn("transition-colors duration-700", night ? "fill-forest-800" : "fill-[#c7b48a]")} />
+          <path d="M0 120 C 300 60 520 110 800 80 S 1300 40 1600 90 S 2200 50 2500 85 S 2850 70 3000 90 V200 H0 Z" className={cn("transition-colors duration-700", night ? "fill-navy-800" : "fill-[#c7b48a]")} />
           {Array.from({ length: 40 }, (_, k) => {
             const bx = 60 + k * 74, h = 30 + ((k * 37) % 50);
-            return <rect key={k} x={bx} y={200 - h - 20} width={34 + ((k * 13) % 20)} height={h + 20} className={cn("transition-colors duration-700", night ? "fill-forest-900" : "fill-[#a8946a]")} />;
+            return <rect key={k} x={bx} y={200 - h - 20} width={34 + ((k * 13) % 20)} height={h + 20} className={cn("transition-colors duration-700", night ? "fill-navy-900" : "fill-[#a8946a]")} />;
           })}
           {night && Array.from({ length: 40 }, (_, k) => <rect key={`w${k}`} x={70 + k * 74} y={200 - 30 - ((k * 37) % 50) / 2} width={5} height={5} className="fill-[#ffe3a1]" />)}
         </motion.svg>
@@ -85,12 +85,12 @@ export function DayInLife() {
               key={m.time}
               className={cn(
                 "w-[78vw] shrink-0 rounded-[26px] p-7 ring-1 backdrop-blur-md transition-colors duration-700 sm:w-[380px] sm:p-8",
-                night ? "bg-forest-950/60 text-ivory ring-ivory/10" : "bg-paper/75 text-ink ring-ink/10",
+                night ? "bg-navy-950/60 text-ivory ring-ivory/10" : "bg-paper/75 text-ink ring-ink/10",
               )}
             >
               <div className="flex items-center justify-between">
                 <span className="font-display text-5xl tracking-tight tabular-nums">{m.time}</span>
-                <m.icon className={cn("size-6 transition-colors duration-700", night ? "text-brass-light" : "text-brass")} />
+                <m.icon className={cn("size-6 transition-colors duration-700", night ? "text-gold-light" : "text-gold")} />
               </div>
               <h3 className="mt-6 font-display text-2xl tracking-tight">{m.title}</h3>
               <p className={cn("mt-2 leading-relaxed transition-colors duration-700", night ? "text-ivory/65" : "text-ink-soft")}>{m.body}</p>
@@ -102,7 +102,7 @@ export function DayInLife() {
         <div className="absolute inset-x-0 bottom-5">
           <div className="container-page">
             <div className={cn("h-px transition-colors duration-700", night ? "bg-ivory/15" : "bg-ink/15")}>
-              <motion.div style={{ scaleX: p }} className={cn("h-full origin-left", night ? "bg-brass-light" : "bg-brass")} />
+              <motion.div style={{ scaleX: p }} className={cn("h-full origin-left", night ? "bg-gold-light" : "bg-gold")} />
             </div>
           </div>
         </div>

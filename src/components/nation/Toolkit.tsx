@@ -26,10 +26,10 @@ export function Toolkit() {
       <div className="container-page flex flex-col justify-between gap-8 sm:flex-row sm:items-end">
         <Heading eyebrow="Preparation toolkit" title="Everything you need, one swipe away." intro="Drag, swipe or use the arrow keys to browse the tools every student receives." />
         <div className="flex gap-2">
-          <button onClick={() => step(-1)} aria-label="Previous tool" className="grid size-12 place-items-center rounded-full ring-1 ring-line transition-all duration-200 hover:bg-forest-800 hover:text-ivory hover:ring-forest-800">
+          <button onClick={() => step(-1)} aria-label="Previous tool" className="grid size-12 place-items-center rounded-full ring-1 ring-line transition-all duration-200 hover:bg-navy-800 hover:text-ivory hover:ring-navy-800">
             <ArrowLeft className="size-5" />
           </button>
-          <button onClick={() => step(1)} aria-label="Next tool" className="grid size-12 place-items-center rounded-full ring-1 ring-line transition-all duration-200 hover:bg-forest-800 hover:text-ivory hover:ring-forest-800">
+          <button onClick={() => step(1)} aria-label="Next tool" className="grid size-12 place-items-center rounded-full ring-1 ring-line transition-all duration-200 hover:bg-navy-800 hover:text-ivory hover:ring-navy-800">
             <ArrowRight className="size-5" />
           </button>
         </div>
@@ -70,7 +70,7 @@ export function Toolkit() {
               <Depth z={0} className="absolute inset-0 opacity-50">
                 <svg viewBox="0 0 340 420" className="size-full" aria-hidden>
                   {Array.from({ length: 7 }, (_, k) => (
-                    <circle key={k} cx={260 - i * 12} cy={110 + i * 8} r={30 + k * 34} fill="none" stroke="#d5b678" strokeOpacity={0.35 - k * 0.04} />
+                    <circle key={k} cx={260 - i * 12} cy={110 + i * 8} r={30 + k * 34} fill="none" stroke="#ce9744" strokeOpacity={0.35 - k * 0.04} />
                   ))}
                 </svg>
               </Depth>
@@ -91,7 +91,7 @@ export function Toolkit() {
 
       <div className="container-page mt-4">
         <div className="h-px overflow-hidden bg-line">
-          <motion.div style={{ scaleX: progress }} className="h-full origin-left bg-forest-800" />
+          <motion.div style={{ scaleX: progress }} className="h-full origin-left bg-navy-800" />
         </div>
       </div>
     </section>

@@ -37,7 +37,7 @@ export function Skyline({ hillsY, cityY, hillsX, cityX }: Props) {
         {/* Margalla Hills, far and near */}
         <motion.path
           d="M0 200 C 120 162 250 140 380 168 S 610 110 770 144 S 1030 104 1170 134 S 1370 112 1440 140 L1440 320 L0 320 Z"
-          className="fill-forest-800/70 stroke-brass-light/30"
+          className="fill-navy-800/70 stroke-gold-light/30"
           strokeWidth={1}
           initial={{ pathLength: 0, fillOpacity: 0 }}
           animate={{ pathLength: 1, fillOpacity: 1 }}
@@ -45,7 +45,7 @@ export function Skyline({ hillsY, cityY, hillsX, cityX }: Props) {
         />
         <motion.path
           d="M0 246 C 200 220 380 232 560 224 S 900 210 1100 228 S 1340 216 1440 226 V320 H0 Z"
-          className="fill-forest-900"
+          className="fill-navy-900"
           initial={{ fillOpacity: 0 }}
           animate={{ fillOpacity: 1 }}
           transition={{ duration: 1.2, delay: 2.4 }}
@@ -57,7 +57,7 @@ export function Skyline({ hillsY, cityY, hillsX, cityX }: Props) {
           <motion.path
             key={i}
             d={d}
-            className="fill-forest-950 stroke-brass-light/60"
+            className="fill-navy-950 stroke-gold-light/60"
             strokeWidth={1.2}
             strokeLinejoin="round"
             initial={{ pathLength: 0, fillOpacity: 0 }}
@@ -66,9 +66,9 @@ export function Skyline({ hillsY, cityY, hillsX, cityX }: Props) {
           />
         ))}
         {columns.map((x, i) => (
-          <motion.line key={x} x1={x} x2={x} y1={268} y2={300} className="stroke-brass-light/35" strokeWidth={1} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.4 + i * 0.03 }} />
+          <motion.line key={x} x1={x} x2={x} y1={268} y2={300} className="stroke-gold-light/35" strokeWidth={1} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.4 + i * 0.03 }} />
         ))}
-        <rect x="0" y="298" width="1440" height="22" className="fill-forest-950" />
+        <rect x="0" y="298" width="1440" height="22" className="fill-navy-950" />
       </motion.svg>
     </div>
   );

@@ -50,7 +50,7 @@ export function Hourglass() {
     let raf = 0;
 
     const sand = (topLevel: number, bottomLevel: number) => {
-      ctx.fillStyle = "#d5b678";
+      ctx.fillStyle = "#ce9744";
       // top bulb: sand from topLevel down to the neck
       ctx.beginPath();
       for (let y = topLevel; y <= NECK; y += 2) ctx.lineTo(W / 2 - half(y) + 4, y);
@@ -76,7 +76,7 @@ export function Hourglass() {
       if (!reduce && used < 1) {
         // a few new grains every frame, falling from the neck to the mound
         for (let k = 0; k < 3; k++) grains.push({ x: W / 2 + (Math.random() - 0.5) * 3, y: NECK, v: 1 + Math.random() * 1.5 });
-        ctx.fillStyle = "#f2cd82";
+        ctx.fillStyle = "#f0c27a";
         for (let i = grains.length - 1; i >= 0; i--) {
           const g = grains[i];
           g.v += 0.25;
@@ -95,22 +95,22 @@ export function Hourglass() {
   const glass = `M18 4 H${W - 18} ` + Array.from({ length: 91 }, (_, i) => { const y = 4 + (i * (H - 8)) / 90; return `L${(W / 2 + half(y)).toFixed(1)} ${y.toFixed(1)}`; }).join(" ") + ` H18 ` + Array.from({ length: 91 }, (_, i) => { const y = H - 4 - (i * (H - 8)) / 90; return `L${(W / 2 - half(y)).toFixed(1)} ${y.toFixed(1)}`; }).join(" ") + " Z";
 
   return (
-    <section id="hourglass" data-theme="dark" className="bg-forest-900 py-24 text-ivory lg:py-32">
+    <section id="hourglass" data-theme="dark" className="bg-navy-900 py-24 text-ivory lg:py-32">
       <div className="container-page grid items-center gap-14 lg:grid-cols-[1fr_auto_1fr]">
         <Heading dark eyebrow="Time is the syllabus too" title="The sand is already falling." intro="The levels show how much of the preparation year before the CSS 2027 written exam has already gone." />
 
         <div className="relative mx-auto" style={{ width: W, height: H }}>
           <canvas ref={canvas} className="absolute inset-0 size-full" aria-hidden />
           <svg viewBox={`0 0 ${W} ${H}`} className="absolute inset-0 size-full" aria-hidden>
-            <path d={glass} fill="rgba(246,240,227,0.04)" stroke="rgba(246,240,227,0.45)" strokeWidth={1.5} />
-            <rect x="6" y="0" width={W - 12} height="8" rx="3" fill="#a07a3c" />
-            <rect x="6" y={H - 8} width={W - 12} height="8" rx="3" fill="#a07a3c" />
+            <path d={glass} fill="rgba(245,246,248,0.04)" stroke="rgba(245,246,248,0.45)" strokeWidth={1.5} />
+            <rect x="6" y="0" width={W - 12} height="8" rx="3" fill="#a8742c" />
+            <rect x="6" y={H - 8} width={W - 12} height="8" rx="3" fill="#a8742c" />
           </svg>
         </div>
 
         <dl className="grid grid-cols-2 gap-3 lg:grid-cols-1">
           {(["days", "hours", "minutes", "seconds"] as const).map((k) => (
-            <div key={k} className="rounded-2xl bg-forest-950/50 px-5 py-4 ring-1 ring-ivory/10">
+            <div key={k} className="rounded-2xl bg-navy-950/50 px-5 py-4 ring-1 ring-ivory/10">
               <dd className="font-display text-4xl tabular-nums sm:text-5xl">{left ? String(left[k]).padStart(2, "0") : "--"}</dd>
               <dt className="mt-1 text-xs tracking-wider text-ivory/50 capitalize">{k} left</dt>
             </div>
