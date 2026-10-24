@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring, useTransform } from "motion/react";
 import { alumniStations, type Station } from "@/data/people";
 import { cn } from "@/lib/cn";
@@ -122,6 +123,19 @@ function StageText({ stage }: { stage: Stage }) {
         <p className="eyebrow justify-center text-gold">Allocation</p>
         <h2 className="mt-3 font-display text-[clamp(1.7rem,4.4svh,3rem)] leading-[1.08] tracking-tight text-balance text-ink">The next flag could be yours.</h2>
         <Button href="#contact" className="mt-5 h-11">Start with a free orientation</Button>
+      </>
+    );
+  if (stage.star)
+    return (
+      <>
+        <span className="relative mx-auto block size-[clamp(84px,14svh,132px)] overflow-hidden rounded-full ring-4 ring-gold-light ring-offset-4 ring-offset-white/60">
+          <Image src={stage.star.photo} alt={stage.star.name} fill sizes="132px" className="scale-110 object-cover" />
+        </span>
+        <p className="mt-4 text-sm font-medium text-gold">{stage.label}</p>
+        <p className="mt-1 font-display text-[clamp(1.6rem,4svh,2.6rem)] leading-[1.05] tracking-tight text-ink">{stage.star.name}</p>
+        <p className="mt-2 text-sm text-ink-soft sm:text-base">
+          {stage.star.result} · <span className="font-medium text-navy">{stage.star.service}</span>
+        </p>
       </>
     );
   if (stage.review)

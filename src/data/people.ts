@@ -31,18 +31,22 @@ export const leadFaculty = {
 /** Open seats on the faculty board — filled once CSI shares its teaching panel. */
 export const facultySlots = ["Current Affairs", "Pakistan Affairs", "General Science & Ability"];
 
-/**
- * Alumni officers and reviews. No officer names are public yet (CSI keeps them in its Instagram
- * "Our stars" highlight), so officer stops stay as clearly marked empty slots. Review 01 is a real
- * student message CSI shared on Instagram; Review 02 waits for the next one.
- */
-export type Station = { kind: "officer" | "review"; label: string; hint: string; review?: typeof studentReview };
+/** Results announced by CSI in its "Star of CSI" posts (Instagram, "Our stars" highlight). */
+export const stars = [
+  { name: "Memoona Malik", group: "FSP", service: "Foreign Service of Pakistan", result: "CSS 2024 qualifier", photo: "/csi/stars/memoona-malik.jpg", poster: "/csi/stars/memoona-malik-poster.png" },
+  { name: "Kinza Nawaz", group: "PAS", service: "Pakistan Administrative Service", result: "CSS 2024 qualifier", photo: "/csi/stars/kinza-nawaz.jpg", poster: "/csi/stars/kinza-nawaz-poster.png" },
+  { name: "Arsal Hussain", group: "CCE", service: "Sindh Combined Competitive Exam", result: "CCE Sindh written qualifier", photo: "/csi/stars/arsal-hussain.jpg", poster: "/csi/stars/arsal-hussain-poster.png" },
+];
+export type Star = (typeof stars)[number];
+
+/** Stops on the alumni road: CSI's three stars plus the real student review CSI shared. */
+export type Station = { kind: "officer" | "review"; label: string; hint: string; review?: typeof studentReview; star?: Star };
 
 export const alumniStations: Station[] = [
-  { kind: "officer", label: "Officer 01", hint: "Name · service group · CSS year" },
-  { kind: "review", label: "Review 01", hint: "A student review in their own words", review: studentReview },
-  { kind: "officer", label: "Officer 02", hint: "Name · service group · CSS year" },
-  { kind: "review", label: "Review 02", hint: "A student review in their own words" },
+  { kind: "officer", label: "Star of CSI", hint: "", star: stars[0] },
+  { kind: "review", label: "Student review", hint: "", review: studentReview },
+  { kind: "officer", label: "Star of CSI", hint: "", star: stars[1] },
+  { kind: "officer", label: "Star of CSI", hint: "", star: stars[2] },
 ];
 
 export const optionals: Record<string, { subjects: [string, number][]; why: string }> = {

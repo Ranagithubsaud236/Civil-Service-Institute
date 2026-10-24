@@ -1,5 +1,6 @@
 import { Banner } from "@/components/home/Banner";
 import { QuickLinks } from "@/components/home/QuickLinks";
+import { Stars } from "@/components/home/Stars";
 import { Stats } from "@/components/home/Stats";
 import { ServiceMarquee } from "@/components/home/ServiceMarquee";
 import { Quiz } from "@/components/home/Quiz";
@@ -20,6 +21,7 @@ export default function Home() {
       <Banner />
       <QuickLinks />
       <News />
+      <Stars />
       <Stats />
       <ServiceMarquee />
       <Approach />
