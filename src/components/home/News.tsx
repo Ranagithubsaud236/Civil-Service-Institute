@@ -1,16 +1,19 @@
 import { getBbcNews } from "@/lib/bbc";
+import { getDawnNews } from "@/lib/dawn";
 import { news as csiNews } from "@/data/media";
 import { NewsBoard, type Entry } from "./NewsBoard";
 
-/** Latest news: BBC News feeds (refreshed hourly, for current affairs) plus CSI's own updates. */
+/** Latest news: Pakistan from Dawn, world/Asia/business from BBC News (all hourly), plus CSI's own updates. */
 export async function News() {
-  const [world, asia, business] = await Promise.all([getBbcNews("world"), getBbcNews("asia"), getBbcNews("business")]);
-  const bbc = (stories: typeof world): Entry[] =>
-    stories.map((s) => ({ title: s.title, summary: s.summary, date: s.date, href: s.link, img: s.img ? { src: s.img, alt: s.title } : undefined, tag: "BBC News" }));
+  const [pakistan, world, asia, business] = await Promise.all([getDawnNews(), getBbcNews("world"), getBbcNews("asia"), getBbcNews("business")]);
+  const entries = (stories: typeof world, source: string): Entry[] =>
+    stories.map((s) => ({ title: s.title, summary: s.summary, date: s.date, href: s.link, img: s.img ? { src: s.img, alt: s.title } : undefined, tag: source }));
+  const bbc = (stories: typeof world) => entries(stories, "BBC News");
 
   return (
     <NewsBoard
       feeds={{
+        Pakistan: entries(pakistan, "Dawn"),
         World: bbc(world),
         Asia: bbc(asia),
         Business: bbc(business),

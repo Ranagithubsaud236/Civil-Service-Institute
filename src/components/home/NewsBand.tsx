@@ -1,4 +1,5 @@
 import { getBbcNews } from "@/lib/bbc";
+import { getDawnNews } from "@/lib/dawn";
 import { news as csiNews } from "@/data/media";
 import { site } from "@/data/site";
 
@@ -6,14 +7,15 @@ type Item = { text: string; href: string; external?: boolean };
 
 /**
  * Big scrolling headline band under the hero: CSI's own announcements first, then the latest
- * BBC World headlines. Pure CSS loop (the list is doubled); hovering pauses it.
+ * Pakistan headlines from Dawn and world headlines from BBC. Pure CSS loop (the list is doubled); hovering pauses it.
  */
 export async function NewsBand() {
-  const world = await getBbcNews("world", 4);
+  const [pakistan, world] = await Promise.all([getDawnNews(3), getBbcNews("world", 3)]);
   const items: Item[] = [
     { text: "Admissions open · CSS 2027 & PMS Punjab", href: "#contact" },
     ...csiNews.slice(0, 3).map((n) => ({ text: n.title, href: n.href, external: true })),
     { text: `WhatsApp ${site.phone}`, href: `https://wa.me/${site.whatsapp}`, external: true },
+    ...pakistan.map((s) => ({ text: `Pakistan: ${s.title}`, href: s.link, external: true })),
     ...world.map((s) => ({ text: `World: ${s.title}`, href: s.link, external: true })),
   ];
 

@@ -22,7 +22,7 @@ export function NewsBoard({ feeds }: { feeds: Record<string, Entry[]> }) {
     <section id="news" className="py-24 lg:py-32">
       <div className="container-page">
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
-          <SectionHeading eyebrow="Latest news" title="Today’s current affairs, and what’s new at CSI." intro="Headlines from BBC News, refreshed every hour — the raw material for your current affairs and essay papers." />
+          <SectionHeading eyebrow="Latest news" title="Today’s current affairs, and what’s new at CSI." intro="Pakistan from Dawn, the world from BBC News — refreshed every hour, the raw material for your current affairs and essay papers." />
           <LayoutGroup id="news-tabs">
             <div className="flex flex-wrap gap-1 rounded-full bg-white p-1 ring-1 ring-line">
               {tabs.map((t) => (
@@ -49,8 +49,8 @@ export function NewsBoard({ feeds }: { feeds: Record<string, Entry[]> }) {
         {tab !== "CSI updates" && (
           <p className="mt-8 text-sm text-ink-mute">
             Headlines and images ©{" "}
-            <a href="https://www.bbc.com/news" target="_blank" rel="noopener noreferrer" className="underline-offset-2 hover:text-navy hover:underline">BBC News</a>
-            . Each story opens on the BBC website.
+            <a href={tab === "Pakistan" ? "https://www.dawn.com" : "https://www.bbc.com/news"} target="_blank" rel="noopener noreferrer" className="underline-offset-2 hover:text-navy hover:underline">{tab === "Pakistan" ? "Dawn" : "BBC News"}</a>
+            . Each story opens on the {tab === "Pakistan" ? "Dawn" : "BBC"} website.
           </p>
         )}
       </div>

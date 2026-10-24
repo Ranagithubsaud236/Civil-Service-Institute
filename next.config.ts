@@ -6,8 +6,8 @@ const nextConfig: NextConfig = {
   devIndicators: false,
   cacheComponents: true,
   partialPrefetching: true,
-  // BBC News story images in the news section
-  images: { remotePatterns: [{ protocol: "https", hostname: "ichef.bbci.co.uk" }] },
+  // story images in the news section: BBC News and Dawn
+  images: { remotePatterns: [{ protocol: "https", hostname: "ichef.bbci.co.uk" }, { protocol: "https", hostname: "i.dawn.com" }] },
   turbopack: {
     rules: {
       "*.css": {

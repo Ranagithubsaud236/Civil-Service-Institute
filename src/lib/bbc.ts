@@ -9,13 +9,13 @@ const feeds = {
 };
 export type Feed = keyof typeof feeds;
 
-const tag = (xml: string, name: string) =>
+export const tag = (xml: string, name: string) =>
   xml.match(new RegExp(`<${name}>(?:<!\\[CDATA\\[)?([\\s\\S]*?)(?:\\]\\]>)?</${name}>`))?.[1].trim() ?? "";
 
-const decode = (s: string) =>
-  s.replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+export const decode = (s: string) =>
+  s.replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#0?39;|&apos;/g, "'").replace(/&#8217;|&rsquo;/g, "’").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
 
-const formatDate = (d: string) =>
+export const formatDate = (d: string) =>
   new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Karachi" }).format(new Date(d)) + " PKT";
 
 /**
