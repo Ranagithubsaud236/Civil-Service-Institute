@@ -11,37 +11,15 @@ export type Entry = { title: string; summary: string; date: string; href: string
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-/** Headline ticker plus a tabbed board: one featured story and a grid of cards per tab. */
+/** Tabbed board: one featured story and a grid of cards per tab. */
 export function NewsBoard({ feeds }: { feeds: Record<string, Entry[]> }) {
   const tabs = Object.keys(feeds).filter((t) => feeds[t].length);
   const [tab, setTab] = useState(tabs[0]);
   const list = feeds[tab] ?? [];
   const [featured, ...rest] = list;
-  const ticker = feeds[tabs[0]] ?? [];
 
   return (
     <section id="news" className="py-24 lg:py-32">
-      {ticker.length > 0 && (
-        <div className="group mb-16 flex items-center overflow-hidden border-y border-line bg-white">
-          <span className="z-10 flex shrink-0 items-center gap-2 self-stretch bg-navy py-3 pr-5 pl-5 text-xs font-medium tracking-[0.14em] text-white uppercase sm:pl-8">
-            <span className="size-2 animate-pulse rounded-full bg-red-400" /> Latest
-          </span>
-          {/* the list is doubled so the loop is seamless; hovering pauses it */}
-          <div className="flex min-w-0 overflow-hidden">
-            <ul className="flex shrink-0 animate-[ticker_60s_linear_infinite] gap-10 py-3 pr-10 pl-6 text-sm whitespace-nowrap text-ink-soft group-hover:[animation-play-state:paused]">
-              {[...ticker, ...ticker].map((n, i) => (
-                <li key={i} aria-hidden={i >= ticker.length} className="flex items-center gap-3">
-                  <span className="size-1.5 rounded-full bg-gold" />
-                  <a href={n.href} target="_blank" rel="noopener noreferrer" tabIndex={i >= ticker.length ? -1 : undefined} className="hover:text-navy hover:underline">
-                    {n.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      )}
-
       <div className="container-page">
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <SectionHeading eyebrow="Latest news" title="Today’s current affairs, and what’s new at CSI." intro="Headlines from BBC News, refreshed every hour — the raw material for your current affairs and essay papers." />

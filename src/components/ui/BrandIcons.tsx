@@ -1,57 +1,69 @@
+"use client";
+
+import { useId } from "react";
 import { cn } from "@/lib/cn";
 import { site } from "@/data/site";
 
 type IconProps = { className?: string };
 
-/** Official glyph shapes (Simple Icons), drawn in currentColor. */
+/** Instagram's app icon: the official gradient square with the white camera outline. */
 export function InstagramIcon({ className }: IconProps) {
+  const id = useId();
   return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden>
-      <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" />
-      <circle cx="12" cy="12" r="4.3" />
-      <circle cx="17.6" cy="6.4" r="1.25" fill="currentColor" stroke="none" />
+    <svg viewBox="0 0 48 48" className={className} aria-hidden>
+      <defs>
+        <radialGradient id={`${id}-a`} cx="0.28" cy="1.08" r="1.25">
+          <stop offset="0" stopColor="#fdf497" />
+          <stop offset="0.05" stopColor="#fdf497" />
+          <stop offset="0.45" stopColor="#fd5949" />
+          <stop offset="0.6" stopColor="#d6249f" />
+          <stop offset="0.9" stopColor="#285aeb" />
+        </radialGradient>
+      </defs>
+      <rect width="48" height="48" rx="12" fill={`url(#${id}-a)`} />
+      <rect x="10" y="10" width="28" height="28" rx="8" fill="none" stroke="#fff" strokeWidth="3.4" />
+      <circle cx="24" cy="24" r="6.6" fill="none" stroke="#fff" strokeWidth="3.4" />
+      <circle cx="32.4" cy="15.6" r="2" fill="#fff" />
     </svg>
   );
 }
 
+/** YouTube's logo mark: red rounded rectangle with the white play triangle. */
 export function YouTubeIcon({ className }: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
-      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+    <svg viewBox="0 0 48 34" className={className} aria-hidden>
+      <path d="M47 5.3A6 6 0 0 0 42.8 1C39 0 24 0 24 0S9 0 5.2 1A6 6 0 0 0 1 5.3C0 9 0 17 0 17s0 8 1 11.7A6 6 0 0 0 5.2 33c3.8 1 18.8 1 18.8 1s15 0 18.8-1a6 6 0 0 0 4.2-4.3C48 25 48 17 48 17s0-8-1-11.7Z" fill="#ff0000" />
+      <path d="M19.2 24.3 31.7 17l-12.5-7.3v14.6Z" fill="#fff" />
     </svg>
   );
 }
 
+/** WhatsApp's logo: green disc with the white chat bubble and phone. */
 export function WhatsAppIcon({ className }: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+    <svg viewBox="0 0 48 48" className={className} aria-hidden>
+      <circle cx="24" cy="24" r="24" fill="#25d366" />
+      <g transform="translate(10 10) scale(1.1667)" fill="#fff">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+      </g>
     </svg>
   );
 }
 
-/** Brand colours, flat (no gradients). */
 const platforms = [
-  { name: "Instagram", href: site.instagram.url, Icon: InstagramIcon, bg: "bg-[#E4405F]" },
-  { name: "YouTube", href: site.youtube.url, Icon: YouTubeIcon, bg: "bg-[#FF0000]" },
-  { name: "WhatsApp", href: `https://wa.me/${site.whatsapp}`, Icon: WhatsAppIcon, bg: "bg-[#25D366]" },
+  { name: "Instagram", href: site.instagram.url, Icon: InstagramIcon, wide: false },
+  { name: "YouTube", href: site.youtube.url, Icon: YouTubeIcon, wide: true },
+  { name: "WhatsApp", href: `https://wa.me/${site.whatsapp}`, Icon: WhatsAppIcon, wide: false },
 ];
 
-/** A row of round, brand-coloured social buttons. */
+/** The three official logos as links, the way they appear on phones. */
 export function SocialLinks({ size = "md", className }: { size?: "sm" | "md"; className?: string }) {
+  const h = size === "sm" ? "h-6" : "h-9";
   return (
-    <div className={cn("flex items-center gap-2", className)}>
-      {platforms.map(({ name, href, Icon, bg }) => (
-        <a
-          key={name}
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`CSI on ${name}`}
-          title={name}
-          className={cn("grid place-items-center rounded-full text-white transition-transform duration-200 hover:-translate-y-0.5", bg, size === "sm" ? "size-7" : "size-10")}
-        >
-          <Icon className={size === "sm" ? "size-3.5" : "size-5"} />
+    <div className={cn("flex items-center", size === "sm" ? "gap-2.5" : "gap-3", className)}>
+      {platforms.map(({ name, href, Icon, wide }) => (
+        <a key={name} href={href} target="_blank" rel="noopener noreferrer" aria-label={`CSI on ${name}`} title={name} className="transition-transform duration-200 hover:-translate-y-0.5">
+          <Icon className={cn(h, wide ? "w-auto" : "aspect-square w-auto")} />
         </a>
       ))}
     </div>

@@ -1,5 +1,6 @@
 import { Banner } from "@/components/home/Banner";
 import { QuickLinks } from "@/components/home/QuickLinks";
+import { NewsBand } from "@/components/home/NewsBand";
 import { Stars } from "@/components/home/Stars";
 import { Stats } from "@/components/home/Stats";
 import { ServiceMarquee } from "@/components/home/ServiceMarquee";
@@ -19,6 +20,7 @@ export default function Home() {
   return (
     <>
       <Banner />
+      <NewsBand />
       <QuickLinks />
       <News />
       <Stars />
