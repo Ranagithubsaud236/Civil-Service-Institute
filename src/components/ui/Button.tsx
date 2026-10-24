@@ -5,8 +5,8 @@ const variants = {
   primary: "bg-navy text-white hover:bg-navy-deep",
   secondary: "bg-surface text-ink ring-1 ring-line hover:ring-ink/25",
   light: "bg-white text-navy-deep hover:bg-gold-soft",
-  // blue at rest, crest gold on hover
-  apply: "bg-navy text-white hover:bg-gold-light hover:text-navy-deep",
+  // crest gold at rest; on hover it turns blue, lifts and gains a gold ring so it stands out
+  apply: "bg-gold-light font-semibold text-navy-deep hover:-translate-y-0.5 hover:bg-navy hover:text-white hover:ring-4 hover:ring-gold-light/50",
 };
 
 type Props = {
