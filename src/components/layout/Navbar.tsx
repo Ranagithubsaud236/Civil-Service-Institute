@@ -12,7 +12,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 /**
  * Demo header: only Home exists, so the other tabs are shown for the pitch
- * but intentionally do nothing when clicked. The header stays pinned to the top at all times.
+ * but intentionally do nothing when clicked. Solid bar that sticks to the top once the top bar scrolls away.
  */
 export function Navbar() {
   const { scrollY, scrollYProgress } = useScroll();
@@ -37,13 +37,8 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-4">
-      <nav
-        className={cn(
-          "relative mx-auto flex max-w-[76rem] items-center justify-between overflow-hidden rounded-2xl px-3 py-2 sm:px-5 sm:py-2.5 transition-all duration-500 ease-out-soft",
-          scrolled || open ? "bg-white/80 shadow-[0_8px_30px_-12px_rgba(15,27,45,0.18)] ring-1 ring-line backdrop-blur-xl" : "bg-transparent",
-        )}
-      >
+    <header className={cn("sticky top-0 z-50 border-b bg-white/95 backdrop-blur-xl transition-shadow duration-300", scrolled ? "border-line shadow-[0_8px_30px_-16px_rgba(15,27,45,0.25)]" : "border-line/60")}>
+      <nav className="container-page relative flex h-[76px] items-center justify-between">
         <Logo />
 
         <ul className="hidden items-center lg:flex" onMouseLeave={() => setHovered(null)}>
@@ -55,13 +50,13 @@ export function Navbar() {
                   type="button"
                   onMouseEnter={() => setHovered(label)}
                   aria-current={active ? "page" : undefined}
-                  className={cn("relative rounded-full px-4 py-2 text-sm transition-colors duration-200", active ? "font-medium text-ink" : "text-ink-soft hover:text-ink")}
+                  className={cn("relative rounded-full px-4 py-2 text-[15px] transition-colors duration-200", active ? "font-medium text-navy" : "text-ink-soft hover:text-ink")}
                 >
                   {hovered === label && (
                     <motion.span layoutId="nav-hover" className="absolute inset-0 rounded-full bg-subtle" transition={{ type: "spring", stiffness: 420, damping: 34 }} />
                   )}
                   <span className="relative">{label}</span>
-                  {active && <span className="absolute inset-x-4 -bottom-0.5 h-px bg-gold" />}
+                  {active && <span className="absolute inset-x-4 -bottom-[17px] h-[3px] rounded-full bg-gold" />}
                 </button>
               </li>
             );
@@ -69,7 +64,7 @@ export function Navbar() {
         </ul>
 
         <div className="hidden lg:block">
-          <Button href="#contact" className="h-10 px-5">Book a free seminar</Button>
+          <Button href="#contact" className="h-11 px-6">Apply now</Button>
         </div>
 
         <button
@@ -88,7 +83,7 @@ export function Navbar() {
         <motion.span
           aria-hidden
           style={{ scaleX: progress }}
-          className={cn("absolute inset-x-0 bottom-0 h-0.5 origin-left bg-navy/70 transition-opacity duration-300", scrolled ? "opacity-100" : "opacity-0")}
+          className={cn("absolute inset-x-0 -bottom-px h-0.5 origin-left bg-gold transition-opacity duration-300", scrolled ? "opacity-100" : "opacity-0")}
         />
       </nav>
 
@@ -111,7 +106,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.98 }}
             transition={{ duration: 0.3, ease }}
-            className="mx-auto mt-2 max-w-[76rem] origin-top rounded-2xl bg-white p-3 shadow-xl ring-1 ring-line lg:hidden"
+            className="absolute inset-x-3 top-full mt-2 origin-top rounded-2xl bg-white p-3 shadow-xl ring-1 ring-line lg:hidden"
           >
             {nav.map((label, i) => (
               <motion.button
@@ -128,7 +123,7 @@ export function Navbar() {
               </motion.button>
             ))}
             <div onClick={() => setOpen(false)}>
-              <Button href="#contact" className="mt-2 w-full justify-center">Book a free seminar</Button>
+              <Button href="#contact" className="mt-2 w-full justify-center">Apply now</Button>
             </div>
           </motion.div>
         )}

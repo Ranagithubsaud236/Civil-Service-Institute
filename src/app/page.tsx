@@ -1,9 +1,8 @@
-import { Hero } from "@/components/home/Hero";
-import { HighlightsSlider } from "@/components/home/HighlightsSlider";
+import { Banner } from "@/components/home/Banner";
+import { QuickLinks } from "@/components/home/QuickLinks";
 import { Stats } from "@/components/home/Stats";
 import { ServiceMarquee } from "@/components/home/ServiceMarquee";
 import { Quiz } from "@/components/home/Quiz";
-import { Classroom } from "@/components/home/Classroom";
 import { Approach } from "@/components/home/Approach";
 import { EssayReview } from "@/components/home/EssayReview";
 import { Programmes } from "@/components/home/Programmes";
@@ -18,12 +17,11 @@ import { Contact } from "@/components/home/Contact";
 export default function Home() {
   return (
     <>
-      <Hero />
+      <Banner />
+      <QuickLinks />
       <News />
-      <HighlightsSlider />
       <Stats />
       <ServiceMarquee />
-      <Classroom />
       <Approach />
       <EssayReview />
       <Quiz />

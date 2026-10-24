@@ -32,7 +32,7 @@ export function IntakeCard() {
   };
 
   return (
-    <div className="relative [perspective:1200px] sm:mb-16" onPointerMove={onMove} onPointerLeave={() => (mx.set(0), my.set(0))}>
+    <div className="relative [perspective:1200px]" onPointerMove={onMove} onPointerLeave={() => (mx.set(0), my.set(0))}>
       <motion.div style={{ rotateX: rx, rotateY: ry }} className="relative rounded-[28px] bg-white p-6 shadow-[0_40px_80px_-40px_rgba(15,27,45,0.35)] ring-1 ring-line sm:p-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -82,17 +82,6 @@ export function IntakeCard() {
         </div>
       </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute -bottom-20 left-6 hidden max-w-[16rem] rounded-2xl bg-white p-4 shadow-[0_20px_40px_-20px_rgba(15,27,45,0.3)] ring-1 ring-line sm:block lg:-left-8"
-      >
-        <p className="font-display text-2xl text-ink">
-          28 <span className="text-ink-mute">→</span> <span className="text-navy">61</span>
-        </p>
-        <p className="mt-1 text-xs leading-snug text-ink-mute">Hamza Iqbal&apos;s essay score after the Essay &amp; Précis Clinic · FSP, CSS 2025</p>
-      </motion.div>
     </div>
   );
 }
