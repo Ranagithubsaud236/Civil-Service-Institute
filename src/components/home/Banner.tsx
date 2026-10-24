@@ -83,10 +83,10 @@ export function Banner() {
           <div key={s.src} data-slide aria-hidden={n !== index} className={cn("absolute inset-0", n !== 0 && "invisible opacity-0")}>
             <Image src={s.src} alt={s.alt} fill sizes="100vw" priority={n === 0} className="pointer-events-none object-cover object-[50%_30%]" />
             {/* flat tint so white captions stay readable on bright photos */}
-            <div className="absolute inset-0 bg-black/25" />
+            <div className="absolute inset-0 bg-black/35" />
             <div data-caption className="absolute inset-x-0 bottom-10 px-16 text-center text-white sm:bottom-14">
-              <h2 className="font-display text-3xl tracking-tight text-balance [text-shadow:0_2px_12px_rgba(0,0,0,0.45)] sm:text-5xl">{s.title}</h2>
-              <p className="mt-3 text-sm text-white/90 [text-shadow:0_1px_8px_rgba(0,0,0,0.5)] sm:text-lg">{s.sub}</p>
+              <h2 className="font-display text-3xl tracking-tight text-balance sm:text-5xl">{s.title}</h2>
+              <p className="mt-3 text-sm text-white/90 sm:text-lg">{s.sub}</p>
               <a href={s.href} target={s.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" tabIndex={n === index ? 0 : -1} className="mt-6 inline-flex h-11 items-center rounded-full bg-white px-6 text-sm font-medium text-navy transition-colors hover:bg-gold-soft">
                 Learn more
               </a>
@@ -122,7 +122,7 @@ function EdgeArrow({ side, onClick }: { side: "left" | "right"; onClick: () => v
       aria-label={side === "left" ? "Previous slide" : "Next slide"}
       className={cn("absolute top-1/2 z-10 grid size-12 -translate-y-1/2 place-items-center text-white transition-opacity hover:opacity-75", side === "left" ? "left-2 sm:left-4" : "right-2 sm:right-4")}
     >
-      <Icon className="size-9 [filter:drop-shadow(0_1px_4px_rgba(0,0,0,0.5))]" strokeWidth={2.5} />
+      <Icon className="size-9" strokeWidth={2.5} />
     </button>
   );
 }

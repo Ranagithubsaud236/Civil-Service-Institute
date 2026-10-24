@@ -73,7 +73,7 @@ function FlipCard({ star }: { star: Star }) {
             <span className="absolute inset-0 overflow-hidden rounded-full ring-4 ring-gold-light/80">
               <Image src={star.photo} alt={star.name} fill sizes="176px" className="scale-110 object-cover" />
             </span>
-            <span className="absolute -right-1 bottom-2 rounded-full bg-gold-light px-3 py-1 text-xs font-semibold tracking-wide text-navy-deep shadow-lg">{star.group}</span>
+            <span className="absolute -right-1 bottom-2 rounded-full bg-gold-light px-3 py-1 text-xs font-semibold tracking-wide text-navy-deep">{star.group}</span>
           </span>
 
           <p className="mt-8 inline-flex items-center gap-1.5 text-xs font-medium tracking-[0.14em] text-gold-light uppercase">

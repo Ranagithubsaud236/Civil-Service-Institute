@@ -71,7 +71,7 @@ export function EssayReview() {
 
         {/* phones: the scorecard sits below the essay, so keep a live score pinned while reading */}
         <div className="pointer-events-none sticky bottom-24 mt-6 flex justify-center lg:hidden">
-          <div className="pointer-events-auto flex items-center gap-3 rounded-full bg-navy-deep px-5 py-2.5 text-sm text-white shadow-lg">
+          <div className="pointer-events-auto flex items-center gap-3 rounded-full bg-navy-deep px-5 py-2.5 text-sm text-white">
             <span className="font-display text-xl tabular-nums">{score}</span>
             <span className="text-white/60">/ 100 · {seen.length} of {remarks.length} remarks</span>
           </div>

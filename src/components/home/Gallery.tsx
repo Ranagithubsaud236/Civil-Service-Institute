@@ -108,7 +108,7 @@ export function Gallery() {
                     {x.title}
                   </span>
                   {x.videoId && (
-                    <span className="absolute top-2 right-2 grid size-7 place-items-center rounded-full bg-white/95 text-navy-deep shadow sm:size-8">
+                    <span className="absolute top-2 right-2 grid size-7 place-items-center rounded-full bg-white/95 text-navy-deep sm:size-8">
                       <Play className="ml-0.5 size-3.5 fill-current" />
                     </span>
                   )}

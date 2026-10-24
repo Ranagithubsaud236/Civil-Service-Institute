@@ -6,12 +6,12 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 type Props = HTMLMotionProps<"div"> & { delay?: number; y?: number };
 
-/** Fades, lifts and un-blurs children once, when they enter the viewport. */
+/** Fades and lifts children once, when they enter the viewport. */
 export function Reveal({ delay = 0, y = 20, children, ...rest }: Props) {
   return (
     <motion.div
-      initial={{ opacity: 0, y, filter: "blur(6px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.8, delay, ease }}
       {...rest}

@@ -1,26 +1,13 @@
-"use client";
-
-import { useId } from "react";
 import { cn } from "@/lib/cn";
 import { site } from "@/data/site";
 
 type IconProps = { className?: string };
 
-/** Instagram's app icon: the official gradient square with the white camera outline. */
+/** Instagram's app icon in flat brand pink (no gradient), with the white camera outline. */
 export function InstagramIcon({ className }: IconProps) {
-  const id = useId();
   return (
     <svg viewBox="0 0 48 48" className={className} aria-hidden>
-      <defs>
-        <radialGradient id={`${id}-a`} cx="0.28" cy="1.08" r="1.25">
-          <stop offset="0" stopColor="#fdf497" />
-          <stop offset="0.05" stopColor="#fdf497" />
-          <stop offset="0.45" stopColor="#fd5949" />
-          <stop offset="0.6" stopColor="#d6249f" />
-          <stop offset="0.9" stopColor="#285aeb" />
-        </radialGradient>
-      </defs>
-      <rect width="48" height="48" rx="12" fill={`url(#${id}-a)`} />
+      <rect width="48" height="48" rx="12" fill="#e1306c" />
       <rect x="10" y="10" width="28" height="28" rx="8" fill="none" stroke="#fff" strokeWidth="3.4" />
       <circle cx="24" cy="24" r="6.6" fill="none" stroke="#fff" strokeWidth="3.4" />
       <circle cx="32.4" cy="15.6" r="2" fill="#fff" />

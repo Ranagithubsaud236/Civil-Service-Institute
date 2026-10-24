@@ -106,7 +106,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.98 }}
             transition={{ duration: 0.3, ease }}
-            className="absolute inset-x-3 top-full mt-2 origin-top rounded-2xl bg-white p-3 shadow-xl ring-1 ring-line lg:hidden"
+            className="absolute inset-x-3 top-full mt-2 origin-top rounded-2xl bg-white p-3 ring-1 ring-line lg:hidden"
           >
             {nav.map((label, i) => (
               <motion.button

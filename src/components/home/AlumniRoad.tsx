@@ -66,7 +66,7 @@ export function AlumniRoad() {
 
           <div className="absolute inset-x-[13%] top-[15%] bottom-[30%] flex items-center justify-center text-center">
             <AnimatePresence mode="wait">
-              <motion.div key={active} initial={{ opacity: 0, y: 18, filter: "blur(6px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -12, filter: "blur(6px)" }} transition={{ duration: 0.5, ease }}>
+              <motion.div key={active} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.5, ease }}>
                 <StageText stage={stages[active]} />
               </motion.div>
             </AnimatePresence>

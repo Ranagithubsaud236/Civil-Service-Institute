@@ -27,8 +27,8 @@ const icon = "size-[18px] shrink-0 text-gold-light";
 /** Two-tier footer: four columns on deep blue, then a lighter bar with legal links and back-to-top. */
 export function Footer() {
   return (
-    <footer className="text-white">
-      <div className="bg-navy-deep">
+    <footer className="bg-navy-deep text-white">
+      <div>
         <div className="container-page grid gap-x-10 gap-y-12 py-16 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1.3fr] lg:py-20">
           <div>
             <Logo light />
@@ -87,7 +87,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="bg-navy">
+      <div className="border-t border-white/12">
         <div className="container-page relative flex flex-col items-center gap-3 pt-6 pb-24 text-center sm:pb-6">
           <nav aria-label="Legal" className="flex items-center gap-4 text-[15px] text-white/90">
             {/* pages to be added; visual only in the demo */}
@@ -101,7 +101,7 @@ export function Footer() {
           <a
             href="#top"
             aria-label="Back to top"
-            className="absolute top-1/2 right-28 hidden size-12 -translate-y-1/2 place-items-center rounded-lg bg-navy-deep text-white transition-colors hover:bg-gold-light hover:text-navy-deep sm:grid"
+            className="absolute top-1/2 right-28 hidden size-12 -translate-y-1/2 place-items-center rounded-lg text-white ring-1 ring-white/25 transition-colors hover:bg-gold-light hover:ring-gold-light hover:text-navy-deep sm:grid"
           >
             <ChevronUp className="size-6" />
           </a>
