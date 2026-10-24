@@ -1,4 +1,5 @@
-import { BadgeCheck, CirclePlay, Plus } from "lucide-react";
+import { BadgeCheck, Plus } from "lucide-react";
+import { YouTubeIcon } from "@/components/ui/BrandIcons";
 import { facultySlots, leadFaculty } from "@/data/people";
 import { site } from "@/data/site";
 import { channel } from "@/data/media";
@@ -42,7 +43,7 @@ export function Faculty() {
 
             <p className="relative mt-8 max-w-xl leading-relaxed text-white/65">{m.bio}</p>
             <a href={site.youtube.url} target="_blank" rel="noopener noreferrer" className="relative mt-6 inline-flex items-center gap-2 text-sm font-medium text-gold-light underline-offset-4 hover:underline">
-              <CirclePlay className="size-4" /> Watch the free lectures · {channel.subscribers} subscribers
+              <YouTubeIcon className="size-4" /> Watch the free lectures · {channel.subscribers} subscribers
             </a>
           </article>
         </Reveal>

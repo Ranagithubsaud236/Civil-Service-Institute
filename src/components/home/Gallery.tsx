@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { ArrowUpRight, ChevronLeft, ChevronRight, Play, X } from "lucide-react";
 import { channel, ig, posts, reel, thumb, videos, youtubeUrl, type Img } from "@/data/media";
 import { cn } from "@/lib/cn";
+import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { SectionHeading } from "./SectionHeading";
 
 type Item = { key: string; tab: Tab; title: string; img: Img; videoId?: string; href: string };
@@ -31,6 +32,29 @@ export function Gallery() {
   const [tab, setTab] = useState<(typeof tabs)[number]>("All");
   const [open, setOpen] = useState<number | null>(null);
   const list = items.filter((x) => tab === "All" || x.tab === tab);
+  const grid = useRef<HTMLDivElement>(null);
+
+  // Scroll reveal: each card's mask opens from the bottom up while its photo rises into place,
+  // in small staggered batches. Runs once, for the cards on the page when it loads.
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const cards = gsap.utils.toArray<HTMLElement>("[data-reveal]");
+        gsap.set(cards, { clipPath: "inset(100% 0% 0% 0%)" });
+        gsap.set("[data-reveal-inner]", { yPercent: 18 });
+        ScrollTrigger.batch(cards, {
+          start: "top 92%",
+          once: true,
+          onEnter: (batch) => {
+            gsap.to(batch, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.1, ease: "power3.out", stagger: 0.12, clearProps: "clipPath" });
+            gsap.to(batch.map((el) => el.querySelector("[data-reveal-inner]")), { yPercent: 0, duration: 1.3, ease: "power3.out", stagger: 0.12 });
+          },
+        });
+      });
+    },
+    { scope: grid },
+  );
 
   return (
     <section id="gallery" className="bg-subtle/60 py-24 lg:py-32">
@@ -49,7 +73,7 @@ export function Gallery() {
           </LayoutGroup>
         </div>
 
-        <motion.div layout className="mt-14 columns-2 gap-4 md:columns-3 lg:columns-4 [&>*]:mb-4">
+        <motion.div ref={grid} layout className="mt-14 columns-2 gap-4 md:columns-3 lg:columns-4 [&>*]:mb-4">
           <AnimatePresence mode="popLayout">
             {list.map((x, n) => (
               <motion.button
@@ -60,9 +84,12 @@ export function Gallery() {
                 exit={{ opacity: 0, scale: 0.94 }}
                 transition={{ duration: 0.45, ease }}
                 onClick={() => setOpen(n)}
+                data-reveal
                 className="group relative block w-full break-inside-avoid overflow-hidden rounded-2xl bg-white text-left ring-1 ring-line"
               >
-                <Image src={x.img.src} alt={x.img.alt || x.title} width={x.img.w} height={x.img.h} sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw" className="h-auto w-full transition-transform duration-700 ease-out-soft group-hover:scale-105" />
+                <span data-reveal-inner className="block">
+                  <Image src={x.img.src} alt={x.img.alt || x.title} width={x.img.w} height={x.img.h} sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw" className="h-auto w-full transition-transform duration-700 ease-out-soft group-hover:scale-105" />
+                </span>
                 <span className="absolute inset-x-0 bottom-0 bg-navy-deep px-4 py-3 text-sm font-medium text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-coarse:opacity-100">
                   {x.title}
                 </span>

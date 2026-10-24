@@ -2,6 +2,7 @@ import { AtSign, Globe, MapPin, Phone } from "lucide-react";
 import { nav, site } from "@/data/site";
 import { programmes } from "@/data/programmes";
 import { Logo } from "@/components/ui/Logo";
+import { SocialLinks } from "@/components/ui/BrandIcons";
 
 export function Footer() {
   return (
@@ -13,6 +14,7 @@ export function Footer() {
             <p className="mt-6 max-w-xs text-sm leading-relaxed">
               Preparing aspirants for CSS, PMS and federal competitive examinations through mentorship by civil servants and rigorous FPSC-pattern evaluation.
             </p>
+            <SocialLinks className="mt-6" />
           </div>
 
           <FooterCol title="Institute">

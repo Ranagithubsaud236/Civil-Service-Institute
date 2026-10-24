@@ -1,7 +1,8 @@
 "use client";
 
 import { useRef } from "react";
-import { ArrowUpRight, BookOpen, CirclePlay, GraduationCap, NotebookPen } from "lucide-react";
+import { ArrowUpRight, BookOpen, GraduationCap, NotebookPen } from "lucide-react";
+import { YouTubeIcon } from "@/components/ui/BrandIcons";
 import { channel, ig } from "@/data/media";
 import { site } from "@/data/site";
 import { gsap, useGSAP } from "@/lib/gsap";
@@ -9,7 +10,7 @@ import { gsap, useGSAP } from "@/lib/gsap";
 const links = [
   { icon: GraduationCap, title: "Admissions", body: "CSS 2027 & PMS Punjab batches", href: "#contact" },
   { icon: NotebookPen, title: "Programmes", body: "Foundation, evening, clinics", href: "#programmes" },
-  { icon: CirclePlay, title: "Free lectures", body: `${channel.subscribers} subscribers on YouTube`, href: site.youtube.url, external: true },
+  { icon: YouTubeIcon, title: "Free lectures", body: `${channel.subscribers} subscribers on YouTube`, href: site.youtube.url, external: true },
   { icon: BookOpen, title: "Publications", body: "Press Review Plus & 5-book bundle", href: ig("DeuD3U9CA9Y"), external: true },
 ];
 
