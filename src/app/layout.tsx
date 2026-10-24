@@ -4,6 +4,7 @@ import { Providers } from "@/components/layout/Providers";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppFab } from "@/components/layout/WhatsAppFab";
+import { CursorRing } from "@/components/layout/CursorRing";
 import { ExtensionGuard } from "@/components/layout/ExtensionGuard";
 import "./globals.css";
 
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <main>{children}</main>
           <Footer />
           <WhatsAppFab />
+          <CursorRing />
         </Providers>
       </body>
     </html>
