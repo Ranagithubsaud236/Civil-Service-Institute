@@ -1,66 +1,121 @@
-import { AtSign, Globe, MapPin, Phone } from "lucide-react";
-import { nav, site } from "@/data/site";
-import { programmes } from "@/data/programmes";
+import { BookOpen, ChevronUp, MapPin, Phone } from "lucide-react";
+import { site } from "@/data/site";
+import { publicationsWhatsapp } from "@/data/media";
 import { Logo } from "@/components/ui/Logo";
-import { SocialLinks } from "@/components/ui/BrandIcons";
+import { InstagramGlyph, WhatsAppGlyph, YouTubeGlyph } from "@/components/ui/BrandIcons";
 
+const quickLinks = [
+  { label: "Home", href: "#top" },
+  { label: "Programmes", href: "#programmes" },
+  { label: "Faculty", href: "#faculty" },
+  { label: "Stars of CSI", href: "#stars" },
+  { label: "Gallery", href: "#gallery" },
+  { label: "Contact Us", href: "#contact" },
+  { label: "Apply Now", href: "#contact" },
+];
+
+const follow = [
+  { label: "Instagram", href: site.instagram.url, Icon: InstagramGlyph },
+  { label: "YouTube", href: site.youtube.url, Icon: YouTubeGlyph },
+  { label: "WhatsApp", href: `https://wa.me/${site.whatsapp}`, Icon: WhatsAppGlyph },
+];
+
+const tel = (n: string) => `tel:${n.replace(/\s/g, "")}`;
+const row = "flex items-center gap-3 text-white/85 transition-colors hover:text-white";
+const icon = "size-[18px] shrink-0 text-gold-light";
+
+/** Two-tier footer: four columns on deep blue, then a lighter bar with legal links and back-to-top. */
 export function Footer() {
   return (
-    <footer className="bg-navy-deep text-white/65">
-      <div className="container-page pt-20 pb-10">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-[1.4fr_1fr_1.2fr_1.4fr] lg:gap-12">
-          <div className="col-span-2 lg:col-span-1">
+    <footer className="text-white">
+      <div className="bg-navy-deep">
+        <div className="container-page grid gap-x-10 gap-y-12 py-16 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1.3fr] lg:py-20">
+          <div>
             <Logo light />
-            <p className="mt-6 max-w-xs text-sm leading-relaxed">
-              Preparing aspirants for CSS, PMS and federal competitive examinations through mentorship by civil servants and rigorous FPSC-pattern evaluation.
+            <p className="mt-6 max-w-sm text-[15px] leading-[1.7] text-white/80">
+              Civil Services Institute prepares aspirants for CSS, PMS and other competitive examinations, mentored by Dr. Sassi Malik Sher — classes in Rawalpindi and live online across Pakistan.
             </p>
-            <SocialLinks className="mt-6" />
           </div>
 
-          <FooterCol title="Institute">
-            {nav.map((label) => (
-              <FooterItem key={label}>{label}</FooterItem>
+          <FooterCol title="Quick Links">
+            {quickLinks.map((l) => (
+              <li key={l.label}>
+                <a href={l.href} className={`group ${row}`}>
+                  <span className="size-2.5 shrink-0 rounded-full border-2 border-gold-light transition-colors group-hover:bg-gold-light" />
+                  {l.label}
+                </a>
+              </li>
             ))}
           </FooterCol>
 
-          <FooterCol title="Programmes">
-            {programmes.slice(0, 5).map((p) => (
-              <FooterItem key={p.slug}>{p.title}</FooterItem>
+          <FooterCol title="Follow Us">
+            {follow.map(({ label, href, Icon }) => (
+              <li key={label}>
+                <a href={href} target="_blank" rel="noopener noreferrer" className={row}>
+                  <Icon className={icon} />
+                  {label}
+                </a>
+              </li>
             ))}
           </FooterCol>
 
-          <FooterCol title="Contact" className="col-span-2 lg:col-span-1">
-            <li className="flex gap-3"><MapPin className="mt-0.5 size-4 shrink-0 text-white/40" />{site.address}</li>
-            <li className="flex gap-3"><Phone className="mt-0.5 size-4 shrink-0 text-white/40" />{site.phone}</li>
-            <li className="flex gap-3"><AtSign className="mt-0.5 size-4 shrink-0 text-white/40" /><a href={site.instagram.url} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">{site.instagram.handle}</a></li>
-            <li className="flex gap-3"><Globe className="mt-0.5 size-4 shrink-0 text-white/40" />{site.hours}</li>
+          <FooterCol title="Contact Us">
+            <li>
+              <a href={tel(site.phone)} className={row}>
+                <Phone className={icon} /> {site.phone}
+              </a>
+            </li>
+            <li>
+              <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener noreferrer" className={row}>
+                <WhatsAppGlyph className={icon} /> WhatsApp admissions
+              </a>
+            </li>
+            <li>
+              <a href={tel(publicationsWhatsapp)} className={row}>
+                <BookOpen className={icon} /> Books: {publicationsWhatsapp}
+              </a>
+            </li>
+            <li>
+              <a href={site.instagram.url} target="_blank" rel="noopener noreferrer" className={row}>
+                <InstagramGlyph className={icon} /> {site.instagram.handle}
+              </a>
+            </li>
+            <li className="flex items-center gap-3 text-white/85">
+              <MapPin className={icon} /> {site.address} · Online
+            </li>
           </FooterCol>
         </div>
+      </div>
 
-
-        <div className="mt-12 flex flex-col justify-between gap-2 border-t lg:mt-16 border-white/10 pt-8 text-xs text-white/45 md:flex-row">
-          <span>© {site.established + 2} {site.name}, Rawalpindi</span>
-          <span>Not affiliated with FPSC or PPSC</span>
+      <div className="bg-navy">
+        <div className="container-page relative flex flex-col items-center gap-3 pt-6 pb-24 text-center sm:pb-6">
+          <nav aria-label="Legal" className="flex items-center gap-4 text-[15px] text-white/90">
+            {/* pages to be added; visual only in the demo */}
+            <button type="button" className="transition-colors hover:text-gold-light">Privacy Policy</button>
+            <span aria-hidden className="size-1.5 bg-gold-light" />
+            <button type="button" className="transition-colors hover:text-gold-light">Terms and Conditions</button>
+          </nav>
+          <p className="text-sm text-white/75">
+            All Rights Reserved © {site.established + 2} {site.name}, Rawalpindi · Not affiliated with FPSC or PPSC
+          </p>
+          <a
+            href="#top"
+            aria-label="Back to top"
+            className="absolute top-1/2 right-28 hidden size-12 -translate-y-1/2 place-items-center rounded-lg bg-navy-deep text-white transition-colors hover:bg-gold-light hover:text-navy-deep sm:grid"
+          >
+            <ChevronUp className="size-6" />
+          </a>
         </div>
       </div>
     </footer>
   );
 }
 
-function FooterCol({ title, children, className }: { title: string; children: React.ReactNode; className?: string }) {
+function FooterCol({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className={className}>
-      <h3 className="mb-5 text-sm font-medium text-white">{title}</h3>
-      <ul className="space-y-3 text-sm">{children}</ul>
+    <div>
+      <h3 className="mb-6 text-lg font-semibold text-gold-light">{title}</h3>
+      <ul className="space-y-3.5 text-[15px]">{children}</ul>
     </div>
-  );
-}
-
-/** Footer links are visual only in the demo. */
-function FooterItem({ children }: { children: React.ReactNode }) {
-  return (
-    <li>
-      <button type="button" className="text-left transition-colors duration-200 hover:text-white">{children}</button>
-    </li>
   );
 }
