@@ -1,36 +1,20 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 import { Button } from "@/components/ui/Button";
 import { LineReveal, Reveal } from "@/components/ui/Reveal";
 import { IntakeCard } from "./IntakeCard";
 
 const groups = ["PAS", "PSP", "FSP", "IRS", "PMS"];
 
-/** Scroll depth: background lags behind, text drifts and fades, the card moves fastest. */
-function useLayer(progress: ReturnType<typeof useScroll>["scrollYProgress"], to: number, reduce: boolean | null) {
-  return useSpring(useTransform(progress, [0, 1], [0, reduce ? 0 : to]), { stiffness: 120, damping: 30, mass: 0.4 });
-}
-
 export function Hero() {
-  const ref = useRef<HTMLElement>(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const gridY = useLayer(scrollYProgress, 160, reduce);
-  const glowY = useLayer(scrollYProgress, 260, reduce);
-  const textY = useLayer(scrollYProgress, -60, reduce);
-  const cardY = useLayer(scrollYProgress, -140, reduce);
-  const textOpacity = useTransform(() => (reduce ? 1 : 1 - Math.min(scrollYProgress.get() / 0.8, 1) * 0.85));
-
   return (
-    <section ref={ref} id="top" className="relative isolate overflow-hidden pt-32 pb-20 lg:pt-40 lg:pb-28">
-      <motion.div style={{ y: gridY }} className="grid-fade absolute inset-0 -z-10" />
-      <motion.div style={{ y: glowY }} className="absolute -top-40 right-[-10%] -z-10 size-[560px] rounded-full bg-[radial-gradient(circle,rgba(11,58,104,0.10),transparent_65%)]" />
-      <motion.div style={{ y: glowY }} className="absolute top-[20%] left-[-12%] -z-10 size-[360px] rounded-full bg-[radial-gradient(circle,rgba(169,124,47,0.08),transparent_65%)]" />
+    <section id="top" className="relative isolate overflow-hidden pt-32 pb-20 lg:pt-40 lg:pb-28">
+      <div className="grid-fade absolute inset-0 -z-10" />
+      <div className="absolute -top-40 right-[-10%] -z-10 size-[560px] rounded-full bg-[radial-gradient(circle,rgba(11,58,104,0.10),transparent_65%)]" />
+      <div className="absolute top-[20%] left-[-12%] -z-10 size-[360px] rounded-full bg-[radial-gradient(circle,rgba(169,124,47,0.08),transparent_65%)]" />
 
       <div className="container-page grid items-center gap-14 lg:grid-cols-[1.15fr_1fr] lg:gap-20 [&>*]:min-w-0">
-        <motion.div style={{ y: textY, opacity: textOpacity }}>
+        <div>
           <Reveal>
             <span className="inline-flex items-center gap-2.5 rounded-full bg-white py-1.5 pr-4 pl-1.5 text-[13px] text-ink-soft ring-1 ring-line">
               <span className="rounded-full bg-gold-soft px-2.5 py-0.5 text-xs font-medium text-gold">New</span>
@@ -78,13 +62,13 @@ export function Hero() {
               </p>
             </div>
           </Reveal>
-        </motion.div>
+        </div>
 
-        <motion.div style={{ y: cardY }}>
+        <div>
           <Reveal delay={0.3} y={30}>
             <IntakeCard />
           </Reveal>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

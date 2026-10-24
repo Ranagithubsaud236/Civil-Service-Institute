@@ -21,7 +21,7 @@ export function Approach() {
           {method.map((m, i) => {
             const Icon = icons[i];
             return (
-              <Parallax key={m.title} offset={{ base: 14, sm: i % 2 ? 40 : 10 }} className="h-full">
+              <Parallax key={m.title} offset={{ base: 24, sm: i % 2 ? 110 : 24 }} className="h-full">
               <Reveal className="h-full" delay={i * 0.08}>
                 <article className="group h-full rounded-2xl bg-white p-7 ring-1 ring-line transition-all duration-300 ease-out-soft hover:-translate-y-1 hover:shadow-[0_24px_48px_-24px_rgba(15,27,45,0.25)] hover:ring-ink/15">
                   <div className="flex items-center justify-between">

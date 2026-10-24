@@ -4,7 +4,6 @@ import { useRef, useState } from "react";
 import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
 import { journey } from "@/data/site";
 import { cn } from "@/lib/cn";
-import { Parallax } from "@/components/ui/Parallax";
 import { SectionHeading } from "./SectionHeading";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -19,10 +18,10 @@ export function Journey() {
 
   return (
     <section id="journey" className="relative isolate overflow-hidden bg-navy-deep py-24 text-white lg:py-32">
-      <Parallax offset={140} aria-hidden className="pointer-events-none absolute -top-10 right-[-4%] -z-10 font-display text-[22rem] leading-none text-white/[0.03] select-none md:text-[30rem]">
+      <div aria-hidden className="pointer-events-none absolute -top-10 right-[-4%] -z-10 font-display text-[22rem] leading-none text-white/[0.03] select-none md:text-[30rem]">
         VI
-      </Parallax>
-      <Parallax offset={-100} aria-hidden className="pointer-events-none absolute bottom-[-30%] left-[-10%] -z-10 size-[600px] rounded-full bg-[radial-gradient(circle,rgba(217,184,119,0.10),transparent_65%)]" />
+      </div>
+      <div aria-hidden className="pointer-events-none absolute bottom-[-30%] left-[-10%] -z-10 size-[600px] rounded-full bg-[radial-gradient(circle,rgba(217,184,119,0.10),transparent_65%)]" />
       <div className="container-page">
         <SectionHeading
           dark

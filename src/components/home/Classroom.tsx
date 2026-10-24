@@ -3,12 +3,11 @@ import { photos } from "@/data/photos";
 import { site } from "@/data/site";
 import { cn } from "@/lib/cn";
 import { Reveal } from "@/components/ui/Reveal";
-import { Parallax } from "@/components/ui/Parallax";
 import { SectionHeading } from "./SectionHeading";
 
 type Photo = (typeof photos)[keyof typeof photos];
 
-/** HD photo bento. Each image drifts inside its frame for depth; captions sit on a soft gradient. */
+/** HD photo bento; images zoom gently on hover and captions sit on a soft gradient. */
 export function Classroom() {
   return (
     <section id="classroom" className="container-page py-24 lg:py-32">
@@ -43,8 +42,7 @@ export function Classroom() {
 function Tile({ photo, caption, className, delay = 0 }: { photo: Photo; caption: string; className?: string; delay?: number }) {
   return (
     <Reveal delay={delay} className={cn("group relative overflow-hidden rounded-3xl bg-subtle", className)}>
-      {/* taller than the frame so the drift never shows an edge */}
-      <Parallax offset={-40} className="absolute -inset-y-12 inset-x-0">
+      <div className="absolute inset-0">
         <Image
           src={photo.src}
           alt={photo.alt}
@@ -52,7 +50,7 @@ function Tile({ photo, caption, className, delay = 0 }: { photo: Photo; caption:
           sizes="(min-width: 1024px) 60vw, 100vw"
           className="object-cover transition-transform duration-[1.2s] ease-out-soft group-hover:scale-105"
         />
-      </Parallax>
+      </div>
       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-deep/70 to-transparent p-5 pt-16">
         <p className="text-sm font-medium text-white">{caption}</p>
       </div>

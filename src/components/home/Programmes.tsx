@@ -6,7 +6,6 @@ import { ArrowUpRight, Check } from "lucide-react";
 import { categories, programmes, type Programme } from "@/data/programmes";
 import { cn } from "@/lib/cn";
 import { Reveal } from "@/components/ui/Reveal";
-import { Parallax } from "@/components/ui/Parallax";
 import { SectionHeading } from "./SectionHeading";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -53,9 +52,9 @@ export function Programmes() {
                 exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.2 } }}
                 transition={{ duration: 0.5, delay: i * 0.04, ease }}
               >
-                <Parallax offset={{ base: 14, sm: i % 2 ? 36 : 12, lg: i % 3 === 1 ? 40 : 12 }} className="h-full">
+                <div className="h-full">
                   <ProgrammeCard p={p} />
-                </Parallax>
+                </div>
               </motion.div>
             ))}
           </AnimatePresence>

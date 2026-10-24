@@ -3,7 +3,6 @@ import { facultySlots, leadFaculty } from "@/data/people";
 import { site } from "@/data/site";
 import { channel } from "@/data/media";
 import { Reveal } from "@/components/ui/Reveal";
-import { Parallax } from "@/components/ui/Parallax";
 import { SectionHeading } from "./SectionHeading";
 
 /** One verified mentor, then open seats for the rest of the panel (no invented names). */
@@ -51,7 +50,7 @@ export function Faculty() {
 
         <div className="grid gap-5">
           {facultySlots.map((subject, i) => (
-            <Parallax key={subject} offset={{ base: 0, lg: 18 + i * 14 }}>
+            <div key={subject}>
               <Reveal delay={0.1 + i * 0.08}>
                 <article className="group flex items-center gap-5 rounded-3xl border-2 border-dashed border-line p-6 transition-colors duration-300 hover:border-navy/30 hover:bg-white">
                   <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-subtle text-ink-mute transition-colors duration-300 group-hover:bg-navy group-hover:text-white">
@@ -64,7 +63,7 @@ export function Faculty() {
                   </div>
                 </article>
               </Reveal>
-            </Parallax>
+            </div>
           ))}
         </div>
       </div>
