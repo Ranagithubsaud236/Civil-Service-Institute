@@ -19,7 +19,6 @@ export function Faculty() {
       <div className="mt-14 grid gap-5 lg:grid-cols-[1.5fr_1fr]">
         <Reveal>
           <article className="relative h-full overflow-hidden rounded-3xl bg-navy-deep p-8 text-white sm:p-10">
-            <div className="pointer-events-none absolute -top-24 -right-24 size-72 rounded-full bg-[radial-gradient(circle,rgba(217,184,119,0.22),transparent_70%)]" />
             <div className="relative flex flex-wrap items-start justify-between gap-4">
               <span className="grid size-20 place-items-center rounded-2xl bg-white/10 font-display text-3xl text-gold-light ring-1 ring-white/15">SM</span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs text-white/80 ring-1 ring-white/15">

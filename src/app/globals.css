@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------
-   Design tokens — restrained palette: warm neutrals, crest navy,
-   and a single muted gold accent used sparingly.
+   Design tokens — taken from the CSI crest: royal blue, gold and white,
+   flat colour only (no gradients, glows or blurs).
    ------------------------------------------------------------------ */
 @theme {
   --color-canvas: #fafaf7;
@@ -14,12 +14,12 @@
   --color-ink-soft: #4a5567;
   --color-ink-mute: #6b7485;
 
-  --color-navy: #0b3a68;
-  --color-navy-deep: #0a2440;
+  --color-navy: #0b4f8c;
+  --color-navy-deep: #083d6e;
 
-  --color-gold: #a97c2f;
-  --color-gold-soft: #f4ecdc;
-  --color-gold-light: #d9b877;
+  --color-gold: #a8772a;
+  --color-gold-soft: #f6eddc;
+  --color-gold-light: #c9963f;
 
   --font-display: var(--font-newsreader), Georgia, serif;
   --font-sans: var(--font-geist), system-ui, sans-serif;
@@ -84,13 +84,6 @@
     width: 1.25rem;
     height: 1px;
     background: currentColor;
-  }
-  .grid-fade {
-    background-image:
-      linear-gradient(to right, rgba(15, 27, 45, 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(15, 27, 45, 0.05) 1px, transparent 1px);
-    background-size: 56px 56px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
   }
 }
 

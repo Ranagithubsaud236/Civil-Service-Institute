@@ -87,7 +87,7 @@ function Card({ item, featured }: { item: Entry; featured?: boolean }) {
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "group flex h-full overflow-hidden rounded-3xl bg-white ring-1 ring-line transition-all duration-300 ease-out-soft hover:-translate-y-1 hover:shadow-[0_24px_48px_-24px_rgba(15,27,45,0.25)] hover:ring-ink/15",
+        "group flex h-full overflow-hidden rounded-3xl bg-white ring-1 ring-line transition-all duration-300 ease-out-soft hover:-translate-y-1 hover:ring-ink/15",
         featured ? "mt-14 flex-col sm:min-h-[420px] sm:flex-row" : "flex-row",
       )}
     >

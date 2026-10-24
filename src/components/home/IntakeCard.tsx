@@ -33,7 +33,7 @@ export function IntakeCard() {
 
   return (
     <div className="relative [perspective:1200px]" onPointerMove={onMove} onPointerLeave={() => (mx.set(0), my.set(0))}>
-      <motion.div style={{ rotateX: rx, rotateY: ry }} className="relative rounded-[28px] bg-white p-6 shadow-[0_40px_80px_-40px_rgba(15,27,45,0.35)] ring-1 ring-line sm:p-8">
+      <motion.div style={{ rotateX: rx, rotateY: ry }} className="relative rounded-[28px] bg-white p-6 ring-1 ring-line sm:p-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Crest size={36} />

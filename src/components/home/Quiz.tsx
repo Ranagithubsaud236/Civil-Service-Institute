@@ -18,7 +18,7 @@ const questions = [
   { paper: "Current Affairs", q: "CPEC links Kashgar in China with which Pakistani port?", options: ["Karachi", "Port Qasim", "Ormara", "Gwadar"], answer: 3, why: "Gwadar, in Balochistan, is the corridor’s southern terminus." },
 ];
 
-const CONFETTI = ["#0b3a68", "#a97c2f", "#d9b877", "#1f7a52", "#c0352b"];
+const CONFETTI = ["#0b4f8c", "#a8772a", "#c9963f", "#1f7a52", "#c0352b"];
 
 export function Quiz() {
   const [n, setN] = useState(0);

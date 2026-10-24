@@ -26,8 +26,6 @@ export function Contact() {
       <Reveal>
         <div className="grid overflow-hidden rounded-[32px] bg-navy-deep lg:grid-cols-[1fr_1.1fr]">
           <div className="relative p-8 text-white sm:p-12 lg:p-14">
-            <div className="pointer-events-none absolute -top-24 -left-24 size-72 rounded-full bg-[radial-gradient(circle,rgba(217,184,119,0.18),transparent_70%)]" />
-            <div className="pointer-events-none absolute -right-20 -bottom-28 size-80 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.06),transparent_70%)]" />
             <p className="eyebrow relative text-gold-light">Free orientation · Sunday, 11:00 AM</p>
             <h2 className="relative mt-5 font-display text-4xl leading-[1.08] tracking-tight text-balance md:text-5xl">Start your preparation with a conversation.</h2>
             <p className="relative mt-5 max-w-md leading-relaxed text-white/60">

@@ -32,7 +32,7 @@ export function EssayReview() {
         />
 
         <div className="mt-14 grid items-start gap-6 lg:grid-cols-[1fr_300px] lg:gap-8">
-          <article className="relative rounded-3xl bg-white p-6 shadow-[0_30px_60px_-40px_rgba(15,27,45,0.35)] ring-1 ring-line sm:p-10">
+          <article className="relative rounded-3xl bg-white p-6 ring-1 ring-line sm:p-10">
             <header className="flex flex-wrap items-baseline justify-between gap-3 border-b border-line pb-6">
               <div>
                 <p className="text-xs font-medium tracking-[0.14em] text-ink-mute uppercase">English Essay · Sample script</p>

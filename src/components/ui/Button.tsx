@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/cn";
 
 const variants = {
-  primary: "bg-navy text-white hover:bg-navy-deep shadow-[0_1px_0_rgba(255,255,255,0.15)_inset,0_8px_20px_-8px_rgba(11,58,104,0.55)]",
+  primary: "bg-navy text-white hover:bg-navy-deep",
   secondary: "bg-surface text-ink ring-1 ring-line hover:ring-ink/25",
   light: "bg-white text-navy-deep hover:bg-gold-soft",
 };

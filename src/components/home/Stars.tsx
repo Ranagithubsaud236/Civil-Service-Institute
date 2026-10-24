@@ -29,7 +29,6 @@ export function Stars() {
 
   return (
     <section ref={root} id="stars" className="relative overflow-hidden bg-navy-deep py-24 text-white lg:py-32">
-      <div className="pointer-events-none absolute -top-40 left-1/2 size-[700px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(217,184,119,0.18),transparent_65%)]" />
       <div className="container-page relative">
         <SectionHeading
           dark

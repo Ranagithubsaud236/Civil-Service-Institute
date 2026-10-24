@@ -63,7 +63,7 @@ export function Gallery() {
                 className="group relative block w-full break-inside-avoid overflow-hidden rounded-2xl bg-white text-left ring-1 ring-line"
               >
                 <Image src={x.img.src} alt={x.img.alt || x.title} width={x.img.w} height={x.img.h} sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw" className="h-auto w-full transition-transform duration-700 ease-out-soft group-hover:scale-105" />
-                <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-deep/80 to-transparent p-4 pt-12 text-sm font-medium text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-coarse:opacity-100">
+                <span className="absolute inset-x-0 bottom-0 bg-navy-deep px-4 py-3 text-sm font-medium text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-coarse:opacity-100">
                   {x.title}
                 </span>
                 {x.videoId && (
@@ -111,7 +111,7 @@ function Lightbox({ list, index, onChange }: { list: Item[]; index: number; onCh
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={() => onChange(null)}
-      className="fixed inset-0 z-[60] flex flex-col bg-navy-deep/95 p-4 text-white backdrop-blur-md sm:p-8"
+      className="fixed inset-0 z-[60] flex flex-col bg-navy-deep p-4 text-white sm:p-8"
     >
       <div className="flex items-center justify-between">
         <span className="text-sm text-white/60 tabular-nums">
@@ -155,7 +155,7 @@ function Lightbox({ list, index, onChange }: { list: Item[]; index: number; onCh
 function NavButton({ side, onClick }: { side: "left" | "right"; onClick: () => void }) {
   const Icon = side === "left" ? ChevronLeft : ChevronRight;
   return (
-    <button onClick={onClick} aria-label={side === "left" ? "Previous" : "Next"} className={cn("absolute top-1/2 grid size-12 -translate-y-1/2 place-items-center rounded-full bg-white/10 backdrop-blur transition-colors hover:bg-white hover:text-navy-deep", side === "left" ? "left-0" : "right-0")}>
+    <button onClick={onClick} aria-label={side === "left" ? "Previous" : "Next"} className={cn("absolute top-1/2 grid size-12 -translate-y-1/2 place-items-center rounded-full bg-white/10 transition-colors hover:bg-white hover:text-navy-deep", side === "left" ? "left-0" : "right-0")}>
       <Icon className="size-6" />
     </button>
   );

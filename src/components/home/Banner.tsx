@@ -94,14 +94,11 @@ export function Banner() {
         if (drag.current !== null && Math.abs(e.clientX - drag.current) > 70) go(e.clientX < drag.current ? 1 : -1);
         drag.current = null;
       }}
-      className="relative isolate h-[720px] overflow-hidden bg-navy-deep text-white outline-none select-none sm:h-[min(calc(100svh-116px),780px)] sm:min-h-[620px]"
+      className="relative isolate h-[720px] overflow-hidden bg-navy-deep text-white outline-none border-b-4 border-gold-light select-none sm:h-[min(calc(100svh-116px),780px)] sm:min-h-[620px]"
     >
       {/* slide 0: welcome */}
       <Slide first>
-        <div data-bg className="absolute inset-0 -z-10">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_75%_40%,rgba(11,58,104,0.9),transparent),radial-gradient(ellipse_50%_40%_at_10%_90%,rgba(169,124,47,0.25),transparent)]" />
-          <div className="grid-fade absolute inset-0 opacity-40 invert" />
-        </div>
+        <div data-bg className="absolute inset-0 -z-10 bg-navy-deep" />
         <div data-content className="max-w-xl">
           <p data-anim className="eyebrow text-gold-light">Rawalpindi · CSS &amp; PMS Academy</p>
           <h1 data-title className="mt-5 font-display text-[2.7rem] leading-[1.02] tracking-[-0.02em] sm:text-6xl lg:text-[4.4rem]">
@@ -126,10 +123,7 @@ export function Banner() {
         const video = s.img.w > s.img.h;
         return (
           <Slide key={s.title}>
-            <div data-bg className="absolute inset-0 -z-10">
-              <Image src={s.img.src} alt="" fill sizes="100vw" className="object-cover blur-2xl saturate-150" />
-              <div className="absolute inset-0 bg-gradient-to-r from-navy-deep via-navy-deep/85 to-navy-deep/40" />
-            </div>
+            <div data-bg className="absolute inset-0 -z-10 bg-navy-deep" />
             <div data-content className="max-w-xl">
               <p data-anim className="eyebrow text-gold-light">{s.kicker}</p>
               <h2 data-title className="mt-5 font-display text-4xl leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">{s.title}</h2>
@@ -144,7 +138,7 @@ export function Banner() {
               target="_blank"
               rel="noopener noreferrer"
               draggable={false}
-              className={cn("group relative block overflow-hidden rounded-3xl shadow-[0_40px_80px_-30px_rgba(0,0,0,0.7)] ring-1 ring-white/15", video ? "aspect-video w-full max-w-xl" : "h-56 sm:h-[min(60svh,480px)]")}
+              className={cn("group relative block overflow-hidden rounded-3xl ring-1 ring-white/15", video ? "aspect-video w-full max-w-xl" : "h-56 sm:h-[min(60svh,480px)]")}
               style={video ? undefined : { aspectRatio: `${s.img.w} / ${s.img.h}` }}
             >
               <Image src={s.img.src} alt={s.img.alt || s.title} fill sizes="(min-width: 1024px) 40vw, 80vw" className="pointer-events-none object-cover transition-transform duration-700 group-hover:scale-105" priority={n === 0} />
@@ -195,7 +189,7 @@ function Slide({ first, children }: { first?: boolean; children: React.ReactNode
 
 function Arrow({ onClick, label, children }: { onClick: () => void; label: string; children: React.ReactNode }) {
   return (
-    <button onClick={onClick} aria-label={label} className="grid size-11 place-items-center rounded-full bg-white/10 ring-1 ring-white/20 backdrop-blur transition-colors hover:bg-white hover:text-navy-deep">
+    <button onClick={onClick} aria-label={label} className="grid size-11 place-items-center rounded-full ring-1 ring-white/30 transition-colors hover:bg-white hover:text-navy-deep">
       {children}
     </button>
   );

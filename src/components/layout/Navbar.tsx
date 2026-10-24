@@ -37,7 +37,7 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <header className={cn("sticky top-0 z-50 border-b bg-white/95 backdrop-blur-xl transition-shadow duration-300", scrolled ? "border-line shadow-[0_8px_30px_-16px_rgba(15,27,45,0.25)]" : "border-line/60")}>
+    <header className={cn("sticky top-0 z-50 border-b bg-white", scrolled ? "border-line" : "border-line")}>
       <nav className="container-page relative flex h-[76px] items-center justify-between">
         <Logo />
 
@@ -96,7 +96,7 @@ export function Navbar() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={() => setOpen(false)}
-            className="fixed inset-0 -z-10 bg-ink/25 backdrop-blur-[2px] lg:hidden"
+            className="fixed inset-0 -z-10 bg-ink/25 lg:hidden"
           />
         )}
         {open && (

@@ -43,7 +43,7 @@ export function Approach() {
             return (
               <div key={m.title} data-depth={i % 2 ? 110 : 24} className="h-full">
               <Reveal className="h-full" delay={i * 0.08}>
-                <article className="group h-full rounded-2xl bg-white p-7 ring-1 ring-line transition-all duration-300 ease-out-soft hover:-translate-y-1 hover:shadow-[0_24px_48px_-24px_rgba(15,27,45,0.25)] hover:ring-ink/15">
+                <article className="group h-full rounded-2xl bg-white p-7 ring-1 ring-line transition-all duration-300 ease-out-soft hover:-translate-y-1 hover:ring-ink/15">
                   <div className="flex items-center justify-between">
                     <span className="grid size-11 place-items-center rounded-xl bg-subtle text-navy transition-colors duration-300 group-hover:bg-navy group-hover:text-white">
                       <Icon className="size-5" />

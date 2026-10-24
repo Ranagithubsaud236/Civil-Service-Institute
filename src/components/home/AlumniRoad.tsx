@@ -15,8 +15,8 @@ const LAST = stages.length - 1;
 
 /** Degrees the planet turns between two stops. */
 const STEP = 24;
-/** Sky tint per stop, like the section colours on ginekocentar.hr. */
-const SKY = ["#dde5ec", "#dae4d6", "#e7dfd2", "#ddd9e7", "#d5e3e3", "#e6decf"];
+/** Sky tint per stop: pale blue and cream from the crest palette. */
+const SKY = ["#e7eef5", "#f3efe5", "#e7eef5", "#f3efe5", "#e7eef5", "#f3efe5"];
 
 // trees spread around the planet, leaving room for the markers at each stop
 const TREES = Array.from({ length: 40 }, (_, n) => -24 + n * 7.3)
@@ -61,7 +61,7 @@ export function AlumniRoad() {
                 <circle cx="28" cy="14" r="15" fill="black" />
               </mask>
             </defs>
-            <circle cx="20" cy="20" r="17" fill="#d9b877" mask="url(#moon-cut)" />
+            <circle cx="20" cy="20" r="17" fill="#c9963f" mask="url(#moon-cut)" />
           </svg>
 
           <div className="absolute inset-x-[13%] top-[15%] bottom-[30%] flex items-center justify-center text-center">
@@ -173,7 +173,7 @@ function OnSurface({ angle, sink = 6, children }: { angle: number; sink?: number
 function Tree({ size, lean, delay }: { size: number; lean: number; delay: number }) {
   return (
     <svg viewBox="0 0 160 280" className="block h-[clamp(120px,26svh,250px)] w-auto origin-bottom animate-[sway_6s_ease-in-out_infinite]" style={{ scale: size, animationDelay: `${delay}s` }} aria-hidden>
-      <circle cx="80" cy="82" r="72" fill="#0b3a68" opacity="0.16" />
+      <circle cx="80" cy="82" r="72" fill="#0b4f8c" opacity="0.16" />
       <g stroke="#7c8692" strokeLinecap="round" transform={`rotate(${lean} 80 280)`}>
         <line x1="80" y1="280" x2="84" y2="44" strokeWidth="8" />
         <path d="M 82 150 L 46 116 M 83 112 L 116 82 M 82 132 L 58 120 M 84 92 L 104 70" strokeWidth="5" />
@@ -188,7 +188,7 @@ function Marker({ kind, live }: { kind: Stage["kind"]; live: boolean }) {
       <svg viewBox="0 0 70 120" className="block h-[clamp(70px,13svh,120px)] w-auto" aria-hidden>
         <line x1="10" y1="120" x2="10" y2="14" stroke="#0f1b2d" strokeWidth="4" strokeLinecap="round" />
         {kind === "review" ? (
-          <g fill="#0b3a68">
+          <g fill="#0b4f8c">
             <rect x="14" y="8" width="52" height="36" rx="12" />
             <path d="M 24 42 l -6 14 l 18 -14 Z" />
             <circle cx="30" cy="26" r="3.5" fill="#fff" /><circle cx="40" cy="26" r="3.5" fill="#fff" /><circle cx="50" cy="26" r="3.5" fill="#fff" />
@@ -202,11 +202,11 @@ function Marker({ kind, live }: { kind: Stage["kind"]; live: boolean }) {
           </g>
         ) : kind === "start" ? (
           <g>
-            <rect x="12" y="16" width="52" height="22" rx="4" fill="#a97c2f" />
-            <path d="M 64 16 l 6 11 l -6 11 Z" fill="#a97c2f" />
+            <rect x="12" y="16" width="52" height="22" rx="4" fill="#a8772a" />
+            <path d="M 64 16 l 6 11 l -6 11 Z" fill="#a8772a" />
           </g>
         ) : (
-          <path d="M 10 12 L 62 28 L 10 44 Z" fill="#a97c2f" />
+          <path d="M 10 12 L 62 28 L 10 44 Z" fill="#a8772a" />
         )}
       </svg>
     </motion.div>

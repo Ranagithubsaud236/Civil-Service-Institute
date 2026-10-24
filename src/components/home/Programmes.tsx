@@ -70,7 +70,7 @@ function ProgrammeCard({ p }: { p: Programme }) {
     <article
       className={cn(
         "group relative flex h-full flex-col rounded-3xl p-7 transition-all duration-300 ease-out-soft hover:-translate-y-1",
-        dark ? "bg-navy-deep text-white shadow-[0_30px_60px_-30px_rgba(10,36,64,0.7)]" : "bg-white ring-1 ring-line hover:shadow-[0_24px_48px_-24px_rgba(15,27,45,0.25)] hover:ring-ink/15",
+        dark ? "bg-navy-deep text-white" : "bg-white ring-1 ring-line hover:ring-ink/15",
       )}
     >
       <div className="flex items-start justify-between gap-4">
