@@ -17,6 +17,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <News />
       <HighlightsSlider />
       <Stats />
       <Classroom />
@@ -25,7 +26,6 @@ export default function Home() {
       <Programmes />
       <Journey />
       <Faculty />
-      <News />
       <Gallery />
       <AlumniRoad />
       <Faq />
