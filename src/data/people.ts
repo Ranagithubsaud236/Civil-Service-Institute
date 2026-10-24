@@ -1,3 +1,5 @@
+import { studentReview } from "./media";
+
 export const batches = [
   { name: "CSS 2027 Foundation", note: "Morning · PAS & FSP mentors", date: "MON 03 NOV", time: "09:00–13:00", mode: "Hybrid", left: 7, total: 40, status: "Filling fast" },
   { name: "CSS Executive Evening", note: "Professionals · Recorded", date: "WED 05 NOV", time: "18:00–21:00", mode: "Hybrid", left: 5, total: 35, status: "Filling fast" },
@@ -30,15 +32,18 @@ export const leadFaculty = {
 export const facultySlots = ["Current Affairs", "Pakistan Affairs", "General Science & Ability"];
 
 /**
- * Alumni officers and reviews. No verified names are public yet (CSI keeps them in its
- * Instagram "Our stars" and "Testimonials" highlights), so these are empty, clearly marked slots.
+ * Alumni officers and reviews. No officer names are public yet (CSI keeps them in its Instagram
+ * "Our stars" highlight), so officer stops stay as clearly marked empty slots. Review 01 is a real
+ * student message CSI shared on Instagram; Review 02 waits for the next one.
  */
-export const alumniStations = [
+export type Station = { kind: "officer" | "review"; label: string; hint: string; review?: typeof studentReview };
+
+export const alumniStations: Station[] = [
   { kind: "officer", label: "Officer 01", hint: "Name · service group · CSS year" },
-  { kind: "review", label: "Review 01", hint: "A student review in their own words" },
+  { kind: "review", label: "Review 01", hint: "A student review in their own words", review: studentReview },
   { kind: "officer", label: "Officer 02", hint: "Name · service group · CSS year" },
   { kind: "review", label: "Review 02", hint: "A student review in their own words" },
-] as const;
+];
 
 export const optionals: Record<string, { subjects: [string, number][]; why: string }> = {
   "Engineering & Sciences": {

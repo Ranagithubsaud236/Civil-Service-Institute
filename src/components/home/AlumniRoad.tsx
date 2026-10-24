@@ -166,7 +166,7 @@ function StopCard({ active }: { active: number }) {
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
           transition={{ duration: 0.45, ease }}
-          className={cn("rounded-3xl p-6", stop ? "border-2 border-dashed border-navy/25 bg-white/70 backdrop-blur" : "bg-white/80 ring-1 ring-line backdrop-blur")}
+          className={cn("rounded-3xl p-6", stop && !stop.review ? "border-2 border-dashed border-navy/25 bg-white/70 backdrop-blur" : "bg-white/85 ring-1 ring-line backdrop-blur")}
         >
           {active < 0 && (
             <>
@@ -182,12 +182,25 @@ function StopCard({ active }: { active: number }) {
                   {stop.kind === "officer" ? <Flag className="size-4 text-gold" /> : <MessageSquareQuote className="size-4" />}
                   {stop.label}
                 </span>
-                <span className="rounded-full bg-gold-soft px-2.5 py-0.5 text-[11px] font-medium text-gold">Slot open</span>
+                <span className={cn("rounded-full px-2.5 py-0.5 text-[11px] font-medium", stop.review ? "bg-tick/10 text-tick" : "bg-gold-soft text-gold")}>
+                  {stop.review ? "Real review" : "Slot open"}
+                </span>
               </div>
-              <p className="mt-3 font-display text-2xl tracking-tight text-ink">
-                {stop.kind === "officer" ? "A CSI officer’s story goes here." : "A real student review goes here."}
-              </p>
-              <p className="mt-2 text-sm text-ink-mute">{stop.hint} — to be supplied by CSI</p>
+              {stop.review ? (
+                <>
+                  <p className="mt-3 font-display text-xl leading-snug tracking-tight text-ink">“{stop.review.quote}”</p>
+                  <a href={stop.review.href} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm text-ink-mute underline-offset-2 hover:text-navy hover:underline">
+                    {stop.review.who} · {stop.review.source}
+                  </a>
+                </>
+              ) : (
+                <>
+                  <p className="mt-3 font-display text-2xl tracking-tight text-ink">
+                    {stop.kind === "officer" ? "A CSI officer’s story goes here." : "A real student review goes here."}
+                  </p>
+                  <p className="mt-2 text-sm text-ink-mute">{stop.hint} — to be supplied by CSI</p>
+                </>
+              )}
             </>
           )}
           {active >= alumniStations.length && (

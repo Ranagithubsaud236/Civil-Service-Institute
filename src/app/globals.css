@@ -117,3 +117,7 @@
   0%, 100% { transform: translateX(0); }
   50% { transform: translateX(46px); }
 }
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
