@@ -2,79 +2,60 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowUpRight, ChevronLeft, ChevronRight, Play } from "lucide-react";
-import { slides } from "@/data/media";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { youtubeUrl } from "@/data/media";
 import { cn } from "@/lib/cn";
-import { gsap, SplitText, useGSAP } from "@/lib/gsap";
-import { Button } from "@/components/ui/Button";
-import { IntakeCard } from "./IntakeCard";
-
-const DURATION = 7; // seconds per slide
-const count = slides.length + 1; // slide 0 is the CSI welcome
+import { gsap, useGSAP } from "@/lib/gsap";
 
 /**
- * Full-width banner carousel, the way official academy sites open. GSAP drives every transition:
- * the headline rises word by word, the image wipes in, the backdrop slowly zooms, and the progress
- * bar times the autoplay (paused on hover).
+ * Real frames from CSI's YouTube lectures (1280×720, no thumbnail text), so each one can fill
+ * the full width the way official academy sites show event photos.
+ */
+const slides = [
+  { src: "/csi/hero/mentor-desk.jpg", alt: "Dr. Sassi Malik Sher at her desk", title: "Learn from an officer who topped the paper", sub: "Dr. Sassi Malik Sher · CSS 2017 précis & composition topper", href: "#faculty" },
+  { src: "/csi/hero/live-class.jpg", alt: "Dr. Sassi Malik Sher teaching a live online class", title: "Live classes, across Pakistan", sub: "Lectures from Rawalpindi, streamed and recorded for every student", href: "#programmes" },
+  { src: "/csi/hero/professionals.jpg", alt: "Dr. Sassi Malik Sher on balancing work and study", title: "Preparing alongside a job?", sub: "Evening batches built for working professionals", href: "#programmes" },
+  { src: "/csi/hero/evening.jpg", alt: "Dr. Sassi Malik Sher outdoors in the evening", title: "Free lectures, every week", sub: "60.7K aspirants learn with CSI on YouTube", href: youtubeUrl("kBZQSa1qzpA") },
+];
+
+const DURATION = 6;
+
+/**
+ * Full-bleed photo carousel: crossfade with a slow zoom, caption rises at the bottom centre,
+ * arrows at the edges and dots underneath. Autoplay pauses on hover.
  */
 export function Banner() {
   const root = useRef<HTMLElement>(null);
   const [index, setIndex] = useState(0);
   const prev = useRef<number | null>(null);
   const timer = useRef<gsap.core.Tween | null>(null);
-  const splits = useRef<SplitText[]>([]);
   const drag = useRef<number | null>(null);
-
-  const go = (d: number) => setIndex((i) => (i + d + count) % count);
-
-  // split every headline once; the context reverts them on unmount
-  useGSAP(
-    () => {
-      splits.current = gsap.utils.toArray<HTMLElement>("[data-title]", root.current).map((el) => SplitText.create(el, { type: "lines,words", mask: "lines" }));
-    },
-    { scope: root },
-  );
+  const go = (d: number) => setIndex((i) => (i + d + slides.length) % slides.length);
 
   useGSAP(
     () => {
-      // a manual jump must stop the previous slide's timer, or it would fire and skip a slide
+      // a manual jump must stop the previous timer, or it would fire and skip a slide
       timer.current?.kill();
       const els = gsap.utils.toArray<HTMLElement>("[data-slide]", root.current);
       const cur = els[index];
       const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const tl = gsap.timeline();
 
       const old = prev.current;
-      if (old !== null && old !== index) {
-        const out = els[old];
-        tl.to(out.querySelector("[data-content]"), { autoAlpha: 0, y: -24, duration: 0.4, ease: "power2.in" })
-          .to(out.querySelector("[data-media]"), { autoAlpha: 0, x: -40, duration: 0.4, ease: "power2.in" }, "<")
-          .set(out, { autoAlpha: 0 })
-          .set([out.querySelector("[data-content]"), out.querySelector("[data-media]")], { clearProps: "all" });
-      }
       prev.current = index;
-
-      tl.set(cur, { autoAlpha: 1 });
-      if (!reduce) {
-        tl.fromTo(splits.current[index].words, { yPercent: 115 }, { yPercent: 0, duration: 1, stagger: 0.035, ease: "power4.out" })
-          .fromTo(cur.querySelectorAll("[data-anim]"), { y: 26, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.8, stagger: 0.09 }, "<0.25")
-          .fromTo(
-            cur.querySelector("[data-media]"),
-            index === 0 ? { y: 50, autoAlpha: 0 } : { clipPath: "inset(0% 0% 0% 100% round 24px)", x: 60 },
-            index === 0 ? { y: 0, autoAlpha: 1, duration: 1.1 } : { clipPath: "inset(0% 0% 0% 0% round 24px)", x: 0, duration: 1.2, ease: "expo.out" },
-            "<-0.1",
-          );
-        gsap.fromTo(cur.querySelector("[data-bg]"), { scale: 1.18 }, { scale: 1.02, duration: DURATION + 1.5, ease: "none" });
+      if (old !== null && old !== index) {
+        gsap.set(els[old], { zIndex: 0 });
+        gsap.set(cur, { zIndex: 1 });
+        gsap.fromTo(cur, { autoAlpha: 0 }, { autoAlpha: 1, duration: reduce ? 0 : 0.9, ease: "power2.inOut", onComplete: () => gsap.set(els[old], { autoAlpha: 0 }) });
+      } else {
+        gsap.set(cur, { autoAlpha: 1, zIndex: 1 });
       }
 
-      // autoplay: the active progress bar fills, then advances
-      gsap.set("[data-bar]", { scaleX: 0 });
-      gsap.set(gsap.utils.toArray<HTMLElement>("[data-bar]", root.current).slice(0, index), { scaleX: 1 });
-      timer.current = gsap.fromTo(
-        gsap.utils.toArray<HTMLElement>("[data-bar]", root.current)[index],
-        { scaleX: 0 },
-        { scaleX: 1, duration: DURATION, ease: "none", onComplete: () => setIndex((i) => (i + 1) % count) },
-      );
+      if (!reduce) {
+        gsap.fromTo(cur.querySelector("img"), { scale: 1.12 }, { scale: 1, duration: DURATION + 1, ease: "none" });
+        gsap.fromTo(cur.querySelectorAll("[data-caption] > *"), { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.9, stagger: 0.12, delay: 0.3, ease: "power3.out" });
+      }
+
+      timer.current = gsap.delayedCall(DURATION, () => setIndex((i) => (i + 1) % slides.length));
     },
     { scope: root, dependencies: [index] },
   );
@@ -85,112 +66,63 @@ export function Banner() {
       id="top"
       aria-roledescription="carousel"
       aria-label="CSI highlights"
-      tabIndex={-1}
-      onKeyDown={(e) => (e.key === "ArrowRight" ? go(1) : e.key === "ArrowLeft" ? go(-1) : null)}
       onMouseEnter={() => timer.current?.pause()}
       onMouseLeave={() => timer.current?.resume()}
-      onPointerDown={(e) => (drag.current = e.clientX)}
-      onPointerUp={(e) => {
-        if (drag.current !== null && Math.abs(e.clientX - drag.current) > 70) go(e.clientX < drag.current ? 1 : -1);
-        drag.current = null;
-      }}
-      className="relative isolate h-[720px] overflow-hidden bg-navy-deep text-white outline-none border-b-4 border-gold-light select-none sm:h-[min(calc(100svh-116px),780px)] sm:min-h-[620px]"
+      onKeyDown={(e) => (e.key === "ArrowRight" ? go(1) : e.key === "ArrowLeft" ? go(-1) : null)}
+      className="bg-white"
     >
-      {/* slide 0: welcome */}
-      <Slide first>
-        <div data-bg className="absolute inset-0 -z-10 bg-navy-deep" />
-        <div data-content className="max-w-xl">
-          <p data-anim className="eyebrow text-gold-light">Rawalpindi · CSS &amp; PMS Academy</p>
-          <h1 data-title className="mt-5 font-display text-[2.7rem] leading-[1.02] tracking-[-0.02em] sm:text-6xl lg:text-[4.4rem]">
-            Prepare like an aspirant. Think like an <em className="text-gold-light">officer.</em>
-          </h1>
-          <p data-anim className="mt-6 max-w-lg text-lg leading-relaxed text-white/70">
-            Mentored by Dr. Sassi Malik Sher — CSS 2017 précis &amp; composition topper — with red-pen evaluation of every script.
-          </p>
-          <div data-anim className="mt-8 flex flex-wrap gap-3">
-            <Button href="#contact" variant="light">Attend a free orientation</Button>
-            <a href="#programmes" className="inline-flex h-12 items-center rounded-full px-6 text-sm font-medium text-white ring-1 ring-white/30 transition-colors hover:bg-white/10">
-              Explore programmes
-            </a>
-          </div>
-        </div>
-        <div data-media className="hidden text-ink lg:block">
-          <IntakeCard />
-        </div>
-      </Slide>
-
-      {slides.map((s, n) => {
-        const video = s.img.w > s.img.h;
-        return (
-          <Slide key={s.title}>
-            <div data-bg className="absolute inset-0 -z-10 bg-navy-deep" />
-            <div data-content className="max-w-xl">
-              <p data-anim className="eyebrow text-gold-light">{s.kicker}</p>
-              <h2 data-title className="mt-5 font-display text-4xl leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">{s.title}</h2>
-              <p data-anim className="mt-5 text-lg leading-relaxed text-white/70">{s.body}</p>
-              <a data-anim href={s.href} target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-navy-deep transition-colors hover:bg-gold-soft">
-                {video ? "Watch on YouTube" : "View on Instagram"} <ArrowUpRight className="size-4" />
+      <div
+        className="relative h-[min(calc(100svh-150px),720px)] min-h-[420px] overflow-hidden bg-navy-deep select-none"
+        onPointerDown={(e) => (drag.current = e.clientX)}
+        onPointerUp={(e) => {
+          if (drag.current !== null && Math.abs(e.clientX - drag.current) > 60) go(e.clientX < drag.current ? 1 : -1);
+          drag.current = null;
+        }}
+      >
+        {slides.map((s, n) => (
+          <div key={s.src} data-slide aria-hidden={n !== index} className={cn("absolute inset-0", n !== 0 && "invisible opacity-0")}>
+            <Image src={s.src} alt={s.alt} fill sizes="100vw" priority={n === 0} className="pointer-events-none object-cover object-[50%_30%]" />
+            {/* flat tint so white captions stay readable on bright photos */}
+            <div className="absolute inset-0 bg-black/25" />
+            <div data-caption className="absolute inset-x-0 bottom-10 px-16 text-center text-white sm:bottom-14">
+              <h2 className="font-display text-3xl tracking-tight text-balance [text-shadow:0_2px_12px_rgba(0,0,0,0.45)] sm:text-5xl">{s.title}</h2>
+              <p className="mt-3 text-sm text-white/90 [text-shadow:0_1px_8px_rgba(0,0,0,0.5)] sm:text-lg">{s.sub}</p>
+              <a href={s.href} target={s.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" tabIndex={n === index ? 0 : -1} className="mt-6 inline-flex h-11 items-center rounded-full bg-white px-6 text-sm font-medium text-navy transition-colors hover:bg-gold-soft">
+                Learn more
               </a>
             </div>
-            <a
-              data-media
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              draggable={false}
-              className={cn("group relative block overflow-hidden rounded-3xl ring-1 ring-white/15", video ? "aspect-video w-full max-w-xl" : "h-56 sm:h-[min(60svh,480px)]")}
-              style={video ? undefined : { aspectRatio: `${s.img.w} / ${s.img.h}` }}
-            >
-              <Image src={s.img.src} alt={s.img.alt || s.title} fill sizes="(min-width: 1024px) 40vw, 80vw" className="pointer-events-none object-cover transition-transform duration-700 group-hover:scale-105" priority={n === 0} />
-              {video && (
-                <span className="absolute inset-0 grid place-items-center">
-                  <span className="grid size-16 place-items-center rounded-full bg-white/95 text-navy-deep shadow-xl transition-transform duration-300 group-hover:scale-110">
-                    <Play className="ml-1 size-6 fill-current" />
-                  </span>
-                </span>
-              )}
-            </a>
-          </Slide>
-        );
-      })}
+          </div>
+        ))}
 
-      {/* controls */}
-      <div className="absolute inset-x-0 bottom-6 z-10">
-        <div className="container-page flex items-center justify-between gap-6">
-          <div className="flex flex-1 gap-2" role="tablist" aria-label="Choose slide">
-            {Array.from({ length: count }, (_, n) => (
-              <button key={n} role="tab" aria-selected={n === index} aria-label={`Slide ${n + 1}`} onClick={() => setIndex(n)} className="group h-6 max-w-24 flex-1 py-2.5">
-                <span className="block h-1 overflow-hidden rounded-full bg-white/20 transition-colors group-hover:bg-white/35">
-                  <span data-bar className="block h-full origin-left scale-x-0 bg-gold-light" />
-                </span>
-              </button>
-            ))}
-          </div>
-          <span className="hidden font-display text-lg text-white/60 tabular-nums sm:block">
-            {String(index + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
-          </span>
-          <div className="flex gap-2">
-            <Arrow onClick={() => go(-1)} label="Previous slide"><ChevronLeft className="size-5" /></Arrow>
-            <Arrow onClick={() => go(1)} label="Next slide"><ChevronRight className="size-5" /></Arrow>
-          </div>
-        </div>
+        <EdgeArrow side="left" onClick={() => go(-1)} />
+        <EdgeArrow side="right" onClick={() => go(1)} />
+      </div>
+
+      <div className="flex justify-center gap-2.5 py-4" role="tablist" aria-label="Choose slide">
+        {slides.map((s, n) => (
+          <button
+            key={s.src}
+            role="tab"
+            aria-selected={n === index}
+            aria-label={s.title}
+            onClick={() => setIndex(n)}
+            className={cn("size-2.5 rounded-full transition-colors duration-300", n === index ? "bg-gold-light" : "bg-navy hover:bg-navy-deep")}
+          />
+        ))}
       </div>
     </section>
   );
 }
 
-function Slide({ first, children }: { first?: boolean; children: React.ReactNode }) {
+function EdgeArrow({ side, onClick }: { side: "left" | "right"; onClick: () => void }) {
+  const Icon = side === "left" ? ChevronLeft : ChevronRight;
   return (
-    <div data-slide className={cn("absolute inset-0", !first && "invisible opacity-0")}>
-      <div className="container-page grid h-full content-center items-center gap-8 pb-20 lg:grid-cols-[1.1fr_1fr] lg:gap-16 [&>*]:min-w-0">{children}</div>
-    </div>
-  );
-}
-
-function Arrow({ onClick, label, children }: { onClick: () => void; label: string; children: React.ReactNode }) {
-  return (
-    <button onClick={onClick} aria-label={label} className="grid size-11 place-items-center rounded-full ring-1 ring-white/30 transition-colors hover:bg-white hover:text-navy-deep">
-      {children}
+    <button
+      onClick={onClick}
+      aria-label={side === "left" ? "Previous slide" : "Next slide"}
+      className={cn("absolute top-1/2 z-10 grid size-12 -translate-y-1/2 place-items-center text-white transition-opacity hover:opacity-75", side === "left" ? "left-2 sm:left-4" : "right-2 sm:right-4")}
+    >
+      <Icon className="size-9 [filter:drop-shadow(0_1px_4px_rgba(0,0,0,0.5))]" strokeWidth={2.5} />
     </button>
   );
 }
