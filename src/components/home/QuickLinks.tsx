@@ -1,17 +1,18 @@
 "use client";
 
 import { useRef } from "react";
-import { ArrowUpRight, BookOpen, GraduationCap, NotebookPen } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { AdmissionsIcon, ProgrammesIcon, PublicationsIcon } from "@/components/ui/QuickIcons";
 import { YouTubeIcon } from "@/components/ui/BrandIcons";
 import { channel, ig } from "@/data/media";
 import { site } from "@/data/site";
 import { gsap, useGSAP } from "@/lib/gsap";
 
 const links = [
-  { icon: GraduationCap, title: "Admissions", body: "CSS 2027 & PMS Punjab batches", href: "#contact" },
-  { icon: NotebookPen, title: "Programmes", body: "Foundation, evening, clinics", href: "#programmes" },
+  { icon: AdmissionsIcon, title: "Admissions", body: "CSS 2027 & PMS Punjab batches", href: "#contact" },
+  { icon: ProgrammesIcon, title: "Programmes", body: "Foundation, evening, clinics", href: "#programmes" },
   { icon: YouTubeIcon, title: "Free lectures", body: `${channel.subscribers} subscribers on YouTube`, href: site.youtube.url, external: true },
-  { icon: BookOpen, title: "Publications", body: "Press Review Plus & 5-book bundle", href: ig("DeuD3U9CA9Y"), external: true },
+  { icon: PublicationsIcon, title: "Publications", body: "Press Review Plus & 5-book bundle", href: ig("DeuD3U9CA9Y"), external: true },
 ];
 
 /** Four shortcuts directly under the banner; they rise in one after another. */
@@ -36,8 +37,8 @@ export function QuickLinks() {
             rel={l.external ? "noopener noreferrer" : undefined}
             className="group relative flex items-center gap-4 border-line py-6 transition-colors not-last:border-b sm:px-6 sm:[&:nth-child(odd)]:border-r lg:border-b-0 lg:not-last:border-r lg:first:pl-0"
           >
-            <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-subtle text-navy transition-all duration-300 group-hover:-rotate-6 group-hover:bg-navy group-hover:text-white">
-              <l.icon className="size-5" />
+            <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-subtle transition-all duration-300 group-hover:-rotate-6 group-hover:bg-gold-soft">
+              <l.icon className="size-10" />
             </span>
             <span className="min-w-0 flex-1">
               <span className="block font-display text-xl tracking-tight text-ink">{l.title}</span>

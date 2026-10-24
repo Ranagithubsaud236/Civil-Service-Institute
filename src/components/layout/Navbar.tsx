@@ -64,7 +64,7 @@ export function Navbar() {
         </ul>
 
         <div className="hidden lg:block">
-          <Button href="#contact" className="h-11 px-6">Apply now</Button>
+          <Button href="#contact" variant="apply" className="h-11 px-6">Apply now</Button>
         </div>
 
         <button
@@ -123,7 +123,7 @@ export function Navbar() {
               </motion.button>
             ))}
             <div onClick={() => setOpen(false)}>
-              <Button href="#contact" className="mt-2 w-full justify-center">Apply now</Button>
+              <Button href="#contact" variant="apply" className="mt-2 w-full justify-center">Apply now</Button>
             </div>
           </motion.div>
         )}
